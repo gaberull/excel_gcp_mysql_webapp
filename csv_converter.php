@@ -1,5 +1,7 @@
 <?php
 
+include_once 'vendor/autoload.php';
+
 use \PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use \PhpOffice\PhpSpreadsheet\Writer\Csv;
 
