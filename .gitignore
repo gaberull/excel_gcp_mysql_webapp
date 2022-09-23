@@ -1,0 +1,11 @@
+*.json
+vendor/
+*.xlsx
+*.csv
+*.ico
+*.png
+*.jpeg
+*.jPG
+*.jpg
+*.png
+test/
