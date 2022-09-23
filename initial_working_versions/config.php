@@ -1,7 +1,7 @@
 <?php
 
 // load GCS library
-require_once '../vendor/autoload.php';
+require_once '../vendor/autoload.php';  // relative path may no longer be correct
 
 use Google\Cloud\Storage\StorageClient;
 
