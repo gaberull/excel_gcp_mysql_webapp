@@ -1,5 +1,8 @@
+# Private keys, vendor data from composer in case repo made public
 *.json
 vendor/
+
+# Potentially sensitive files
 *.xlsx
 *.csv
 *.ico
@@ -8,5 +11,9 @@ vendor/
 *.jPG
 *.jpg
 *.png
+
+# Unimportant folder
 test/
+
+# MacOS files
 .DS_Store
