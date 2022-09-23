@@ -9,3 +9,4 @@ vendor/
 *.jpg
 *.png
 test/
+.DS_Store
