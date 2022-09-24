@@ -4,6 +4,8 @@
 require_once '../vendor/autoload.php';  // relative path may no longer be correct
 
 use Google\Cloud\Storage\StorageClient;
+use \PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use \PhpOffice\PhpSpreadsheet\Writer\Csv;
 
 // Please use your own private key (JSON file content) which was downloaded in step 3 and copy it here
 // your private key JSON structure should be similar like dummy value below.

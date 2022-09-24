@@ -9,6 +9,7 @@ if ($action == 'upload') {
         $bucketName = "xlsx-uploads";
         // get local file for upload testing
         $fileContent = file_get_contents($_FILES["file"]["tmp_name"]);
+        
         // NOTE: if 'folder' or 'tree' is not exist then it will be automatically created !
         $cloudPath = 'uploads/' . $_FILES["file"]["name"];
 
