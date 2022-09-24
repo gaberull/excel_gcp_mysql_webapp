@@ -1,13 +1,23 @@
 <?php
 
 // load GCS library
-require_once '../vendor/autoload.php';
+require_once '../vendor/autoload.php';  // relative path may no longer be correct
 
 use Google\Cloud\Storage\StorageClient;
 use \PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use \PhpOffice\PhpSpreadsheet\Writer\Csv;
 
-$privateKeyFilePath = '../keys/silken-reducer-359320-b3cecc9b17ca.json';
+// Please use your own private key (JSON file content) which was downloaded in step 3 and copy it here
+// your private key JSON structure should be similar like dummy value below.
+// WARNING: this is only for QUICK TESTING to verify whether private key is valid (working) or not.  
+// NOTE: to create private key JSON file: https://console.cloud.google.com/apis/credentials  
+
+  $privateKeyFilePath = '../keys/silken-reducer-359320-b3cecc9b17ca.json';
+/*
+ * NOTE: if the server is a shared hosting by third party company then private key should not be stored as a file,
+ * may be better to encrypt the private key value then store the 'encrypted private key' value as string in database,
+ * so every time before use the private key we can get a user-input (from UI) to get password to decrypt it.
+ */
 
 function uploadFile($bucketName, $fileContent, $cloudPath) {
     $privateKeyFilePath = $GLOBALS['privateKeyFilePath'];
@@ -40,11 +50,11 @@ function uploadFile($bucketName, $fileContent, $cloudPath) {
 }
 
 function getFileInfo($bucketName, $cloudPath) {
-    $privateKeyFileContent = $GLOBALS['privateKeyFileContent'];
+    $privateKeyFilePath = $GLOBALS['privateKeyFilePath'];
     // connect to Google Cloud Storage using private key as authentication
     try {
         $storage = new StorageClient([
-            'keyFile' => json_decode($privateKeyFileContent, true)
+            'keyFile' => json_decode(file_get_contents($privateKeyFilePath), true)
         ]);
     } catch (Exception $e) {
         // maybe invalid private key ?
@@ -57,6 +67,7 @@ function getFileInfo($bucketName, $cloudPath) {
     $object = $bucket->object($cloudPath);
     return $object->info();
 }
+/*
 //this (listFiles) method not used in this example but you may use according to your need 
 function listFiles($bucket, $directory = null) {
 
@@ -73,4 +84,75 @@ function listFiles($bucket, $directory = null) {
         print $object->name() . PHP_EOL;
         // NOTE: if $object->name() ends with '/' then it is a 'folder'
     }
+}
+*/
+            /*
+function downloadFileToMemory($bucketName, $cloudPath) {
+    $privateKeyFileContent = $GLOBALS['privateKeyFileContent'];
+    // connect to Google Cloud Storage using private key as authentication
+    try {
+        $storage = new StorageClient([
+            'keyFile' => json_decode(file_get_contents($privateKeyFilePath), true)
+        ]);
+    } catch (Exception $e) {
+        // maybe invalid private key ?
+        print $e;
+        return false;
+    }
+
+    // set which bucket to work in
+    $bucket = $storage->bucket($bucketName);
+    $object->$bucket->object($cloudPath);
+    $contents = $object->downloadAsString();
+    printf(
+        'Downloaded gs://%s/%s to %s' . PHP_EOL,
+        $contents,
+        $bucketName,
+        $contents
+    );
+    return $contents;
+}
+        */
+
+function downloadLocally($bucketName, $cloudPath, $localpath)
+{
+    //$bucketName = 'xlsx-uploads'; $temp = downloadLocally($bucketName, $cloudPath, $localpath);
+    // $objectName = 'my-object';
+    // $destination = '/path/to/your/file';
+
+    $privateKeyFilePath = $GLOBALS['privateKeyFilePath'];
+    // connect to Google Cloud Storage using private key as authentication
+    try {
+        $storage = new StorageClient([
+            'keyFile' => json_decode(file_get_contents($privateKeyFilePath), true)
+        ]);
+    } catch (Exception $e) {
+        // maybe invalid private key ?
+        print $e;
+        return false;
+    }
+    
+    $bucket = $storage->bucket($bucketName);
+    $object = $bucket->object($cloudPath);
+    $object->downloadToFile($localpath);
+    return true; // return object (Psr\Http\Message\StreamInterface)
+}
+
+//from google docs
+function download_object($bucketName, $objectName, $destination)
+{
+    // $bucketName = 'my-bucket';
+    // $objectName = 'my-object';
+    // $destination = '/path/to/your/file';
+
+    $storage = new StorageClient();
+    $bucket = $storage->bucket($bucketName);
+    $object = $bucket->object($objectName);
+    $object->downloadToFile($destination);
+    printf(
+        'Downloaded gs://%s/%s to %s' . PHP_EOL,
+        $bucketName,
+        $objectName,
+        basename($destination)
+    );
 }

@@ -5,10 +5,8 @@
         <link rel="icon" type="image/x-icon" href="/asset/img/parser_favicon.png">
     </head>
     <body>
-        <strong> upload .csv or .xlsx files </strong> 
-        <br>
         <form id="fileUploadForm" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" accept=".xlsx,.csv"/>  
+            <input type="file" name="file" accept=".xlsx"/>  
             <input type="submit" name="upload" value="Upload"/>
             <span id="uploadingmsg"></span>
             <hr/>
@@ -42,15 +40,9 @@
                         $("#output").append('<br/><img src="https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '"/>');
                     }
                 }).fail(function (data) {
-                    alert("failed to send ajax");
+                    alert(json_decode(data.msg));
                 });
             });  
         </script>
-
-        <!-- This loads the sheet.js standalone build from the CDN -->
-        <!-- 
-        <script src="https://cdn.sheetjs.com/xlsx-0.18.11/package/dist/xlsx.mini.min.js"></script>
-        -->
-        
     </body>
 </html>
