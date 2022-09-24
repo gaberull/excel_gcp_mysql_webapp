@@ -40,7 +40,7 @@
                         $("#output").append('<br/><img src="https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '"/>');
                     }
                 }).fail(function (data) {
-                    alert(json_decode(data.msg));
+                    alert('ajax failed');
                 });
             });  
         </script>

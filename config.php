@@ -138,7 +138,9 @@ function downloadLocally($bucketName, $cloudPath, $localpath)
     return true; // return object (Psr\Http\Message\StreamInterface)
 }
 
-//from google docs
+//function addToDatabase($CSVFile)
+//from google docs - NOT USING
+/*
 function download_object($bucketName, $objectName, $destination)
 {
     // $bucketName = 'my-bucket';
@@ -156,3 +158,4 @@ function download_object($bucketName, $objectName, $destination)
         basename($destination)
     );
 }
+*/
