@@ -6,8 +6,8 @@ Upload a file to Google cloud storage bucket. Convert Excel files to csv and imp
 
 - Public Files are in ```/var/www/html/``` on apache2 webserver
 - API Key is in ``/var/www/keys/``
-- Upload script requires /var/www/vendor/ (created with Composer for php)
-  - Needs to not be publicly visible
+- Upload script requires ```/var/www/vendor/``` (created with Composer for php)
+  - Should not be publicly visible
 
 9/23/22:
 
