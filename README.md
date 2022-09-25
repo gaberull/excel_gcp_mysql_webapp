@@ -11,12 +11,12 @@ Upload a file to Google cloud storage bucket. Convert Excel files to csv and imp
 
 9/23/22:
 
-- Moved ```vendor/``` out of public html folder and back into ```www/``` folder
+- Moved ```vendor/``` out of public html folder and back into ```var/www/``` folder
 
 ## TODO
 
 - [ ] Handle multiple files being uploaded
-- [x] Handle else
+- [x] Handle conversion from xlsx to csv
 
 ### Resources
 
