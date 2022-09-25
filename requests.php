@@ -51,7 +51,7 @@ if ($action == 'upload')
                     $csvPath = 'uploads/' . $name.'_'.$sheet.'.csv';
                     $writer->save($csvPath);
                 }
-                $response['csvFileName'] = 'SUCCESS Converting to csv. Path: ' . $csvPath;
+                $response['csvMsg'] = 'SUCCESS Converting to csv. Path: ' . $csvPath;
                 $response['csvPath'] = $csvPath;
             }
             else
