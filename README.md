@@ -6,18 +6,22 @@ Upload a file to Google cloud storage bucket. Convert Excel files to csv and imp
 
 - Public Files are in ```/var/www/html/``` on apache2 webserver
 - API Key is in ``/var/www/keys/``
-- Upload script requires ```/var/www/vendor/``` (created with Composer for php)
+- File Upload script requires ```/var/www/vendor/``` (created with Composer for php)
   - Should not be publicly visible
-
-9/23/22:
-
-- Moved ```vendor/``` out of public html folder and back into ```var/www/``` folder
+- Apache2 php.ini file is located at ```/etc/php/8.1/apache2/php.ini```
+  - This is separate from ubuntu php.ini file
+  - Enabled extension=myslqi here by uncommenting line after searching in vim
 
 ## TODO
 
 - [ ] Handle multiple files being uploaded
 - [x] Handle conversion from xlsx to csv
 - [x] Return csv file path in json from POST request return
+- [ ] See about hiding certain php files
+- [x] Hide MySQL DB credentials
+  - [ ] Double check that this is not accessible from outside
+- [ ] Change myswl db pw for user www-data
+- [x] Store password for mysqli to grab for db outside public folders. in secret/
 
 ### Resources
 
@@ -28,3 +32,8 @@ Upload a file to Google cloud storage bucket. Convert Excel files to csv and imp
 - [Google Cloud API - Storage Client](https://googleapis.github.io/google-cloud-php/#/docs/google-cloud/v0.122.0/storage/storageclient)
 - [JQuery API - Data](https://api.jquery.com/data/)
 - [Set Apache File Permissions (owner)](https://askubuntu.com/questions/1334375/how-to-set-both-www-data-and-me-as-owner)
+- [Grant user file permissions (groups)](https://askubuntu.com/questions/365087/grant-a-user-permissions-on-www-data-owned-var-www)
+- [Import CSV into MySQL](https://www.phpflow.com/php/import-csv-file-into-mysql/)
+- [MySQLi PHP Database extension](https://www.php.net/manual/en/book.mysqli.php)
+- [mysqli](https://www.php.net/manual/en/mysqli.quickstart.dual-interface.php)
+- [mysqli documentation](https://www.php.net/manual/en/class.mysqli.php)
