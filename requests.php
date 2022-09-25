@@ -22,27 +22,28 @@ if ($action == 'upload')
             $response['uploadmsg'] = 'SUCCESS: to upload ' . $cloudPath;
             // TEST: get object detail (filesize, contentType, updated [date], etc.)
             $response['data'] = getFileInfo($bucketName, $cloudPath);
-            $localpath = 'uploads/' . $_FILES['file']['name'];
-            downloadLocally($bucketName, $cloudPath, $localpath);
-            $temp = downloadLocally($bucketName, $cloudPath, $localpath);
+            //$localpath = 'uploads/' . $_FILES['file']['name'];
+            $localPath = $cloudPath;
+            downloadLocally($bucketName, $cloudPath, $localPath);
+            $temp = downloadLocally($bucketName, $cloudPath, $localPath);
             if($temp != false)
             {
-                $response['downloadmsg'] = 'SUCCESS: File saved to ' . $localpath;
+                $response['downloadmsg'] = 'SUCCESS: File saved to ' . $localPath;
 
-                // from SO
+                // Convert file to csv
                 $name = 'employees';
                 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
                 $reader->setReadDataOnly(true);
 
                 //Get all sheets in file
-                $sheets = $reader->listWorksheetNames($localpath);
+                $sheets = $reader->listWorksheetNames($localPath);
                 
                 //Loop for each sheet and save an individual file
                 foreach($sheets as $sheet)
                 {
                     //Load the file
                     $reader->setLoadSheetsOnly([$sheet]);
-                    $spreadsheet = $reader->load($localpath);
+                    $spreadsheet = $reader->load($localPath);
 
                     //Write the CSV file
                     $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
@@ -56,10 +57,6 @@ if ($action == 'upload')
             {
                 $response['downloadmsg'] = 'Failed: to download to ' . $localpath;
             }
-
-            // convert to csv - below 
-            //$reader = new Xlsx();
-            
         } 
         else 
         {
