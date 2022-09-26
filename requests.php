@@ -57,8 +57,8 @@ if ($action == 'upload')
                 //mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
                 $json_credentials = file_get_contents('../keys/db_credentials.json');
-                $response['json_credentials_type'] = 'type of json_cred is ' . gettype($json_credentials);
-                $response['json_credentials_val'] = 'json credentials are ' . $json_credentials;
+                //$response['json_credentials_type'] = 'type of json_cred is ' . gettype($json_credentials);
+                //$response['json_credentials_val'] = 'json credentials are ' . $json_credentials;
                 $json_data = json_decode($json_credentials, true);
                 
                 // connect to database
@@ -68,21 +68,21 @@ if ($action == 'upload')
                     $json_data['password'],
                     $json_data['database']
                 );
-                $response['mysqli_type'] = 'type of ' . gettype($mysqli);
+                //$response['mysqli_type'] = 'type: ' . gettype($mysqli);
                 $mysqli->set_charset('utf8mb4');
                 if($mysqli === false)
                 {
-                    $response['db_connection'] = 'Failed to connect to mysql db';
+                    $response['db_connection'] = 'FAILED to connect to DB';
                 }
                 else
                 {
-                    $response['db_connection'] = $mysqli->client_info;
+                    $response['db_connection'] = 'CONNECTED TO DB: ' . $mysqli->client_info;
                 }
                 
             }
             else
             {
-                $response['downloadmsg'] = 'Failed: to download to ' . $localpath;
+                $response['download_msg'] = 'Failed: to download to ' . $localpath;
             }
         } 
         else 
