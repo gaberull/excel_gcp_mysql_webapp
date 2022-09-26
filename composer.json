@@ -1,0 +1,7 @@
+{
+    "require": {
+	"php": ">=8.1",    
+        "google/cloud-storage": "1.28.*",
+	"phpoffice/phpspreadsheet": "^1.23"
+    }
+}
