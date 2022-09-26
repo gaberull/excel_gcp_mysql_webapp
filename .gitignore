@@ -17,3 +17,6 @@ test/
 
 # MacOS files
 .DS_Store
+
+# Random files
+hello_world.php
