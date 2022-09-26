@@ -24,7 +24,7 @@ if ($action == 'upload')
             $response['data'] = getFileInfo($bucketName, $cloudPath);
             //$localpath = 'uploads/' . $_FILES['file']['name'];
             $localPath = $cloudPath;
-            downloadLocally($bucketName, $cloudPath, $localPath);
+            //downloadLocally($bucketName, $cloudPath, $localPath);
             $temp = downloadLocally($bucketName, $cloudPath, $localPath);
             if($temp != false)
             {
@@ -53,6 +53,32 @@ if ($action == 'upload')
                 }
                 $response['csvMsg'] = 'SUCCESS Converting to csv. Path: ' . $csvPath;
                 $response['csvPath'] = $csvPath;
+
+                //mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+                $json_credentials = file_get_contents('../keys/db_credentials.json');
+                $response['json_credentials_type'] = 'type of json_cred is ' . gettype($json_credentials);
+                $response['json_credentials_val'] = 'json credentials are ' . $json_credentials;
+                $json_data = json_decode($json_credentials, true);
+                
+                // connect to database
+                $mysqli = new mysqli(
+                    $json_data['host'],
+                    $json_data['user'],
+                    $json_data['password'],
+                    $json_data['database']
+                );
+                $response['mysqli_type'] = 'type of ' . gettype($mysqli);
+                $mysqli->set_charset('utf8mb4');
+                if($mysqli === false)
+                {
+                    $response['db_connection'] = 'Failed to connect to mysql db';
+                }
+                else
+                {
+                    $response['db_connection'] = $mysqli->client_info;
+                }
+                
             }
             else
             {
