@@ -62,6 +62,7 @@ function getFileInfo($bucketName, $cloudPath) {
 }
 
 //list files in Google storage bucket
+/*
 function listFiles($bucket, $directory = null) {
 
     if ($directory == null) {
@@ -78,6 +79,7 @@ function listFiles($bucket, $directory = null) {
         // NOTE: if $object->name() ends with '/' then it is a 'folder'
     }
 }
+*/
             /*
 function downloadFileToMemory($bucketName, $cloudPath) {
     $privateKeyFileContent = $GLOBALS['privateKeyFileContent'];
@@ -130,24 +132,31 @@ function downloadLocally($bucketName, $cloudPath, $localpath)
     return true; // return object (Psr\Http\Message\StreamInterface)
 }
 
-
+// use mysqli extension to connect to MySQL DB
 /*
-//from google documentation
-function download_object($bucketName, $objectName, $destination)
+function connectToDB()
 {
-    // $bucketName = 'my-bucket';
-    // $objectName = 'my-object';
-    // $destination = '/path/to/your/file';
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-    $storage = new StorageClient();
-    $bucket = $storage->bucket($bucketName);
-    $object = $bucket->object($objectName);
-    $object->downloadToFile($destination);
-    printf(
-        'Downloaded gs://%s/%s to %s' . PHP_EOL,
-        $bucketName,
-        $objectName,
-        basename($destination)
+    $json_credentials = file_get_contents('../keys/db_credentials.json');
+    $json_data = json_decode($json_credentials, true);
+    if($json_data == null)
+    {
+        //alert("failed to pull in db credentials");
+        return false;
+    }
+    // connect to database
+    $mysqli = new mysqli(
+        $json_data["host"],
+        $json_data["user"],
+        $json_data["password"],
+        $json_data["database"]
     );
+    $mysqli->set_charset('utf8mb4');
+    if(mysql_stat($mysqli) == false)
+    {
+        return false;
+    }
+    return $mysqli;
 }
 */
