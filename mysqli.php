@@ -1,5 +1,6 @@
-<?php
 
+
+<?php
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 $json_credentials = file_get_contents('../keys/db_credentials.json');
@@ -17,12 +18,3 @@ $mysqli = new mysqli(
 );
 $mysqli->set_charset('utf8mb4');
 printf("Success... %s\n", $mysqli->host_info);
-
-/*
-$mysqli = new mysqli(
-    'localhost', $json_data["host"],
-    'www-data', $json_data["user"],
-    null, $json_data["password"],
-    'employees' $json_data["database"]
-);
-*/
