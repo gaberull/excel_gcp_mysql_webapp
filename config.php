@@ -108,6 +108,7 @@ function downloadFileToMemory($bucketName, $cloudPath) {
 }
         */
 
+// Download file from GCS storage to local disk (on VM)
 function downloadLocally($bucketName, $cloudPath, $localpath)
 {
     //$bucketName = 'xlsx-uploads'; $temp = downloadLocally($bucketName, $cloudPath, $localpath);
@@ -133,30 +134,25 @@ function downloadLocally($bucketName, $cloudPath, $localpath)
 }
 
 // use mysqli extension to connect to MySQL DB
-/*
 function connectToDB()
 {
-    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
+    //mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $json_credentials = file_get_contents('../keys/db_credentials.json');
     $json_data = json_decode($json_credentials, true);
     if($json_data == null)
     {
-        //alert("failed to pull in db credentials");
-        return false;
+        return null;
     }
     // connect to database
     $mysqli = new mysqli(
-        $json_data["host"],
-        $json_data["user"],
-        $json_data["password"],
-        $json_data["database"]
+        $json_data['host'],
+        $json_data['user'],
+        $json_data['password'],
+        $json_data['database']
     );
-    $mysqli->set_charset('utf8mb4');
-    if(mysql_stat($mysqli) == false)
+    if($mysqli != null)
     {
-        return false;
+        $mysqli->set_charset('utf8mb4');
     }
     return $mysqli;
 }
-*/

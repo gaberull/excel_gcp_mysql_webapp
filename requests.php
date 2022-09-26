@@ -14,7 +14,6 @@ if ($action == 'upload')
         
         // NOTE: if 'folder' or 'tree' is not exist then it will be automatically created !
         $cloudPath = 'uploads/' . $_FILES['file']['name'];
-
         $isSucceed = uploadFile($bucketName, $fileContent, $cloudPath);
 
         if ($isSucceed == true) 
@@ -38,7 +37,7 @@ if ($action == 'upload')
                 //Get all sheets in file
                 $sheets = $reader->listWorksheetNames($localPath);
                 
-                //Loop for each sheet and save an individual file
+                //Loop over each sheet and save an individual file
                 foreach($sheets as $sheet)
                 {
                     //Load the file
@@ -48,37 +47,23 @@ if ($action == 'upload')
                     //Write the CSV file
                     $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
                     //$writer->setDelimiter(";");
+                    //$csvPath = 'uploads/' . $sheet.'.csv';
                     $csvPath = 'uploads/' . $name.'_'.$sheet.'.csv';
                     $writer->save($csvPath);
                 }
                 $response['csvMsg'] = 'SUCCESS Converting to csv. Path: ' . $csvPath;
                 $response['csvPath'] = $csvPath;
 
-                //mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-                $json_credentials = file_get_contents('../keys/db_credentials.json');
-                //$response['json_credentials_type'] = 'type of json_cred is ' . gettype($json_credentials);
-                //$response['json_credentials_val'] = 'json credentials are ' . $json_credentials;
-                $json_data = json_decode($json_credentials, true);
-                
-                // connect to database
-                $mysqli = new mysqli(
-                    $json_data['host'],
-                    $json_data['user'],
-                    $json_data['password'],
-                    $json_data['database']
-                );
-                //$response['mysqli_type'] = 'type: ' . gettype($mysqli);
-                $mysqli->set_charset('utf8mb4');
-                if($mysqli === false)
+                // Function call to Connect to mysql database
+                $mysqli = connectToDB();
+                if($mysqli == null) // connection failed
                 {
                     $response['db_connection'] = 'FAILED to connect to DB';
                 }
-                else
+                else    // connection succeeded
                 {
                     $response['db_connection'] = 'CONNECTED TO DB: ' . $mysqli->client_info;
                 }
-                
             }
             else
             {
