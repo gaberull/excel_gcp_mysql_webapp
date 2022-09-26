@@ -82,6 +82,8 @@ I was kind of learning PHP on the fly on this project, having never worked with 
 - [Composer Documentation](https://getcomposer.org/doc/01-basic-usage.md)
 - [PHP for uploading to GCS - Zatackcoder (blog)](https://zatackcoder.com/upload-file-to-google-cloud-storage-using-php/)
 - [PhpSpreadsheet - open source tool](https://phpspreadsheet.readthedocs.io/en/latest/topics/reading-and-writing-to-file/)
+- [PhpSpreadsheet - GitHub Repository](https://github.com/PHPOffice/PhpSpreadsheet)
+- [Convert xlsx to csv file - Stack Overflow](https://stackoverflow.com/questions/6895665/convert-xlsx-file-to-csv-file-using-php)
 - [Download Storage object php - GCP Documentation](https://cloud.google.com/storage/docs/downloading-objects#storage-download-object-php)
 - [Cloud Storage Reference - GCP Documentation](https://cloud.google.com/storage/docs/reference/libraries)
 - [Google Cloud API - Storage Client](https://googleapis.github.io/google-cloud-php/#/docs/google-cloud/v0.122.0/storage/storageclient)
@@ -92,6 +94,8 @@ I was kind of learning PHP on the fly on this project, having never worked with 
 - [MySQLi PHP Database extension](https://www.php.net/manual/en/book.mysqli.php)
 - [mysqli](https://www.php.net/manual/en/mysqli.quickstart.dual-interface.php)
 - [mysqli documentation](https://www.php.net/manual/en/class.mysqli.php)
+- [MySQL Documentation](https://dev.mysql.com/doc/refman/8.0/en/)
 - [Grant User Permissions in MySQL](https://phoenixnap.com/kb/how-to-create-new-mysql-user-account-grant-privileges)
+- [Import csv into MySQL DB](https://www.phpflow.com/php/import-csv-file-into-mysql/)
 
 Copyright 2022 - Gabe Scott
