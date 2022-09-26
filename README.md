@@ -15,10 +15,10 @@ Upload a file to Google cloud storage bucket. Convert Excel files to csv and imp
 ## TODO
 
 - [ ] Handle multiple files being uploaded
+- [ ] See about hiding certain php files
 - [x] Successfully handle connecting to MySQL DB
 - [x] Handle conversion from xlsx to csv
 - [x] Return csv file path in json from POST request return
-- [ ] See about hiding certain php files
 - [x] Hide MySQL DB credentials
   - [ ] Double check that this is not accessible from outside
 - [ ] Change mysql db pw for user www-data
@@ -26,7 +26,7 @@ Upload a file to Google cloud storage bucket. Convert Excel files to csv and imp
 
 ### Resources
 
-- [Zatackcoder php uploading](https://zatackcoder.com/upload-file-to-google-cloud-storage-using-php/)
+- [PHP for uploading to GCS - Zatackcoder](https://zatackcoder.com/upload-file-to-google-cloud-storage-using-php/)
 - [PhpSpreadsheet](https://phpspreadsheet.readthedocs.io/en/latest/topics/reading-and-writing-to-file/)
 - [Download Storage object php - GCP Documentation](https://cloud.google.com/storage/docs/downloading-objects#storage-download-object-php)
 - [Cloud Storage Reference - GCP Documentation](https://cloud.google.com/storage/docs/reference/libraries)
@@ -38,4 +38,4 @@ Upload a file to Google cloud storage bucket. Convert Excel files to csv and imp
 - [MySQLi PHP Database extension](https://www.php.net/manual/en/book.mysqli.php)
 - [mysqli](https://www.php.net/manual/en/mysqli.quickstart.dual-interface.php)
 - [mysqli documentation](https://www.php.net/manual/en/class.mysqli.php)
-- [Grant Permissions in MySQL](https://phoenixnap.com/kb/how-to-create-new-mysql-user-account-grant-privileges)
+- [Grant User Permissions in MySQL](https://phoenixnap.com/kb/how-to-create-new-mysql-user-account-grant-privileges)
