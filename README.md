@@ -15,12 +15,13 @@ Upload a file to Google cloud storage bucket. Convert Excel files to csv and imp
 ## TODO
 
 - [ ] Handle multiple files being uploaded
+- [x] Successfully handle connecting to MySQL DB
 - [x] Handle conversion from xlsx to csv
 - [x] Return csv file path in json from POST request return
 - [ ] See about hiding certain php files
 - [x] Hide MySQL DB credentials
   - [ ] Double check that this is not accessible from outside
-- [ ] Change myswl db pw for user www-data
+- [ ] Change mysql db pw for user www-data
 - [x] Store password for mysqli to grab for db outside public folders. in secret/
 
 ### Resources
