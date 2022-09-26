@@ -38,7 +38,6 @@ function uploadFile($bucketName, $fileContent, $cloudPath)
             // a. do not put prefix '/', '/' is a separate folder name  !!
             // b. private key MUST have 'storage.objects.delete' permission if want to replace file !
     );
-
     return $storageObject != null;  // return if successful or not
 }
 
@@ -54,7 +53,6 @@ function getFileInfo($bucketName, $cloudPath) {
         print $e;
         return false;
     }
-
     // set which bucket to work in
     $bucket = $storage->bucket($bucketName);
     $object = $bucket->object($cloudPath);
@@ -73,7 +71,6 @@ function listFiles($bucket, $directory = null) {
         $options = array('prefix' => $directory);
         $objects = $bucket->objects($options);
     }
-
     foreach ($objects as $object) {
         print $object->name() . PHP_EOL;
         // NOTE: if $object->name() ends with '/' then it is a 'folder'
@@ -93,7 +90,6 @@ function downloadFileToMemory($bucketName, $cloudPath) {
         print $e;
         return false;
     }
-
     // set which bucket to work in
     $bucket = $storage->bucket($bucketName);
     $object->$bucket->object($cloudPath);
@@ -126,7 +122,6 @@ function downloadLocally($bucketName, $cloudPath, $localpath)
         print $e;
         return false;
     }
-    
     $bucket = $storage->bucket($bucketName);
     $object = $bucket->object($cloudPath);
     $object->downloadToFile($localpath);
