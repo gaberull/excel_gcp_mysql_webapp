@@ -1,4 +1,4 @@
-# Add Excel Files to MySQL DB on GCP Server with Automated Bday Notification Email
+# Automate Adding of Employee info Excel Files to MySQL DB on GCP Server with Automated B-day Notification Email
 
 ## This application performs the following tasks
 
