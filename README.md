@@ -15,6 +15,10 @@
 - Schedules and automates sending of emails with SMTP to go out to employees wishing them a happy birthday just before their birth date
 - Updates database of employees when new files are uploaded, or when employee info changes (roughly once per month)
 
+### Objective of Project - Note from Developer
+
+I was kind of learning PHP on the fly on this project, having never worked with it before. I was also trying to practice my server-client programming, and setting up webserver type applications and static web pages, as well as learning to use the Ajax, PHP, and HTTP technology stack. Also messing around with cloud computing concepts with Apache web server and Google Cloud Platform. I have learned quite a bit from working on this project so far.
+
 **Notes to Self:**
 
 - Apache2 publicly hosted files are in ```/var/www/html/``` on webserver
@@ -35,11 +39,11 @@
 4. I added require statments for ```google/cloud-storage``` and ```phpoffice/phpspreadsheet``` and version numbers
 5. I moved ```vendor/``` to lowest level of apache, just below public html files folder
 
-**Important Composer Commands:**
+### Important Composer Commands
 
 - ```php composer.phar update```
 
-## Important PHP Commands
+### Important PHP Usage
 
 - See where all php.ini configuration files are ```php --ini```
 - Create info.php file and host it on apache web server. This file has a lot of useful configuration information when viewed in web browser and looks exactly like this:
@@ -51,8 +55,9 @@
 
 - Get current user: Add ```echo exec('whoami');``` to above ```info.php``` file
 
-### TODO
+## TODO
 
+- [ ] Figure out which open-source license to add to this project before making repository public
 - [ ] Clean up GCP folders and remove old file versions
 - [ ] See about changing permissions on Google cloud storage bucket to not be quite so open
 - [ ] See about moving php scripts and other files to ```scripts/```
@@ -71,7 +76,7 @@
 - [x] Store password for mysqli to grab for db outside public folders. in ```secret/```
 - [x] Add ```composer.lock``` to git repository
 
-#### Resources
+## Resources
 
 - [Installing and setting up PHP on Ubuntu - ServerLab](https://www.serverlab.ca/tutorials/linux/web-servers-linux/installing-php-for-apache-on-ubuntu/)
 - [Composer Documentation](https://getcomposer.org/doc/01-basic-usage.md)
@@ -88,3 +93,5 @@
 - [mysqli](https://www.php.net/manual/en/mysqli.quickstart.dual-interface.php)
 - [mysqli documentation](https://www.php.net/manual/en/class.mysqli.php)
 - [Grant User Permissions in MySQL](https://phoenixnap.com/kb/how-to-create-new-mysql-user-account-grant-privileges)
+
+Copyright 2022 - Gabe Scott
