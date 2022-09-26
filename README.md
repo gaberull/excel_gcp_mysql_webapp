@@ -5,7 +5,7 @@ Upload a file to Google cloud storage bucket. Convert Excel files to csv and imp
 **Notes:**
 
 - Public Files are in ```/var/www/html/``` on apache2 webserver
-- API Key is in ``/var/www/keys/``
+- API Key, DB credentials are in ```/var/www/keys/```
 - File Upload script requires ```/var/www/vendor/``` (created with Composer for php)
   - Should not be publicly visible
 - Apache2 php.ini file is located at ```/etc/php/8.1/apache2/php.ini```
@@ -37,3 +37,4 @@ Upload a file to Google cloud storage bucket. Convert Excel files to csv and imp
 - [MySQLi PHP Database extension](https://www.php.net/manual/en/book.mysqli.php)
 - [mysqli](https://www.php.net/manual/en/mysqli.quickstart.dual-interface.php)
 - [mysqli documentation](https://www.php.net/manual/en/class.mysqli.php)
+- [Grant Permissions in MySQL](https://phoenixnap.com/kb/how-to-create-new-mysql-user-account-grant-privileges)
