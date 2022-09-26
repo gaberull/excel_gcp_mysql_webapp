@@ -42,7 +42,7 @@
 ## Important PHP Commands
 
 - See where all php.ini configuration files are ```php --ini```
-- Create info.php file and host it on apache web server. This file has a lot of useful configuration information
+- Create info.php file and host it on apache web server. This file has a lot of useful configuration information when viewed in web browser and looks exactly like this:
 
   ```php
   // info.php
