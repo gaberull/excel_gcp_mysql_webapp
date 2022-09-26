@@ -63,6 +63,7 @@ I was kind of learning PHP on the fly on this project, having never worked with 
 - [ ] See about moving php scripts and other files to ```scripts/```
 - [ ] Add more of my saved resources to Resources section below in README
 - [ ] Handle multiple files being uploaded
+- [ ] Maybe add similar Link to download .csv file from website (would require upload to GCS like xlsx file)
 - [ ] See about obscuring certain php files
 - [ ] Tighten up user authentification all over, and secure site against potential SQL injection attacks
 - [ ] Change mysql db user info for user www-data
