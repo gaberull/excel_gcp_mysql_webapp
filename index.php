@@ -10,11 +10,11 @@
             <input type="submit" name="upload" value="Upload"/>
             <span id="uploadingmsg"></span>
             <hr/>
-            <strong>Response (JSON)</strong>
-            <pre id="json">json response will be shown here</pre>
-            
+                <strong>Response (JSON)</strong>
+                <pre id="json">json response will be shown here</pre>
             <hr/>
-            <strong>Public Link:</strong><br/>
+            <strong>Public Link (Click to Download Original File):</strong>
+            <br/>
             <div id="output"></div>
         </form>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -27,8 +27,7 @@
                 $.ajax({
                     type: 'POST',
                     url: action,
-                    data: data, 
-                    /*THIS MUST BE DONE FOR FILE UPLOADING*/
+                    data: data,
                     contentType: false,
                     processData: false,
                 }).done(function (response) {
@@ -40,6 +39,7 @@
                         $("#output").append('<br/><img src="https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '"/>');
                     }
                 }).fail(function (data) {
+                    //TODO: create action on failed request
                     alert('ajax failed');
                 });
             });  
