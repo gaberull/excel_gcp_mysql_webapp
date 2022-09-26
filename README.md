@@ -54,6 +54,7 @@
 ### TODO
 
 - [ ] Clean up GCP folders and remove old file versions
+- [ ] See about changing permissions on Google cloud storage bucket to not be quite so open
 - [ ] See about moving php scripts and other files to ```scripts/```
 - [ ] Add more of my saved resources to Resources section below in README
 - [ ] Handle multiple files being uploaded
@@ -61,6 +62,7 @@
 - [ ] Tighten up user authentification all over, and secure site against potential SQL injection attacks
 - [ ] Change mysql db user info for user www-data
 - [ ] Read PhpSpreadsheet open-source license and see if attribution is needed in documentation somewhere
+- [ ] Look into the possibility of encrypting sensitive files (GCP Secret API key)
 - [x] Successfully handle connecting to MySQL DB
 - [x] Handle conversion from xlsx to csv
 - [x] Return csv file path in json from POST request return
