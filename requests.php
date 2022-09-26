@@ -27,7 +27,7 @@ if ($action == 'upload')
             $temp = downloadLocally($bucketName, $cloudPath, $localPath);
             if($temp != false)
             {
-                $response['downloadmsg'] = 'SUCCESS: File saved to ' . $localPath;
+                $response['download_msg'] = 'SUCCESS: File saved to ' . $localPath;
 
                 // Convert file to csv
                 $name = 'employees';
@@ -51,8 +51,8 @@ if ($action == 'upload')
                     $csvPath = 'uploads/' . $name.'_'.$sheet.'.csv';
                     $writer->save($csvPath);
                 }
-                $response['csvMsg'] = 'SUCCESS Converting to csv. Path: ' . $csvPath;
-                $response['csvPath'] = $csvPath;
+                $response['csv_conversion_msg'] = 'SUCCESS Converting to .csv - Path: ' . $csvPath;
+                $response['csv_path'] = $csvPath;
 
                 // Function call to Connect to mysql database
                 $mysqli = connectToDB();

@@ -16,7 +16,9 @@ $privateKeyFilePath = '../keys/silken-reducer-359320-b3cecc9b17ca.json';
 /**
  *  Upload file to Google Cloud Storage Bucket
  * 
- *  @return bool - true if file is uploaded, false if not
+ *  @return bool 
+ *      true  - file is uploaded
+ *      false - file is not uploaded
  */
 function uploadFile($bucketName, $fileContent, $cloudPath) 
 {
@@ -72,6 +74,9 @@ function getFileInfo($bucketName, $cloudPath) {
 
 /**
  *  List all items in Google Cloud storage bucket
+ * 
+ *  @return null if no objects in GCS 
+ *  @return array of object names otherwise
  */
 function listFiles($bucket, $directory = null) {
 
@@ -83,10 +88,19 @@ function listFiles($bucket, $directory = null) {
         $options = array('prefix' => $directory);
         $objects = $bucket->objects($options);
     }
+    $file_array = array();
+    $count = 0;
     foreach ($objects as $object) {
-        print $object->name() . PHP_EOL;
+        $file_array [count] = $object->name();
+        $count++;
+        //print $object->name() . PHP_EOL;
         // NOTE: if $object->name() ends with '/' then it is a 'folder'
     }
+    if($count === 0)
+    {
+        return null;
+    }
+    return $file_array;
 }
 /**
  *  From Google Cloud Storage API Documentation
