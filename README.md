@@ -93,7 +93,7 @@ I was kind of learning PHP on the fly on this project, having never worked with 
 - [Grant user file permissions (groups)](https://askubuntu.com/questions/365087/grant-a-user-permissions-on-www-data-owned-var-www)
 - [Import CSV into MySQL](https://www.phpflow.com/php/import-csv-file-into-mysql/)
 - [MySQLi PHP Database extension](https://www.php.net/manual/en/book.mysqli.php)
-- [mysqli](https://www.php.net/manual/en/mysqli.quickstart.dual-interface.php)
+- [PHP mysqli class](https://www.php.net/manual/en/class.mysqli)
 - [mysqli documentation](https://www.php.net/manual/en/class.mysqli.php)
 - [MySQL Documentation](https://dev.mysql.com/doc/refman/8.0/en/)
 - [Grant User Permissions in MySQL](https://phoenixnap.com/kb/how-to-create-new-mysql-user-account-grant-privileges)
