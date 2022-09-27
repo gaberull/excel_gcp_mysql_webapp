@@ -56,14 +56,22 @@ if ($action == 'upload')
 
                 // Function call to Connect to mysql database
                 $mysqli = connectToDB();
-                if($mysqli == null) // connection failed
+                if ($mysqli->connect_errno) {
+                    $response['db_connection'] = 'MySQL DB Connection failed: Error ' .$mysqli->connect_error;
+                } 
+                else
                 {
-                    $response['db_connection'] = 'FAILED to connect to DB';
+                    $response['db_connection'] = 'MySQL DB Connection Successful: '. $mysqli->client_info;
                 }
-                else    // connection succeeded
-                {
-                    $response['db_connection'] = 'CONNECTED TO DB: ' . $mysqli->client_info;
+
+                /* check if server is alive */
+                if ($mysqli->ping()) {
+                    $response['alive'] = 'Our connection is ok!';
+                } else {
+                    $response['alive'] = 'Ping Error: '. $mysqli->error;
                 }
+                // Close DB connection
+                $mysqli->close();
             }
             else
             {
