@@ -98,5 +98,22 @@ I was kind of learning PHP on the fly on this project, having never worked with 
 - [MySQL Documentation](https://dev.mysql.com/doc/refman/8.0/en/)
 - [Grant User Permissions in MySQL](https://phoenixnap.com/kb/how-to-create-new-mysql-user-account-grant-privileges)
 - [Import csv into MySQL DB](https://www.phpflow.com/php/import-csv-file-into-mysql/)
+- [Set all values in a table to specific value - mysql](https://stackoverflow.com/questions/13612104/how-to-set-all-values-in-a-single-column-mysql-query)
+- [Convert str to Date/DateTime - PHP](https://www.geeksforgeeks.org/php-converting-string-to-date-and-datetime/)
+- [Retreive cell data - PhpSpreadsheet (Stack Overflow)](https://stackoverflow.com/questions/44304795/how-to-retrieve-date-from-table-cell-using-phpspreadsheet)
+- [date() man page - PHP](https://www.php.net/manual/en/function.date.php)
+- [NumberFormat PhpSpreadsheet](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/src/PhpSpreadsheet/Style/NumberFormat.php)
+- [PhpSpreadsheet Recipes](https://phpspreadsheet.readthedocs.io/en/latest/topics/recipes/)
+- [MySQL Update](https://www.mysqltutorial.org/mysql-update-data.aspx)
+- [fgetcsv() man page - PHP](https://www.php.net/manual/en/function.fgetcsv.php)
+- [mysqli_real_query() - W3Schools](https://www.w3schools.com/php/func_mysqli_real_query.asp)
+- [Replace Command - MySQL](https://dev.mysql.com/doc/refman/8.0/en/replace.html)
+- [Insert Date Object in MySQL](https://www.ntchosting.com/encyclopedia/databases/mysql/insert-date/#:~:text=The%20default%20way%20to%20store,the%20dates%20as%20you%20expect.)
+- [Data Types - MySQL Docs](https://dev.mysql.com/doc/refman/8.0/en/data-types.html)
+- [Database Privileges MySQL](https://askubuntu.com/questions/1029177/error-1698-28000-access-denied-for-user-rootlocalhost-at-ubuntu-18-04)
+- [Escaping from HTML - PHP](https://www.php.net/manual/en/language.basic-syntax.phpmode.php)
+- [$_SERVER array - PHP](https://www.php.net/manual/en/reserved.variables.server.php)
+- [Import CSV to MySQL using PHP file read](https://phppot.com/php/import-csv-file-into-mysql-using-php/)
+- **[Append text into html by id - PHP](https://stackoverflow.com/questions/35886770/php-append-text-into-html-element-with-certain-id)**
 
 Copyright 2022 - Gabe Scott
