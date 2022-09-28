@@ -1,23 +1,25 @@
-# Automate Adding of Employee info Excel Files to MySQL DB on GCP Server with Automated B-day Notification Email
+# Excel File to MySQL DB Uploader
+
+Automate Adding of Employee info in Excel spreadsheets to a MySQL database on GCP Server with Automated birthday Notification Email
 
 ## This application performs the following tasks
 
-- Uploads an excel file (initially) to Google cloud storage bucket using Google Storage API calls and API key
-  - Coule possibly change verification method to OAuth2 in the near future
+- Uploads an excel file (.xlsx) to a Google cloud storage bucket using Google Storage API calls and API key
 - Sends POST request to Apache2 web server back-end containing action to perform, using API key authorization
-- Downloads xlsx file to local folder on Google Cloud Compute Engine VM from Google Cloud Storage bucket on the back-end
-- Converts Excel file to csv according to chosen formatting specifications
-- Imports .csv file into MySQL database
+- Downloads .xlsx file to Apache local folder for processing on Google Cloud Compute Engine VM server from Google Cloud Storage bucket
+- Converts Excel file to .csv file according to chosen formatting specifications
+- Imports .csv file into hosted MySQL database
   - Authenticates user and grants permission to use and change the MySQL database
 - Returns POST request containing file upload metadata, various success/fail messages, and new file locations
 - Displays the data from the spreadsheet file in the ```index.php``` page
-  - ***Possibly using spreadsheets.js***
-- Schedules and automates sending of emails with SMTP to go out to employees wishing them a happy birthday just before their birth date
+  - ***Possibly formatted using spreadsheets.js (not implemented as of yet)***
+- Schedules and automates sending of SMTP emails with to go out to employees wishing them a happy birthday a few days before their birth-date
 - Updates database of employees when new files are uploaded, or when employee info changes (roughly once per month)
+  - Prior to upload of up-to-date employee spreadsheet, all employees in the MySQL database are marked as "inactive" employees. Then the database records are updated and marked as "active" once again as each entry in the spreadsheet is inserted or re-inserted into the MySQL database
 
-### Objective of Project - Note from Developer
+### Objectives of Project - Note from Developer
 
-I was kind of learning PHP on the fly on this project, having never worked with it before. I was also trying to practice my server-client programming, and setting up webserver type applications and static web pages, as well as learning to use the Ajax, PHP, and HTTP technology stack. Also messing around with cloud computing concepts with Apache web server and Google Cloud Platform. I have learned quite a bit from working on this project so far.
+I have been learning PHP on the fly on this project, having never worked with it before. I have also been brushing-up on my server-client programming and setting up webserver type applications and static web-page concepts, as well as learning more about the Ajax, PHP, and HTTP technology stack. Additionally, I have been working at cementing my knowledge of cloud computing concepts, with Apache web server and Google Cloud Platform. So far, it has been a very fruitful project.
 
 **Notes to Self:**
 
@@ -57,11 +59,20 @@ I was kind of learning PHP on the fly on this project, having never worked with 
 
 ## TODO
 
+- [x] Successfully handle connecting to MySQL DB
+- [x] Handle conversion from xlsx to csv
+- [x] Return csv file path in json from POST request return
+- [x] Hide MySQL DB credentials
+  - [ ] *Encrypt credentials on GCP VM ?*
+  - [ ] Double check that this is not accessible from outside
+- [x] Store password for mysqli to grab for db outside public folders. in ```secret/```
+- [x] Add ```composer.lock``` to git repository
+- [x] Add more of my saved resources to Resources section below in README
+- [ ] Consider changing user verification method to OAuth2
 - [ ] Figure out which open-source license to add to this project before making repository public
 - [ ] Clean up GCP folders and remove old file versions
 - [ ] See about changing permissions on Google cloud storage bucket to not be quite so open
 - [ ] See about moving php scripts and other files to ```scripts/```
-- [ ] Add more of my saved resources to Resources section below in README
 - [ ] Handle multiple files being uploaded
 - [ ] Maybe add similar Link to download .csv file from website (would require upload to GCS like xlsx file)
 - [ ] See about obscuring certain php files
@@ -69,13 +80,6 @@ I was kind of learning PHP on the fly on this project, having never worked with 
 - [ ] Change mysql db user info for user www-data
 - [ ] Read PhpSpreadsheet open-source license and see if attribution is needed in documentation somewhere
 - [ ] Look into the possibility of encrypting sensitive files (GCP Secret API key)
-- [x] Successfully handle connecting to MySQL DB
-- [x] Handle conversion from xlsx to csv
-- [x] Return csv file path in json from POST request return
-- [x] Hide MySQL DB credentials
-  - [ ] Double check that this is not accessible from outside
-- [x] Store password for mysqli to grab for db outside public folders. in ```secret/```
-- [x] Add ```composer.lock``` to git repository
 
 ## Resources
 
