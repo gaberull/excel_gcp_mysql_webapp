@@ -1,8 +1,9 @@
 # Excel File to MySQL DB Uploader
 
-Automate Adding of Employee info in Excel spreadsheets to a MySQL database on GCP Server with Automated birthday Notification Email
+**Summary:**
+Automate the addition of Employee records stored in Excel spreadsheets to a MySQL database on GCP Server, and automate scheduling of outgoing "happy birthday" email to the employee
 
-## This application performs the following tasks
+## Complete List of Tasks Performed
 
 - Uploads an excel file (.xlsx) to a Google cloud storage bucket using Google Storage API calls and API key
 - Sends POST request to Apache2 web server back-end containing action to perform, using API key authorization
@@ -59,6 +60,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
+- [ ] Rename repository "Spreadsheet Emailer" ? 
 - [x] Successfully handle connecting to MySQL DB
 - [x] Handle conversion from xlsx to csv
 - [x] Return csv file path in json from POST request return
@@ -119,5 +121,6 @@ I have been learning PHP on the fly on this project, having never worked with it
 - [$_SERVER array - PHP](https://www.php.net/manual/en/reserved.variables.server.php)
 - [Import CSV to MySQL using PHP file read](https://phppot.com/php/import-csv-file-into-mysql-using-php/)
 - **[Append text into html by id - PHP](https://stackoverflow.com/questions/35886770/php-append-text-into-html-element-with-certain-id)**
+- [mysqli->query() man page](https://www.php.net/manual/en/mysqli.query.php)
 
 Copyright 2022 - Gabe Scott
