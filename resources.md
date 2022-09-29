@@ -1,5 +1,7 @@
 # Resources
 
+- [File Permissions explanation graph](https://remy.parkland.edu/~smauney/csc128/permissions_and_links.html#:~:text=The%20ls%20%2Dl%20command%20displays,w)%20permission%20for%20that%20file.)
+![File Permissions Image](screenshots/file_permissions.png)
 - [Changing file permissions w/ chmod - Stack Overflow](https://stackoverflow.com/questions/28886936/chmod-protect-users-file-being-accessed-so-only-owner-can-access)
 - [Display phpspreadsheet in html - Stack Overflow](https://stackoverflow.com/questions/68211913/phpspreadsheet-select-specific-sheet-to-display-in-html)
 - [dauxio/daux.io repository - Pretty markdown documentation generator](https://github.com/dauxio/daux.io)
