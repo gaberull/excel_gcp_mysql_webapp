@@ -4,9 +4,9 @@
 
 Upload spreadsheet of employee records to a MySQL database on running on a GCP Server, and automate the scheduling of outgoing "happy birthday" emails to the employees
 
-## Complete List of Tasks Performed
+## Complete List of Tasks Performed by this App
 
-- Uploads an excel file (.xlsx) to a Google cloud storage bucket using Google Storage API calls and API key
+- Uploads an excel file (.xlsx) to a Google cloud storage bucket using Google Storage API calls, PHP code, and ajax POST request
 - Sends POST request to Apache2 web server back-end containing action to perform, using API key authorization
 - Downloads .xlsx file to Apache local folder for processing on Google Cloud Compute Engine VM server from Google Cloud Storage bucket
 - Converts Excel file to .csv file according to chosen formatting specifications
@@ -17,7 +17,23 @@ Upload spreadsheet of employee records to a MySQL database on running on a GCP S
   - ***Possibly formatted using spreadsheets.js (not implemented as of yet)***
 - Schedules and automates sending of SMTP emails with to go out to employees wishing them a happy birthday a few days before their birth-date
 - Updates database of employees when new files are uploaded, or when employee info changes (roughly once per month)
-  - Prior to upload of up-to-date employee spreadsheet, all employees in the MySQL database are marked as "inactive" employees. Then the database records are updated and marked as "active" once again as each entry in the spreadsheet is inserted or re-inserted into the MySQL database
+  - Prior to upload of up-to-date employee spreadsheet, a query is run to mark all employees in the MySQL database as "inactive" employees
+  - Then the database records are updated and marked as "active" once again as each entry in the spreadsheet is inserted or re-inserted into the MySQL database. This is accomplished with a REPLACE statement like the following:
+
+    ```SQL
+    REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?,?,?,?,?,?,?,?,?,?);
+    ```
+
+## Future Functionality (Still in Progress)
+
+As of 9/29/22:
+
+- More secure user authentification and authorization to upload to, access Google Cloud Storage bucket
+- Scheduling of SMTP emails to go out to employees prior to their birthday
+- Functions avilable in the user interface to query the database
+- Printout of current database of employees
+- Change primary key from email to combination of first and last names
+  - Currently 'email' is primary key because it is guaranteed to be unique, however the company could potentially not have the email address of an employee on file
 
 ## Objectives of Project (Note from Developer)
 
