@@ -1,5 +1,6 @@
 # Resources
 
+- [dauxio/daux.io repository - Pretty markdown documentation generator](https://github.com/dauxio/daux.io)
 - [mysqli bind-param() PHP](https://www.php.net/manual/en/mysqli-stmt.bind-param.php)
 - [Trim whitespace phpspreadsheet](https://stackoverflow.com/questions/24874195/phpexcel-whitespaces-not-removed-from-individual-cells)
 - [Looping through cells - phpspreadsheet](https://phpspreadsheet.readthedocs.io/en/latest/topics/accessing-cells/#looping-through-cells)
