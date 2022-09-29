@@ -35,7 +35,7 @@ I have been learning PHP on the fly on this project, having never worked with it
   - Enabled extension=myslqi here by uncommenting line after searching in vim with ```ls ./ | grep php```
 - Working with GCP from command line is made very easy in VSCode bash terminal with the GCP extension. Makes it easy to SCP files to VM
 
-### Installation Instructions
+## Installation Instructions
 
 **Initial Notes:**
 
@@ -44,12 +44,12 @@ I have been learning PHP on the fly on this project, having never worked with it
 - To set up the correct directory organization perform the following steps
   - For the sake of simplicity, I'm going to work with the assumption that you already have a working Apache2 webserver running on a GCP Compute Engine virtual machine - *clearly a big assumption*
 
-#### Steps
+### Steps
 
 - View the ```director_structure.md``` file here: [directory_structure.md](directory_structure.md)
 - TODO: FINISH these steps
 
-## Setting up and configuring Composer for PHP
+#### Setting up and configuring Composer for PHP
 
 1. I initially set up Composer at the project level on apache at ```/var/www/composer```
 2. Next I configured the ```composer.json``` file to add project dependencies
@@ -57,7 +57,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 4. I added require statments for ```google/cloud-storage``` and ```phpoffice/phpspreadsheet``` and version numbers
 5. I moved ```vendor/``` to lowest level of apache, just below public html files folder
 
-### Important Composer Commands
+#### Important Composer Commands
 
 - ```php composer.phar update```
 
