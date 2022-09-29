@@ -1,5 +1,6 @@
 # Resources
 
+- [Changing file permissions w/ chmod - Stack Overflow](https://stackoverflow.com/questions/28886936/chmod-protect-users-file-being-accessed-so-only-owner-can-access)
 - [Display phpspreadsheet in html - Stack Overflow](https://stackoverflow.com/questions/68211913/phpspreadsheet-select-specific-sheet-to-display-in-html)
 - [dauxio/daux.io repository - Pretty markdown documentation generator](https://github.com/dauxio/daux.io)
 - [mysqli bind-param() PHP](https://www.php.net/manual/en/mysqli-stmt.bind-param.php)
