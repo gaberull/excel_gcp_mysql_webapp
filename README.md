@@ -48,6 +48,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 ### Steps
 
 - View the ```director_structure.md``` file here: [directory_structure.md](directory_structure.md)
+- Set up MySQL database on GCP Compue Engine VM
 - TODO: FINISH these steps
 
 #### Setting up and configuring Composer for PHP
