@@ -1,5 +1,7 @@
 # Resources
 
+- [man page for git checkout](https://man7.org/linux/man-pages/man1/git-checkout.1.html)
+- [man page for git switch](https://man7.org/linux/man-pages/man1/git-switch.1.html)
 - [Push new branch to new remote repository branch and set upstream](https://stackoverflow.com/questions/2765421/how-do-i-push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too)
 - [Display phpspreadsheet in html - Stack Overflow](https://stackoverflow.com/questions/68211913/phpspreadsheet-select-specific-sheet-to-display-in-html)
 - [dauxio/daux.io repository - Pretty markdown documentation generator](https://github.com/dauxio/daux.io)
