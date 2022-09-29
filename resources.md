@@ -1,5 +1,6 @@
 # Resources
 
+- [Display phpspreadsheet in html - Stack Overflow](https://stackoverflow.com/questions/68211913/phpspreadsheet-select-specific-sheet-to-display-in-html)
 - [dauxio/daux.io repository - Pretty markdown documentation generator](https://github.com/dauxio/daux.io)
 - [mysqli bind-param() PHP](https://www.php.net/manual/en/mysqli-stmt.bind-param.php)
 - [Trim whitespace phpspreadsheet](https://stackoverflow.com/questions/24874195/phpexcel-whitespaces-not-removed-from-individual-cells)
