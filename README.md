@@ -37,12 +37,16 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ### Installation Instructions
 
-The files in this repository are not *currently* organized according in the same structure as they are on my server, and thus one cannot simply clone this repository and expect it to work correctly. To set it up correctly as I have, perform the following steps
+**Initial Notes:**
 
-**Steps:**
-*I'm going to assume you already have an Apache2 webserver running on a GCP Compute Engine virtual machine*
+- The files in this repository are not *currently* organized according in the same structure as they are on my server, and thus one cannot simply clone this repository and expect it to work correctly. 
+  - Throughout my server-side development process, I have been peforming an SCP every time I wanted to push changes to the server rather than just pushing/pulling from my git repo
+- To set up the correct directory organization perform the following steps
+  - For the sake of simplicity, I'm going to work with the assumption that you already have a working Apache2 webserver running on a GCP Compute Engine virtual machine - *clearly a big assumption*
 
-- View the ```director_structure.md``` file [here](https://github.com/gaberull/file_uploader/blob/53a487423b6c002aa9a1586a5fc43ad429248bb6/directory_structure.md)
+#### Steps
+
+- View the ```director_structure.md``` file here: [directory_structure.md](directory_structure.md)
 - TODO: FINISH these steps
 
 ## Setting up and configuring Composer for PHP
