@@ -1,9 +1,9 @@
 # Screenshots
 
-## SELECT Query
+## Queries
 
-    ```sql
-    DESCRIBE employees;
-    ```
+```sql
+DESCRIBE employees;
+ ```
 
 ![Describe employees](screenshots/describe_employees.png)
