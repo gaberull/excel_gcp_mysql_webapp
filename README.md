@@ -1,6 +1,7 @@
 # Excel File Converter, MySQL DB Uploader, and Email Scheduler
 
 **Summary:**
+
 Upload spreadsheet of employee records to a MySQL database on running on a GCP Server, and automate the scheduling of outgoing "happy birthday" emails to the employees
 
 ## Complete List of Tasks Performed
@@ -57,7 +58,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 4. I added require statments for ```google/cloud-storage``` and ```phpoffice/phpspreadsheet``` and version numbers
 5. I moved ```vendor/``` to lowest level of apache, just below public html files folder
 
-#### Important Composer Commands
+### Important Composer Commands
 
 - ```php composer.phar update```
 
