@@ -6,7 +6,6 @@ vendor/
 *.xlsx
 *.csv
 *.ico
-*.png
 *.jpeg
 *.jPG
 *.jpg
