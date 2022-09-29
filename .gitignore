@@ -6,9 +6,6 @@ vendor/
 *.xlsx
 *.csv
 *.ico
-*.jpeg
-*.jPG
-*.jpg
 
 # Unimportant folder
 test/*
