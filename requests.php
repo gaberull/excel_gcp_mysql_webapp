@@ -85,6 +85,15 @@ if ($action == 'upload')
                     $csvPath = 'uploads/' . $name.'_'.$count.'.csv';    // will look like employees_0.csv
                     //Write the CSV file
                     $writer->save($csvPath);
+                    
+
+
+                    $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
+                    $writer->setPreCalculateFormulas(false);
+
+                    $writer->save("uploads/test.html");
+
+                    //$message['html_spreadsheet'] = $writer->save('php://output');
                     $count++;
                 }
                 $response['csv_conversion_msg'] = 'SUCCESS Converted to .csv';
