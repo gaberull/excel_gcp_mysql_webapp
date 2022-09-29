@@ -130,6 +130,6 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## Resources
 
-See page [resources.md](resouces.md) to view a list of many (but not all) of the specific resources that I referenced
+See page [resources.md](resources.md) to view a list of many (but not all) of the specific resources that I referenced
 
 Copyright 2022 - Gabe Scott
