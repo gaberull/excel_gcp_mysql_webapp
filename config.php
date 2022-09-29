@@ -173,7 +173,6 @@ function downloadLocally($bucketName, $cloudPath, $localpath)
  */
 function connectToDB()
 {
-    //mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $json_credentials = file_get_contents('../keys/db_credentials.json');
     $json_data = json_decode($json_credentials, true);
     if($json_data == null)
@@ -187,9 +186,125 @@ function connectToDB()
         $json_data['password'],
         $json_data['database']
     );
-    if($mysqli != null)
+    if($mysqli !== null)
     {
         $mysqli->set_charset('utf8mb4');
     }
     return $mysqli;
+}
+
+/**
+ *  Builds strings for inserting csv items into DB to return to requests.php
+ * 
+ *  @param $mysqli - connection to mysql database
+ *  @param $csvPath - string path to csv file in apache directory
+ * 
+ *  @return array of strings containing mysql queries to insert from csv
+ */
+function get_insert_queries($csvPath, $mysqli)
+{
+    // set all employees to not active, then iterate through and set ones in file to active
+    $query = "UPDATE employees SET active=FALSE;";
+    //$result_str = '';
+    $result = $mysqli->query($query);
+    //$error_str = '';
+    
+    //$result_str .= $result;
+    //$error_str .= $mysqli->error;
+    //if(strlen($error_str)>0) return $error_str;
+    $fields = array("first_name", "last_name", "start_date", "date_of_birth", "address", "email", "phone_number", "schedule", "position", "active");
+    //$fields_str = "first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active";
+    $fields_assoc = array("first_name" => null, "last_name" => null, "start_date" =>null , "date_of_birth" =>null, "address" =>null, "email" =>null, "phone_number" =>null, "schedule" =>null, "position" =>null, "active" =>1);
+    //$stmt = mysqli_prepare($mysqli, "REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $row = 0;
+    $query_str_arr = array();
+    $fp = fopen($csvPath, "r");
+    while (($data = fgetcsv($fp, 10000, ";")) !== FALSE) 
+    {
+        $num = count($data);
+        if($row != 0)
+        {
+            //$stmt = $mysqli->prepare($mysqli, "REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            //$stmt = $mysqli->prepare($mysqli, "REPLACE INTO employees(first_name,last_name,start_date,date_of_birth,address,email,phone_number,schedule,position,active) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            //echo "<p> $num fields in line $row: <br /></p>\n";
+            $query = "REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (";
+            for ($c=0; $c < $num; $c++) 
+            {
+                $value = $data[$c];
+                // IMPORTANT: trim() progresses from first char to last in the character string
+                // trim leading/trailing single quotes first, then asterisks(\x2A), then whitespace and similar chars
+                $value = trim($value, "'\x2A \n\r\t\v\x00");    // \x2A means 0x2A - hex code for asterisk on ascii table
+                // re-add single quotes to start and end of string    
+                $value = "'$value'"; 
+                // change all multiple spaces and space characters to just one single space character 
+                $value = trim(preg_replace('/[\t\n\r\s]+/', ' ', $value));
+                $col = $fields[$c];
+                
+                // Make all name values uppercase if they're not already
+                if($col === "first_name" || $col === "last_name")
+                {
+                    $value = strtoupper($value);
+                }
+                else if($col === "email")   // if we're in "email" column (primary key in mysql db), make value lowercase.
+                {
+                    $value = strtolower($value);
+                }
+                // preceding whitespace sometimes seemed to switch around the format of the date
+                else if($col === "start_date" || $col === "date_of_birth")
+                {
+                    // if there are slashes in the date, will be like 01/09/1984 OR 1984/01/09
+                    // find out which one it is and put it in the correct format
+                    $pos = strpos($value, '/'); // Check if string contains a backslash at all
+                    if($pos !== false)
+                    {
+                        $value = trim($value, "'\x2A \n\r\t\v\x00");    // trim single quotes
+                        $tok = strtok($value, "/"); // gives '1984' OR '01' - never '09'
+                        if(strlen($tok)>3)  // length of 4. First token is year
+                        {
+                            $year = $tok;
+                            $day = strtok( "/");
+                            $month = strtok("/");
+                            $value = "$year-$day-$month";
+                        }
+                        else    // length of 2. First token is the day ('01)
+                        {
+                            $day = $tok;
+                            $month = strtok( "/");
+                            $year = strtok( "/");
+                            $value = "$year-$day-$month";
+                        }
+                        $value = "'$value'";    // add single quotes back to string
+                    }
+                }
+                $query .= "$value,";    // add cell and comma to query string
+            } 
+            // "active" is not in csv file. Adding it manually to update which employees are still active
+            $query .= "TRUE);";     
+            array_push($query_str_arr, $query);
+            //$fields_assoc[$fields[$num]] = 1;
+            //$stmt->bind_param('sssssssssi', $fields_assoc[$fields[0]], $fields_assoc[$fields[1]], $fields_assoc[$fields[2]], $fields_assoc[$fields[3]], $fields_assoc[$fields[4]], $fields_assoc[$fields[5]], $fields_assoc[$fields[6]], $fields_assoc[$fields[7]], $fields_assoc[$fields[8]], $fields_assoc[$fields[9]]);
+            //$stmt->execute();
+        }    
+        $row++;
+    }
+    fclose($fp);
+    //$fetch_query = "SELECT first_name, email, address FROM employees;";
+    //$fetch_query = "SELECT COUNT(email) FROM employees;";
+    //$result_str = $mysqli->query($fetch_query);
+    // return true If every single write to DB was successful (Could still have written on false)
+    //return $mysqli; 
+    return $query_str_arr;
+}
+
+function csv_to_db($csvPath, $conn)
+{
+    $file = fopen($csvPath, "r");
+    while (($data = fgetcsv($file, 10000, ",")) !== FALSE)
+    {
+        $sql = "REPLACE INTO employees(first_name,last_name,start_date,date_of_birth,address,email,phone_number,schedule,position,active) VALUES('$data[0]','$data[1]','$data[2]','$data[3]','$data[4]','$data[5]','$data[6]','$data[7]','$data[8]',1);";
+        mysqli_query($conn, $sql);
+    }
+    fclose($file);
+
+    return $conn;
 }
