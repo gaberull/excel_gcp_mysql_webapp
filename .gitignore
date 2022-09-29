@@ -9,7 +9,6 @@ vendor/
 *.jpeg
 *.jPG
 *.jpg
-*.png
 
 # Unimportant folder
 test/*
