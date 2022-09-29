@@ -2,6 +2,8 @@
 
 ## MySQL Queries
 
+**Query:**
+
 ```sql
 DESCRIBE employees;
  ```
@@ -9,6 +11,8 @@ DESCRIBE employees;
 ----------
 
 ![Describe employees](screenshots/describe_employees.png)
+
+**Query:**
 
 ```sql
 SELECT first_name, start_date, date_of_birth, schedule, active FROM employees;
