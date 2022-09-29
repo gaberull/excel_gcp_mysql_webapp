@@ -106,7 +106,6 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## Resources
 
-See page ```resources.md``` ([here](https://github.com/gaberull/file_uploader/blob/0e4e2774cbc0189b6dcd92762631ea42f55064c7/resouces.md)) to view details about specific resources that I referenced
-There are without a doubt some missing from the list
+See page [resources.md](resouces.md) to view a list of many (but not all) of the specific resources that I referenced
 
 Copyright 2022 - Gabe Scott
