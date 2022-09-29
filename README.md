@@ -1,4 +1,4 @@
-# Excel File Converter, MySQL DB Uploader, and Email Scheduler
+# Excel to CSV File Converter, MySQL DB Uploader, and Email Scheduler
 
 **Summary:**
 
@@ -22,6 +22,7 @@ Upload spreadsheet of employee records to a MySQL database on running on a GCP S
 
     ```SQL
     REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?,?,?,?,?,?,?,?,?,?);
+    
     ```
 
 ## Future Functionality (Still in Progress)
