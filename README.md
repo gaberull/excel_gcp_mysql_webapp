@@ -20,7 +20,7 @@ Upload spreadsheet of employee records to a MySQL database on running on a GCP S
   - Prior to upload of up-to-date employee spreadsheet, a query is run to mark all employees in the MySQL database as "inactive" employees
   - Then the database records are updated and marked as "active" once again as each entry in the spreadsheet is inserted or re-inserted into the MySQL database. This is accomplished with a REPLACE statement like the following:
 
-    ```SQL
+    ```sql
     REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?,?,?,?,?,?,?,?,?,?);
     
     ```
@@ -29,10 +29,11 @@ Upload spreadsheet of employee records to a MySQL database on running on a GCP S
 
 As of 9/29/22:
 
+- Printout of current database of employees
 - More secure user authentification and authorization to upload to, access Google Cloud Storage bucket
 - Scheduling of SMTP emails to go out to employees prior to their birthday
 - Functions avilable in the user interface to query the database
-- Printout of current database of employees
+- Styling of main page
 - Change primary key from email to combination of first and last names
   - Currently 'email' is primary key because it is guaranteed to be unique, however the company could potentially not have the email address of an employee on file
 
@@ -85,16 +86,21 @@ I have been learning PHP on the fly on this project, having never worked with it
 - See where all php.ini configuration files are ```php --ini```
 - Create info.php file and host it on apache web server. This file has a lot of useful configuration information when viewed in web browser and looks exactly like this:
 
-  ```php
-  // info.php
-  <?php phpinfo() ?>
-  ```
+    ```php
+    <?php
+      // info.php
+      echo("Current user is: "); // optional - get apache2 web server user
+      echo exec('whoami');
+      phpinfo(); 
+     ?>
+    ```
 
 - Get current user: Add ```echo exec('whoami');``` to above ```info.php``` file
 
 ## TODO
 
 - [ ] Rename repository "Spreadsheet Emailer" ?
+- [ ] Style app main webpage
 - [ ] Finish steps for one to replicate what I did to set it up
 - [ ] Consider changing user verification method to OAuth2
 - [ ] Figure out which open-source license to add to this project before making repository public
