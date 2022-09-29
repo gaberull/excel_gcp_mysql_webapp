@@ -1,7 +1,7 @@
-# Excel File to MySQL DB Uploader
+# Excel File Converter, MySQL DB Uploader, and Email Scheduler
 
 **Summary:**
-Automate the addition of Employee records stored in Excel spreadsheets to a MySQL database on GCP Server, and automate scheduling of outgoing "happy birthday" email to the employee
+Upload spreadsheet of employee records to a MySQL database on running on a GCP Server, and automate the scheduling of outgoing "happy birthday" emails to the employees
 
 ## Complete List of Tasks Performed
 
@@ -18,12 +18,13 @@ Automate the addition of Employee records stored in Excel spreadsheets to a MySQ
 - Updates database of employees when new files are uploaded, or when employee info changes (roughly once per month)
   - Prior to upload of up-to-date employee spreadsheet, all employees in the MySQL database are marked as "inactive" employees. Then the database records are updated and marked as "active" once again as each entry in the spreadsheet is inserted or re-inserted into the MySQL database
 
-### Objectives of Project - Note from Developer
+## Objectives of Project (Note from Developer)
 
 I have been learning PHP on the fly on this project, having never worked with it before. I have also been brushing-up on my server-client programming and setting up webserver type applications and static web-page concepts, as well as learning more about the Ajax, PHP, and HTTP technology stack. Additionally, I have been working at cementing my knowledge of cloud computing concepts, with Apache web server and Google Cloud Platform. So far, it has been a very fruitful project.
 
 **Notes to Self:**
 
+- Important file directory structure info can be found in 
 - Apache2 publicly hosted files are in ```/var/www/html/``` on webserver
 - API Key, DB credentials are in ```/var/www/keys/``` in the form of json
 - File Upload script requires ```/var/www/vendor/``` (created with Composer for php)
@@ -33,6 +34,16 @@ I have been learning PHP on the fly on this project, having never worked with it
     - conf.d file is located at ```/etc/php/8.1/cli/conf.d```
   - Enabled extension=myslqi here by uncommenting line after searching in vim with ```ls ./ | grep php```
 - Working with GCP from command line is made very easy in VSCode bash terminal with the GCP extension. Makes it easy to SCP files to VM
+
+### Installation Instructions
+
+The files in this repository are not *currently* organized according in the same structure as they are on my server, and thus one cannot simply clone this repository and expect it to work correctly. To set it up correctly as I have, perform the following steps
+
+**Steps:**
+*I'm going to assume you already have an Apache2 webserver running on a GCP Compute Engine virtual machine*
+
+- View the ```director_structure.md``` file [here](https://github.com/gaberull/file_uploader/blob/53a487423b6c002aa9a1586a5fc43ad429248bb6/directory_structure.md)
+- TODO: FINISH these steps
 
 ## Setting up and configuring Composer for PHP
 
@@ -61,19 +72,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 ## TODO
 
 - [ ] Rename repository "Spreadsheet Emailer" ?
-- [x] Successfully handle connecting to MySQL DB
-- [x] Handle conversion from xlsx to csv
-- [x] Trim .csv entries before adding to mysql query strings
-  - [x] Trim leading/trailing asterisks
-  - [x] Trim leading/trailing whitespace and whitespace-like special characters
-  - [x] remove extra whitespace-like special characters
-- [x] Return csv file path in json from POST request return
-- [x] Hide MySQL DB credentials
-  - [ ] *Encrypt credentials on GCP VM ?*
-  - [ ] Double check that this is not accessible from outside
-- [x] Store password for mysqli to grab for db outside public folders. in ```secret/```
-- [x] Add ```composer.lock``` to git repository
-- [x] Add more of my saved resources to Resources section below in README
+- [ ] Finish steps for one to replicate what I did to set it up
 - [ ] Consider changing user verification method to OAuth2
 - [ ] Figure out which open-source license to add to this project before making repository public
 - [ ] Clean up GCP folders and remove old file versions
@@ -86,11 +85,23 @@ I have been learning PHP on the fly on this project, having never worked with it
 - [ ] Change mysql db user info for user www-data
 - [ ] Read PhpSpreadsheet open-source license and see if attribution is needed in documentation somewhere
 - [ ] Look into the possibility of encrypting sensitive files (GCP Secret API key)
+- [x] Hide MySQL DB credentials
+  - [ ] *Encrypt credentials on GCP VM ?*
+  - [ ] Double check that this is not accessible from outside
+- [x] Successfully handle connecting to MySQL DB
+- [x] Handle conversion from xlsx to csv
+- [x] Trim .csv entries before adding to mysql query strings
+  - [x] Trim leading/trailing asterisks
+  - [x] Trim leading/trailing whitespace and whitespace-like special characters
+  - [x] remove extra whitespace-like special characters
+- [x] Return csv file path in json from POST request return
+- [x] Store password for mysqli to grab for db outside public folders. in ```secret/```
+- [x] Add ```composer.lock``` to git repository
+- [x] Add more of my saved resources to Resources section below in README
 
 ## Resources
 
-See my page ```resources.md``` (linked below) to view details about specific resources I referenced. I am certain there are some missing from the list
-
-[resources.md](https://github.com/gaberull/file_uploader/blob/0e4e2774cbc0189b6dcd92762631ea42f55064c7/resouces.md)
+See page ```resources.md``` ([here](https://github.com/gaberull/file_uploader/blob/0e4e2774cbc0189b6dcd92762631ea42f55064c7/resouces.md)) to view details about specific resources that I referenced
+There are without a doubt some missing from the list
 
 Copyright 2022 - Gabe Scott
