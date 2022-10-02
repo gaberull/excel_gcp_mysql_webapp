@@ -124,15 +124,16 @@ if ($action == 'upload')
                 $query_str_arr = get_insert_queries($csvPath, $mysqli);
                 $size_arr = count($query_str_arr);
                 // loop through return array of query strings, add to database, add to response if successful or not and the query itself
-                $db_entry_results = array("query_string_0" => 'placeholder', "success_0" => 'placeholder');
+                //$db_entry_results = array("query_string_0" => 'placeholder', "success_0" => 'placeholder');
                 //$db_entry_results["query_string_0"] = $query_str_arr[0];
                 //$db_entry_results["success_0"] = $temp);
+                //$response['queries'] = json_encode($query_str_arr, JSON_FORCE_OBJECT);
                 for($i=0; $i<$size_arr; $i++)
                 {
                     //$ret = $mysqli->query($query_str_arr[$i]);  // returns TRUE / FALSE if not requesting data from db
                     //$db_entry_results["query_string_$i"] = $query_str_arr[$i];
                     //$db_entry_results["success_$i"] = $ret;
-                    $a = 'query_' .$i . '_string';
+                    $a = 'query_' .$i;
                     $b = 'query_' .$i . '_SUCCESS';
                     $response[$a] = $query_str_arr[$i];
                     $response[$b] = $mysqli->query($query_str_arr[$i]);
