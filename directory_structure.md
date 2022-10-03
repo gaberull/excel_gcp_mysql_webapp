@@ -1,6 +1,6 @@
 # Structure of Directories, Important Files in Apache Webserver
 
-- var/www/  -  (*APACHE2 root folder*)
+- var/www/boolsa.io  -  (*APACHE2 root folder*)
   - vendor/
     - autoload.php
   - keys/
