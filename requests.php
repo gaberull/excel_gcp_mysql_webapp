@@ -85,6 +85,15 @@ if ($action == 'upload')
                     $csvPath = 'uploads/' . $name.'_'.$count.'.csv';    // will look like employees_0.csv
                     //Write the CSV file
                     $writer->save($csvPath);
+                    
+                    $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
+                    $writer->setPreCalculateFormulas(false);
+
+                    $html_location = "uploads/recent_spreadsheet.html";
+                    // TODO: delete this file
+                    $writer->save($html_location);
+                    $response['spreadsheet_location'] = $html_location;
+                    //$response['spreadsheet'] = $writer->save('php://output');
                     $count++;
                 }
                 $response['csv_conversion_msg'] = 'SUCCESS Converted to .csv';
@@ -141,21 +150,6 @@ if ($action == 'upload')
                     //$db_entry_results = array("query_string" => $query_str_arr[$i], "success" => $temp);
                     //$response["query_$i"] = json_encode($db_entry_results);
                 }
-/*
-                $db_entry_results["query_string_11"] = $query_str_arr[11];
-                $a = 'query_11_str';
-                $response[$a] = $query_str_arr[$i];
-                $response['query_11_SUCCESS'] = "FAILLLLLLLLLLLL";
-*/
-                //if(!mysqli>real_query( $query_str_arr[11]))
-                //{
-                    //$response['query_11_ERROR'] = $mysqli->error;
-                //}
-                //$out = array_values($db_entry_results);
-                //$response["all_queries"] = json_encode($out);
-                //$response["all_queries"] = json_encode($db_entry_results);
-                //$response["all_queries"] = json_encode($db_entry_results);
-                // Close DB connection
                 $mysqli->close();
             }
             else

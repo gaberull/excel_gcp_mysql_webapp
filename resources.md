@@ -5,6 +5,10 @@
 
 - [Include the html from an html file in a div](https://www.w3schools.com/howto/howto_html_include.asp)
 - [Changing file permissions w/ chmod - Stack Overflow](https://stackoverflow.com/questions/28886936/chmod-protect-users-file-being-accessed-so-only-owner-can-access)
+- [man page for git checkout](https://man7.org/linux/man-pages/man1/git-checkout.1.html)
+- [man page for git switch](https://man7.org/linux/man-pages/man1/git-switch.1.html)
+- [Push new branch to new remote repository branch and set upstream](https://stackoverflow.com/questions/2765421/how-do-i-push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too)
+- [Move untracked changes to new git branch](https://www.baeldung.com/git-move-uncommitted-work-to-new-branch#:~:text=Using%20the%20git%20checkout%20Command,changes%20to%20the%20new%20branch.)
 - [Display phpspreadsheet in html - Stack Overflow](https://stackoverflow.com/questions/68211913/phpspreadsheet-select-specific-sheet-to-display-in-html)
 - [dauxio/daux.io repository - Pretty markdown documentation generator](https://github.com/dauxio/daux.io)
 - [mysqli bind-param() PHP](https://www.php.net/manual/en/mysqli-stmt.bind-param.php)
