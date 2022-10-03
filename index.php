@@ -15,8 +15,10 @@
             <hr/>
             <strong>Public Link (Click to Download Original File):</strong>
             <br/>
+            <!-- json output from post request return - moved it to console   -->
             <div id="output"></div>
-            <div id="ss"></div>
+            <!-- spreadsheet   -->
+            <div id="ss"></div> 
         </form>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script>
@@ -34,7 +36,6 @@
                     processData: false,
                 }).done(function (response) {
                     $("#uploadingmsg").html("");
-                    //$("spreadsheet_table").html("");
                     //$("#json").html(JSON.stringify(response, null, 4));
                     console.log(JSON.stringify(response, null, 4));
                     //https://storage.googleapis.com/[BUCKET_NAME]/[OBJECT_NAME]
@@ -51,32 +52,33 @@
             });  
         </script>
         <script>
-            function includeHTML(id, location) {
-                var z, i, elmnt, file, xhttp;
-                /* Loop through a collection of all HTML elements: */
-                z = document.getElementById(id);
-                    elmnt = z;
-                    /*search for elements with a certain atrribute:*/
-                    file = location;
-                    if (file) {
+            function includeHTML(id, location)  // include the html from spreadsheet file
+            {
+                var elmnt, file, xhttp;
+                elmnt = document.getElementById(id);
+                file = location;
+                if (file) 
+                {
                     /* Make an HTTP request using the attribute value as the file name: */
                     xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function() {
-                        if (this.readyState == 4) {
-                        if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-                        if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-                        /* Remove the attribute, and call this function once more: */
-                        elmnt.removeAttribute("w3-include-html");
-                        includeHTML();
+                    xhttp.onreadystatechange = function() 
+                    {
+                        if (this.readyState == 4) 
+                        {
+                            if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                            if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                            /* Remove the attribute, and call this function once more: */
+                            elmnt.removeAttribute("w3-include-html");
+                            includeHTML();
                         }
                     }
                     xhttp.open("GET", file, true);
                     xhttp.send();
                     /* Exit the function: */
                     return;
-                    }
+                }
                 
             }
-            </script>
+        </script>
     </body>
 </html>
