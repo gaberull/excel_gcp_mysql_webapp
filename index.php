@@ -44,9 +44,7 @@
                         $("#output").append('<br/><img src="https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '"/>');
                     }
                     includeHTML("ss", response.spreadsheet_location);
-                    
                 }).fail(function (data) {
-                    //TODO: create action on failed request
                     alert('ajax failed');
                 });
             });  
