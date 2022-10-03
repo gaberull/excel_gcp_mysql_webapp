@@ -91,9 +91,11 @@ if ($action == 'upload')
                     $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
                     $writer->setPreCalculateFormulas(false);
 
-                    $writer->save("uploads/test.html");
-
-                    //$message['html_spreadsheet'] = $writer->save('php://output');
+                    $html_location = "uploads/recent_spreadsheet.html";
+                    // TODO: delete this file
+                    $writer->save($html_location);
+                    $response['spreadsheet_location'] = $html_location;
+                    //$response['spreadsheet'] = $writer->save('php://output');
                     $count++;
                 }
                 $response['csv_conversion_msg'] = 'SUCCESS Converted to .csv';

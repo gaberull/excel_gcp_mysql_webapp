@@ -296,6 +296,7 @@ function get_insert_queries($csvPath, $mysqli)
     return $query_str_arr;
 }
 
+// deprecated. Not using. I believe
 function csv_to_db($csvPath, $conn)
 {
     $file = fopen($csvPath, "r");
