@@ -1,8 +1,5 @@
 # Resources
 
-- File Permissions explanation graph
-  - <img src="screenshots/file_permissions.png" alt="File Permissions Image" width="660"/>
-
 - [Include the html from an html file in a div](https://www.w3schools.com/howto/howto_html_include.asp)
 - [Changing file permissions w/ chmod - Stack Overflow](https://stackoverflow.com/questions/28886936/chmod-protect-users-file-being-accessed-so-only-owner-can-access)
 - [man page for git checkout](https://man7.org/linux/man-pages/man1/git-checkout.1.html)
@@ -53,3 +50,6 @@
 - [Import CSV to MySQL using PHP file read](https://phppot.com/php/import-csv-file-into-mysql-using-php/)
 - [mysqli->query() man page](https://www.php.net/manual/en/mysqli.query.php)
 - **[Append text into html by id - PHP](https://stackoverflow.com/questions/35886770/php-append-text-into-html-element-with-certain-id)**
+
+- File Permissions explanation graph
+  - <img src="screenshots/file_permissions.png" alt="File Permissions Image" width="660"/>
