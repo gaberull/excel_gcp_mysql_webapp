@@ -75,7 +75,6 @@
                     /* Exit the function: */
                     return;
                 }
-                
             }
         </script>
     </body>
