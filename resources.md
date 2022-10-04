@@ -1,6 +1,6 @@
 # Resources
 
-I Tried to get as most resources that I used in the list, but I missed some without a doubt
+I Tried to get as many resources as I could into the list, but I missed some without a doubt
 
 - [Ajax with PHP - LinkedIn Learning Course](https://www.linkedin.com/learning/ajax-with-php-add-dynamic-content-to-websites/update-page-on-change?autoplay=true&resume=false)
 - [Include the html from an html file in a div](https://www.w3schools.com/howto/howto_html_include.asp)
