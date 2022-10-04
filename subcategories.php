@@ -10,7 +10,9 @@ $categories = [
     'id' => 2, 'name' => 'Display Employee Data', 'subcategories' => [
       ['id' => 1, 'name' => 'Active Employees Only'],
       ['id' => 2, 'name' => 'Inactive Employees Only'],
-      ['id' => 3, 'name' => 'All Employees']
+      ['id' => 3, 'name' => 'Upcoming Birthday Employees'],
+      ['id' => 4, 'name' => 'All Employees']
+      
     ]
   ],
   [
@@ -28,7 +30,7 @@ $categories = [
     {
         if($category['id'] == $category_id) 
         {
-            // Code when this id matched requested id
+            // Code when this id matches requested id
             $subcategories = $category['subcategories'];
             foreach($subcategories as $subcategory) 
             {
