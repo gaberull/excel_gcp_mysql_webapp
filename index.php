@@ -5,6 +5,7 @@
         <link rel="icon" type="image/x-icon" href="/asset/img/parser_favicon.png">
     </head>
     <body>
+        // TODO: change this form to dropdown menu
         <form id="fileUploadForm" method="post" enctype="multipart/form-data">
             <input type="file" name="file" accept=".xlsx"/>  
             <input type="submit" name="upload" value="Upload"/>
