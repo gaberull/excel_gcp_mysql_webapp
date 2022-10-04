@@ -2,16 +2,7 @@
     <head>
         <meta charset="UTF-8">
         <title>GCP Storage File Upload using PHP</title>
-        <style>
-            #subcategory-select {
-                display: none;
-            }
-            #fileUploadForm {
-                display: none;
-            }
-            
-             
-        </style>
+        <link href="style.css" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="/asset/img/parser_favicon.png">
     </head>
     <body>

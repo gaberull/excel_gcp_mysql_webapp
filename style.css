@@ -1,0 +1,9 @@
+/*  make category selector invisible at load */
+#subcategory-select {
+    display: none;
+}
+
+/*  make upload form invisible at load */
+#fileUploadForm {
+    display: none;
+}
