@@ -1,4 +1,4 @@
-# Excel to CSV File Converter, MySQL DB Uploader, and Email Scheduler
+# Excel to CSV File Converter, MySQL DB Uploader/Viewer, and Email Scheduler
 
 **Summary:**
 
