@@ -2,10 +2,31 @@
     <head>
         <meta charset="UTF-8">
         <title>GCP Storage File Upload using PHP</title>
+        <style>
+            #subcategory-select {
+                display: none;
+            }
+            #fileUploadForm {
+                display: none;
+            }
+            
+             
+        </style>
         <link rel="icon" type="image/x-icon" href="/asset/img/parser_favicon.png">
     </head>
     <body>
-        // TODO: change this form to dropdown menu
+        <div id="form">
+            <strong>Which Action would you like to take?</strong><br><br>
+            <select id="category-select">
+                <option disabled selected>select option</option>
+                <option value="1">Upload Employee File to DB</option>
+                <option value="2">Display Employee Data</option>
+                <option disabled value="3">Query Database</option>
+            </select>
+            <select id="subcategory-select">
+            </select>
+        </div>
+        <br><br><br>
         <form id="fileUploadForm" method="post" enctype="multipart/form-data">
             <input type="file" name="file" accept=".xlsx"/>  
             <input type="submit" name="upload" value="Upload"/>
@@ -21,6 +42,42 @@
             <!-- spreadsheet   -->
             <div id="ss"></div> 
         </form>
+        <script>
+            function updateSubcategories() 
+            {
+                var cat_select = document.getElementById("category-select");
+                var subcat_select = document.getElementById("subcategory-select");
+                var upload_form = document.getElementById("fileUploadForm");
+
+                var cat_id = cat_select.options[cat_select.selectedIndex].value;
+                if (cat_select.selectedIndex == 1)
+                {
+                    upload_form.style.display = 'inline';
+                }
+                else
+                {
+                    upload_form.style.display = 'none';
+                }
+
+                var url = 'subcategories.php?category_id=' + cat_id;
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.onreadystatechange = function () 
+                {
+                    if(xhr.readyState == 4 && xhr.status == 200) 
+                    {
+                        subcat_select.innerHTML = xhr.responseText;
+                        subcat_select.style.display = 'inline';
+                    }
+                }
+                xhr.send();
+            }
+
+            var cat_select = document.getElementById("category-select");
+            cat_select.addEventListener("change", updateSubcategories);
+
+        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script>
             $("#fileUploadForm").submit(function (e) {
@@ -46,7 +103,7 @@
                     }
                     includeHTML("ss", response.spreadsheet_location);
                 }).fail(function (data) {
-                    alert('ajax failed');
+                    alert('ajax failed. Likely the excel file is not correct format');
                 });
             });  
         </script>
