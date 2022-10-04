@@ -2,23 +2,22 @@
 
 **Summary:**
 
-Upload spreadsheet of employee records to a MySQL database on running on a GCP Server, and automate the scheduling of outgoing "happy birthday" emails to the employees
+Upload spreadsheet of employee records to a MySQL database on running on a GCP Server, View employee data in the database, and automate the scheduling of outgoing "happy birthday" emails to the employees
 
 ## Complete List of Tasks Performed by this App
 
 - Uploads an excel file (.xlsx) to a Google cloud storage bucket using Google Storage API calls, PHP code, and ajax POST request
-- Sends POST request to Apache2 web server back-end containing action to perform, using API key authorization
-- Downloads .xlsx file to Apache local folder for processing on Google Cloud Compute Engine VM server from Google Cloud Storage bucket
+- Sends POST request to Apache2 web server containing action to perform, using API key authorization
+- Downloads .xlsx file to GCP local folder for processing on Google Cloud Compute Engine VM server from Google Cloud Storage bucket
 - Converts Excel file to .csv file according to chosen formatting specifications
-- Imports .csv file into hosted MySQL database
+- Imports parsed data from .csv file into hosted MySQL database
   - Authenticates user and grants permission to use and change the MySQL database
-- Returns POST request containing file upload metadata, various success/fail messages, and new file locations
-- Displays the data from the spreadsheet file in the ```index.php``` page
-  - ***Possibly formatted using spreadsheets.js (not implemented as of yet)***
+- Return from POST request contains file upload metadata, various success/fail messages, the individual SQL queries executed, and new file locations
+- Displays the data from the spreadsheet file in the ```index.php``` page in the client browser
 - Schedules and automates sending of SMTP emails with to go out to employees wishing them a happy birthday a few days before their birth-date
 - Updates database of employees when new files are uploaded, or when employee info changes (roughly once per month)
   - Prior to upload of up-to-date employee spreadsheet, a query is run to mark all employees in the MySQL database as "inactive" employees
-  - Then the database records are updated and marked as "active" once again as each entry in the spreadsheet is inserted or re-inserted into the MySQL database. This is accomplished with a REPLACE statement like the following:
+  - Then the database records are updated and marked with "active=TRUE" once again as each entry in the spreadsheet is inserted or re-inserted into the MySQL database. This is accomplished with a REPLACE statement like the following:
 
     ```sql
     REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?,?,?,?,?,?,?,?,?,?);
