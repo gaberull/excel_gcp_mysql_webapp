@@ -43,21 +43,21 @@ I have been learning PHP on the fly on this project, having never worked with it
 **Notes to Self:**
 
 - Important file directory structure info can be found in 
-- Apache2 publicly hosted files are in ```/var/www/html/``` on webserver
-- API Key, DB credentials are in ```/var/www/keys/``` in the form of json
-- File Upload script requires ```/var/www/vendor/``` (created with Composer for php)
+- Apache2 publicly hosted files are in ```/var/www/boolsa.io/html``` on webserver
+- API Key, DB credentials are in ```/var/www/boolsa.io/keys/``` in the form of json
+- File Upload script requires ```/var/www/boolsa.io/vendor/``` (created with Composer for php)
   - ***Should not be publicly visible***
 - Apache2 php.ini file is located at ```/etc/php/8.1/apache2/php.ini```
-  - This is separate from ubuntu php.ini file which is located at ```/etc/php/8.1/cli/php.ini``` 
+  - This is separate from ubuntu php.ini file which is located at ```/etc/php/8.1/cli/php.ini```
     - conf.d file is located at ```/etc/php/8.1/cli/conf.d```
   - Enabled extension=myslqi here by uncommenting line after searching in vim with ```ls ./ | grep php```
-- Working with GCP from command line is made very easy in VSCode bash terminal with the GCP extension. Makes it easy to SCP files to VM
+- Working with GCP from command line is made very easy in VSCode bash terminal with the GCP extension. Makes it easy to SCP files in to the VM
 
 ## Installation Instructions
 
 **Initial Notes:**
 
-- The files in this repository are not *currently* organized according in the same structure as they are on my server, and thus one cannot simply clone this repository and expect it to work correctly. 
+- The files in this repository are not *currently* organized according in the same structure as they are on my server, and thus one cannot simply clone this repository and expect it to work correctly
   - Throughout my server-side development process, I have been peforming an SCP every time I wanted to push changes to the server rather than just pushing/pulling from my git repo
 - To set up the correct directory organization perform the following steps
   - For the sake of simplicity, I'm going to work with the assumption that you already have a working Apache2 webserver running on a GCP Compute Engine virtual machine - *clearly a big assumption*
@@ -98,6 +98,8 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
+- [ ] See about moving style.css out of html folder in GCP VM
+- [ ] Add buttons for download to csv, download as xslx when viewing db data set
 - [ ] Rename repository "Spreadsheet Emailer" ?
 - [ ] Style app main webpage
 - [ ] Finish steps for one to replicate what I did to set it up
