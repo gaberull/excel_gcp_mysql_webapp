@@ -48,20 +48,9 @@
                 var cat_select = document.getElementById("category-select");
                 var subcat_select = document.getElementById("subcategory-select");
                 var upload_form = document.getElementById("fileUploadForm");
-
                 var cat_id = cat_select.options[cat_select.selectedIndex].value;
-                //if (cat_select.selectedIndex == 1)
-                //{
-                    // display upload form if on right selection
-                //    upload_form.style.display = 'inline';
-                //}
-                //else
-                //{
-                //    upload_form.style.display = 'none';
-                //}
-
+                
                 var url = 'subcategories.php?category_id=' + cat_id;
-
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', url, true);
                 xhr.onreadystatechange = function () 
@@ -79,15 +68,12 @@
                             upload_form.style.display = 'none';
                             subcat_select.style.display = 'inline';
                         }
-                        
                     }
                 }
                 xhr.send();
             }
-
             var cat_select = document.getElementById("category-select");
             cat_select.addEventListener("change", updateSubcategories);
-
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script>
