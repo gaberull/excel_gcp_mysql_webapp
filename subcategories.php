@@ -1,4 +1,5 @@
 <?php
+// Categories for upload menu options
 $categories = [
   [
     'id' => 1, 'name' => 'Upload Employee File to DB', 'subcategories' => [
@@ -40,5 +41,4 @@ $categories = [
             }
         }
     }
-
 ?>
