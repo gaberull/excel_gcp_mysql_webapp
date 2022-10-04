@@ -19,8 +19,8 @@
             <strong>Which Action would you like to take?</strong><br><br>
             <select id="category-select">
                 <option disabled selected>select option</option>
-                <option value="1">Upload Employee File to DB</option>
-                <option value="2">Display Employee Data</option>
+                <option value="1">Upload Employee Spreadsheet to DB</option>
+                <option value="2">Display Employee Data in Browser</option>
                 <option disabled value="3">Query Database</option>
             </select>
             <select id="subcategory-select">
@@ -33,7 +33,7 @@
             <span id="uploadingmsg"></span>
             <hr/>
                 <strong>Response (JSON)</strong>
-                <pre id="json">json response will be shown here</pre>
+                <pre id="json">json response will be shown here. If not, look in console.</pre>
             <hr/>
             <strong>Public Link (Click to Download Original File):</strong>
             <br/>
@@ -50,14 +50,15 @@
                 var upload_form = document.getElementById("fileUploadForm");
 
                 var cat_id = cat_select.options[cat_select.selectedIndex].value;
-                if (cat_select.selectedIndex == 1)
-                {
-                    upload_form.style.display = 'inline';
-                }
-                else
-                {
-                    upload_form.style.display = 'none';
-                }
+                //if (cat_select.selectedIndex == 1)
+                //{
+                    // display upload form if on right selection
+                //    upload_form.style.display = 'inline';
+                //}
+                //else
+                //{
+                //    upload_form.style.display = 'none';
+                //}
 
                 var url = 'subcategories.php?category_id=' + cat_id;
 
@@ -68,7 +69,17 @@
                     if(xhr.readyState == 4 && xhr.status == 200) 
                     {
                         subcat_select.innerHTML = xhr.responseText;
-                        subcat_select.style.display = 'inline';
+                        if(cat_select.selectedIndex == 1)
+                        {
+                            upload_form.style.display = 'inline';
+                            subcat_select.style.display = 'none';
+                        }
+                        else
+                        {
+                            upload_form.style.display = 'none';
+                            subcat_select.style.display = 'inline';
+                        }
+                        
                     }
                 }
                 xhr.send();
