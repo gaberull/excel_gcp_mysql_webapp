@@ -1,5 +1,6 @@
 # Resources
 
+- [Ajax with PHP - LinkedIn Learning Course](https://www.linkedin.com/learning/ajax-with-php-add-dynamic-content-to-websites/update-page-on-change?autoplay=true&resume=false)
 - [Include the html from an html file in a div](https://www.w3schools.com/howto/howto_html_include.asp)
 - [Changing file permissions w/ chmod - Stack Overflow](https://stackoverflow.com/questions/28886936/chmod-protect-users-file-being-accessed-so-only-owner-can-access)
 - [man page for git checkout](https://man7.org/linux/man-pages/man1/git-checkout.1.html)
