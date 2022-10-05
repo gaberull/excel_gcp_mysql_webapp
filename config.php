@@ -258,7 +258,7 @@ function get_insert_queries($csvPath, $mysqli)
                     if($pos !== false)
                     {
                         $value = trim($value, "'\x2A \n\r\t\v\x00");    // trim single quotes
-                        $tok = strtok($value, "/"); // gives '1984' OR '01' - never '09'
+                        $tok = strtok($value, "/"); // from 01/09/1984 OR 1984/01/09 this gives '1984' OR '01' - never '09'
                         if(strlen($tok)>3)  // length of 4. First token is year
                         {
                             $year = $tok;
@@ -294,6 +294,65 @@ function get_insert_queries($csvPath, $mysqli)
     // return true If every single write to DB was successful (Could still have written on false)
     //return $mysqli; 
     return $query_str_arr;
+}
+
+/**
+ *  Get Database Table Columns 
+ * 
+ *  @return - false on failure, string on success 
+ */
+function get_col_names($mysqli)
+{
+    $sql = 'SHOW COLUMNS FROM employees';
+    $res = $mysqli->query($sql);
+    while($row = $res->fetch_assoc()){
+        $columns[] = $row['Field'];
+    }
+    return $columns;    //TODO: return false if !$columns
+}
+
+/**
+ *  
+ */
+function db_to_str($mysqli)
+{
+    $columns = get_col_names($mysqli);
+    $num_rows = count($columns);
+    $sql = "SELECT * FROM employees ORDER BY last_name";
+    //$rows = $result->fetch_all(MYSQLI_ASSOC);
+    if($result = mysqli_query($mysqli, $sql))
+    {
+        if(mysqli_num_rows($result) > 0)
+        {
+            echo "<table>"; 
+                echo "<tr>";
+                    for($i=0; $i<$num_rows; $i++)
+                    {
+                        echo "<th>$columns[$i]</th>";
+                    }
+                echo "</tr>";
+                while($row = mysqli_fetch_array($result))
+                {
+                        echo "<tr>";
+                        for($i=0; $i<$num_rows; $i++)
+                        {
+                            echo "<td>$row[$i]</td>";
+                        }
+                        echo "</tr>";
+                }
+            echo "</table>";  
+            mysqli_free_result($result);    
+        }
+        else
+        {
+            echo json_encode($columns);
+        }
+    }
+    else
+    {
+        echo "ERROR - end of db_to_str()";
+    }
+    return;
 }
 
 // deprecated. Not using. I believe

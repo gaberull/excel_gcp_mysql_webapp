@@ -6,7 +6,7 @@
         <link rel="icon" type="image/x-icon" href="/asset/img/parser_favicon.png">
     </head>
     <body>
-        <div id="form">
+        <div id="option-form">
             <strong>Which Action would you like to take?</strong><br><br>
             <select id="category-select">
                 <option disabled selected>select option</option>
@@ -14,8 +14,15 @@
                 <option value="2">Display Employee Data in Browser</option>
                 <option disabled value="3">Query Database</option>
             </select>
-            <select id="subcategory-select">
-            </select>
+            <select id="subcategory-select"></select>
+            <button id="submit-btn" type="button">Submit</button>
+            
+        </div>
+        <div id="db-response-form">
+            <hr/>
+                <strong>Response (Database Table)</strong>
+                <div id="db_out">Database will populate here</div>
+            <hr/>
         </div>
         <br><br><br>
         <form id="fileUploadForm" method="post" enctype="multipart/form-data">
@@ -40,6 +47,8 @@
                 var subcat_select = document.getElementById("subcategory-select");
                 var upload_form = document.getElementById("fileUploadForm");
                 var cat_id = cat_select.options[cat_select.selectedIndex].value;
+                var submit_btn = document.getElementById("submit-btn");
+                submit_btn.style.display = 'none';
                 
                 var url = 'subcategories.php?category_id=' + cat_id;
                 var xhr = new XMLHttpRequest();
@@ -49,15 +58,18 @@
                     if(xhr.readyState == 4 && xhr.status == 200) 
                     {
                         subcat_select.innerHTML = xhr.responseText;
-                        if(cat_select.selectedIndex == 1)
+                        if(cat_select.selectedIndex == 1)   //upload file selected
                         {
                             upload_form.style.display = 'inline';
                             subcat_select.style.display = 'none';
+                            document.getElementById("db-response-form").display = 'none';
+
                         }
-                        else
+                        else   // pull from database selected (currently only other option)
                         {
                             upload_form.style.display = 'none';
                             subcat_select.style.display = 'inline';
+                            document.getElementById("db-response-form").display = 'inline';
                         }
                     }
                 }
@@ -65,6 +77,31 @@
             }
             var cat_select = document.getElementById("category-select");
             cat_select.addEventListener("change", updateSubcategories);
+            var submit_btn = document.getElementById("submit-btn");
+
+            var subcat_select = document.getElementById("subcategory-select");
+            subcat_select.addEventListener("change", function(){
+                document.getElementById("submit-btn").style.display = 'inline';
+            });
+            
+            submit_btn.addEventListener("click", function(){
+                var url = 'requests.php?action=get_database';
+                var xhr = new XMLHttpRequest();
+                var out = document.getElementById("db_out");
+                out.innerHTML = "";
+                document.getElementById("db-response-form").display = 'inline';
+                xhr.open('GET', url, true);
+                xhr.onreadystatechange = function () 
+                {
+                    if(xhr.readyState == 4 && xhr.status == 200) 
+                    {
+                        out.innerHTML = xhr.responseText;
+                        console.log(xhr.responseText);
+                    }
+                }
+                xhr.send();
+            });
+
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script>

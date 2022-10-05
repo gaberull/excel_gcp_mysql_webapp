@@ -7,3 +7,14 @@
 #fileUploadForm {
     display: none;
 }
+
+#submit-btn
+{
+    display: none;
+}
+/*
+#db-response-form
+{
+    display: none;
+}
+*/
