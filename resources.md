@@ -2,6 +2,9 @@
 
 I Tried to get as many resources as I could into the list, but I missed some without a doubt
 
+- [Update primary key on MySQL Table - Stack Overflow](https://stackoverflow.com/questions/2341576/updating-mysql-primary-key)
+- [Modify MySQL column to allow null value - Stack Overflow](https://stackoverflow.com/questions/212939/how-do-i-modify-a-mysql-column-to-allow-null)
+- [HTML Table border styling - W3Schools](https://www.w3schools.com/html/html_table_borders.asp)
 - [Echo PHP docs](https://www.php.net/manual/en/function.echo.php)
 - [MySQLi tutorial](https://www.tutorialrepublic.com/php-tutorial/php-mysql-select-query.php)
 - [Ajax with PHP - LinkedIn Learning Course](https://www.linkedin.com/learning/ajax-with-php-add-dynamic-content-to-websites/update-page-on-change?autoplay=true&resume=false)
