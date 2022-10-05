@@ -26,13 +26,11 @@ Upload spreadsheet of employee records to a MySQL database on running on a GCP S
 
 ## Future Functionality (Still in Progress)
 
-As of 9/29/22:
+As of 10/5/22:
 
-- Printout of current database of employees
 - More secure user authentification and authorization to upload to, access Google Cloud Storage bucket
 - Scheduling of SMTP emails to go out to employees prior to their birthday
 - Functions avilable in the user interface to query the database
-- Styling of main page
 - Change primary key from email to combination of first and last names
   - Currently 'email' is primary key because it is guaranteed to be unique, however the company could potentially not have the email address of an employee on file
 
@@ -98,10 +96,11 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
+- [ ] maybe color code by position
+- [ ] Calendar visual aide with birthdays on it could be nice - show 2 months (this,next)
 - [ ] See about moving style.css out of html folder in GCP VM
-- [ ] Add buttons for download to csv, download as xslx when viewing db data set
+- [ ] Add buttons for download to csv, download as xslx after populating database table
 - [ ] Rename repository "Spreadsheet Emailer" ?
-- [ ] Style app main webpage
 - [ ] Finish steps for one to replicate what I did to set it up
 - [ ] Consider changing user verification method to OAuth2
 - [ ] Figure out which open-source license to add to this project before making repository public
@@ -115,9 +114,12 @@ I have been learning PHP on the fly on this project, having never worked with it
 - [ ] Change mysql db user info for user www-data
 - [ ] Read PhpSpreadsheet open-source license and see if attribution is needed in documentation somewhere
 - [ ] Look into the possibility of encrypting sensitive files (GCP Secret API key)
+- [x] Style app main webpage
+  - [ ] Could use more styling
 - [x] Hide MySQL DB credentials
   - [ ] *Encrypt credentials on GCP VM ?*
   - [ ] Double check that this is not accessible from outside
+- [x] Add ability to print data from MySQL database
 - [x] Successfully handle connecting to MySQL DB
 - [x] Handle conversion from xlsx to csv
 - [x] Trim .csv entries before adding to mysql query strings
