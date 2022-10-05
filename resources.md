@@ -2,6 +2,7 @@
 
 I Tried to get as many resources as I could into the list, but I missed some without a doubt
 
+- [Primary key question - Stack Overflow](https://stackoverflow.com/questions/34371842/is-a-primary-key-necessary)
 - [Update primary key on MySQL Table - Stack Overflow](https://stackoverflow.com/questions/2341576/updating-mysql-primary-key)
 - [Modify MySQL column to allow null value - Stack Overflow](https://stackoverflow.com/questions/212939/how-do-i-modify-a-mysql-column-to-allow-null)
 - [HTML Table border styling - W3Schools](https://www.w3schools.com/html/html_table_borders.asp)
