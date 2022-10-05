@@ -119,6 +119,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 - [x] Hide MySQL DB credentials
   - [ ] *Encrypt credentials on GCP VM ?*
   - [ ] Double check that this is not accessible from outside
+- [x] Add date to uploaded xlsx files for storage
 - [x] Add ability to print data from MySQL database
 - [x] Successfully handle connecting to MySQL DB
 - [x] Handle conversion from xlsx to csv
