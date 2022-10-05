@@ -207,13 +207,7 @@ function get_insert_queries($csvPath, $mysqli)
     $query = "UPDATE employees SET active=FALSE;";
     //$result_str = '';
     $result = $mysqli->query($query);
-    //$error_str = '';
-    
-    //$result_str .= $result;
-    //$error_str .= $mysqli->error;
-    //if(strlen($error_str)>0) return $error_str;
     $fields = array("first_name", "last_name", "start_date", "date_of_birth", "address", "email", "phone_number", "schedule", "position", "active");
-    //$fields_str = "first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active";
     $fields_assoc = array("first_name" => null, "last_name" => null, "start_date" =>null , "date_of_birth" =>null, "address" =>null, "email" =>null, "phone_number" =>null, "schedule" =>null, "position" =>null, "active" =>1);
     //$stmt = mysqli_prepare($mysqli, "REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $row = 0;
@@ -288,11 +282,6 @@ function get_insert_queries($csvPath, $mysqli)
         $row++;
     }
     fclose($fp);
-    //$fetch_query = "SELECT first_name, email, address FROM employees;";
-    //$fetch_query = "SELECT COUNT(email) FROM employees;";
-    //$result_str = $mysqli->query($fetch_query);
-    // return true If every single write to DB was successful (Could still have written on false)
-    //return $mysqli; 
     return $query_str_arr;
 }
 
@@ -312,9 +301,9 @@ function get_col_names($mysqli)
 }
 
 /**
- *  
+ *  Get full html for table populated from database
  */
-function db_to_str($mysqli)
+function pull_database($mysqli) 
 {
     $columns = get_col_names($mysqli);
     $num_rows = count($columns);
@@ -350,7 +339,7 @@ function db_to_str($mysqli)
     }
     else
     {
-        echo "ERROR - end of db_to_str()";
+        echo "ERROR - end of pull_database()";
     }
     return;
 }

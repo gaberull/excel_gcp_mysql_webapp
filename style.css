@@ -8,13 +8,12 @@
     display: none;
 }
 
-#submit-btn
-{
+/*  submit button after categories hidden at load */
+#submit-btn {
     display: none;
 }
-/*
-#db-response-form
-{
+
+/*  db-response form hidden at load */
+#db-response-form {
     display: none;
 }
-*/

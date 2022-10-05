@@ -147,6 +147,6 @@ if ($action == 'upload')
 else if ($action == 'get_database')
 {
     $mysqli = connectToDB();
-    echo db_to_str($mysqli);
+    echo pull_database($mysqli);
     exit();
 }

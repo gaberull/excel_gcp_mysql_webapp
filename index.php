@@ -18,13 +18,18 @@
             <button id="submit-btn" type="button">Submit</button>
             
         </div>
+        <br>
+        <!-- Database response form (table) -->
         <div id="db-response-form">
             <hr/>
                 <strong>Response (Database Table)</strong>
-                <div id="db_out">Database will populate here</div>
+                <br><br>
+                <div id="db_out">Database data will populate here</div>
+                <br>
             <hr/>
         </div>
         <br><br><br>
+        <!-- File upload form (also holds response from post request) -->
         <form id="fileUploadForm" method="post" enctype="multipart/form-data">
             <input type="file" name="file" accept=".xlsx"/>  
             <input type="submit" name="upload" value="Upload"/>
@@ -49,6 +54,7 @@
                 var cat_id = cat_select.options[cat_select.selectedIndex].value;
                 var submit_btn = document.getElementById("submit-btn");
                 submit_btn.style.display = 'none';
+                var db_response = document.getElementById("db-response-form");
                 
                 var url = 'subcategories.php?category_id=' + cat_id;
                 var xhr = new XMLHttpRequest();
@@ -62,14 +68,14 @@
                         {
                             upload_form.style.display = 'inline';
                             subcat_select.style.display = 'none';
-                            document.getElementById("db-response-form").display = 'none';
+                            db_response.style.display = 'none';
 
                         }
                         else   // pull from database selected (currently only other option)
                         {
                             upload_form.style.display = 'none';
                             subcat_select.style.display = 'inline';
-                            document.getElementById("db-response-form").display = 'inline';
+                            db_response.style.display = 'inline';
                         }
                     }
                 }
@@ -88,8 +94,6 @@
                 var url = 'requests.php?action=get_database';
                 var xhr = new XMLHttpRequest();
                 var out = document.getElementById("db_out");
-                out.innerHTML = "";
-                document.getElementById("db-response-form").display = 'inline';
                 xhr.open('GET', url, true);
                 xhr.onreadystatechange = function () 
                 {
