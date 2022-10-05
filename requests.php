@@ -12,8 +12,13 @@ if ($action == 'upload')
         // get local file for upload testing
         $fileContent = file_get_contents($_FILES['file']['tmp_name']);
         
-        // NOTE: if 'folder' or 'tree' is not exist then it will be automatically created !
-        $cloudPath = 'uploads/' . $_FILES['file']['name'];
+        // Add date to filename in order to save changes over time in GCS bucket
+        $path = $_FILES['file']['name'];
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
+        $base = pathinfo($path, PATHINFO_FILENAME);
+        $name = $base. '_' . date("Y-m-d"). '.' . $ext;
+
+        $cloudPath = 'uploads/' . $name;
         $isSucceed = uploadFile($bucketName, $fileContent, $cloudPath);
 
         if ($isSucceed == true) 
