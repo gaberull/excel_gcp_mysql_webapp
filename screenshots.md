@@ -10,7 +10,7 @@ DESCRIBE employees;
 
 ----------
 
-![Describe employees](screenshots/describe_employees.png)
+![Describe employees table](screenshots/describe.jpg)
 
 **Query:**
 
