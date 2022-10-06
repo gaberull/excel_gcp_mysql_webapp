@@ -2,6 +2,8 @@
 
 I Tried to get as many resources as I could into the list, but I missed some without a doubt
 
+- [Employees NOT IN a set MySQL - Stack Overflow](https://stackoverflow.com/questions/4545742/to-take-out-those-dept-who-has-no-employees-assigned-to-it)
+- [Select Upcoming birthdays MySQL - Stack Overflow](https://stackoverflow.com/questions/18747853/mysql-select-upcoming-birthdays)
 - [Add date to upload filename in PHP - Stack Overflow](https://stackoverflow.com/questions/21908274/add-date-time-to-uploaded-filenames-in-php)
 - [Primary key question - Stack Overflow](https://stackoverflow.com/questions/34371842/is-a-primary-key-necessary)
 - [Update primary key on MySQL Table - Stack Overflow](https://stackoverflow.com/questions/2341576/updating-mysql-primary-key)

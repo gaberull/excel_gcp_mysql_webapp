@@ -96,6 +96,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
+- [ ] Create screen recording gif of web application in action (don't use sensitive data)
 - [ ] maybe color code by position
 - [ ] Calendar visual aide with birthdays on it could be nice - show 2 months (this,next)
 - [ ] See about moving style.css out of html folder in GCP VM
