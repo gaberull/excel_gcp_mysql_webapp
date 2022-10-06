@@ -16,11 +16,10 @@ $categories =
       ['id' => 3, 'name' => 'Inactive Employees Only'],
       ['id' => 4, 'name' => 'Upcoming Birthdays', 'subcategories' => 
         [
-          ['id' => 1, 'name' => 'Select Option'],
-          ['id' => 2, 'name' => '7 days'],
-          ['id' => 3, 'name' => '14 days'],
-          ['id' => 4, 'name' => '30 days'],
-          ['id' => 5, 'name' => '60 days']
+          ['id' => 1, 'name' => '7 days out'],
+          ['id' => 2, 'name' => '14 days out'],
+          ['id' => 3, 'name' => '30 days out'],
+          ['id' => 4, 'name' => '60 days out']
         ],
       ],
       ['id' => 5, 'name' => 'All Employees']
@@ -86,9 +85,9 @@ else if(isset($_GET['subcategory_id']))
                     $subsubcategories = $subcategory['subcategories'];
                     foreach($subsubcategories as $subsubcategory)
                     {
-                      if($subsubcategory['name'] == 'Select Option')
+                      if($subsubcategory['id'] == 1)
                       {
-                          echo "<option disabled selected value=\"{$subsubcategory['id']}\">";
+                          echo "<option selected value=\"{$subsubcategory['id']}\">";
                           echo $subsubcategory['name'];
                           echo "</option>";
                       }
