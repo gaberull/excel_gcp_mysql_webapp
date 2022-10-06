@@ -344,6 +344,11 @@ function pull_database($mysqli)
     return;
 }
 
+function get_upcoming_bdays($mysqli)
+{
+    return;
+}
+
 // deprecated. Not using. I believe
 function csv_to_db($csvPath, $conn)
 {

@@ -15,6 +15,7 @@
                 <option disabled value="3">Query Database</option>
             </select>
             <select id="subcategory-select"></select>
+            <select id="subsubcategory-select"></select>
             <button id="submit-btn" type="button">Submit</button>
             
         </div>
@@ -81,14 +82,45 @@
                 }
                 xhr.send();
             }
+            function updateSubSubcategories() 
+            {
+                // TODO: remove this from updatesubcategories() and have it just here
+                var submit_btn =  document.getElementById("submit-btn");
+                submit_btn.style.display = 'inline';
+
+                var cat_id = cat_select.options[cat_select.selectedIndex].value;
+                var subcat_select = document.getElementById("subcategory-select");
+                var subcat_id = subcat_select.options[subcat_select.selectedIndex].value;
+                var db_response = document.getElementById("db-response-form");
+                var subsubcat_select = document.getElementById("subsubcategory-select");
+
+                var url = 'subcategories.php?subcategory_id=' + cat_id + ',' + subcat_id;
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.onreadystatechange = function () 
+                {
+                    if(xhr.readyState == 4 && xhr.status == 200) 
+                    {
+                        console.log(xhr.responseText);
+                        subsubcat_select.innerHTML = xhr.responseText;
+                        if(subcat_select.selectedIndex == 3)   //upcoming birthdays
+                        {
+                            subsubcat_select.style.display = 'inline';
+                        }
+                        else
+                        {
+                            subsubcat_select.style.display = 'none';
+                        }
+                    }
+                }
+                xhr.send();
+            }
             var cat_select = document.getElementById("category-select");
             cat_select.addEventListener("change", updateSubcategories);
             var submit_btn = document.getElementById("submit-btn");
 
             var subcat_select = document.getElementById("subcategory-select");
-            subcat_select.addEventListener("change", function(){
-                document.getElementById("submit-btn").style.display = 'inline';
-            });
+            subcat_select.addEventListener("change", updateSubSubcategories);
             
             submit_btn.addEventListener("click", function(){
                 var url = 'requests.php?action=get_database';

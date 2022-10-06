@@ -3,6 +3,10 @@
     display: none;
 }
 
+#subsubcategory-select {
+    display: none;
+}
+
 /*  make upload form invisible at load */
 #fileUploadForm {
     display: none;
