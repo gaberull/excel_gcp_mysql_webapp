@@ -1,5 +1,6 @@
 <?php
 include_once 'config.php';
+//include_once 'subcategories.php';
 
 $action = filter_var(trim($_REQUEST['action']), FILTER_SANITIZE_STRING);
 if ($action == 'upload') 
@@ -38,7 +39,8 @@ if ($action == 'upload')
                 $name = 'employees';
                 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
                 //$reader->setReadDataOnly(false);
-                $reader->setReadDataOnly(false);
+                //$reader->setReadDataOnly(false);
+                $reader->setReadEmptyCells(false);
 
                 //Get all sheets in file
                 $sheets = $reader->listWorksheetNames($localPath);
@@ -53,9 +55,10 @@ if ($action == 'upload')
                     $reader->setLoadSheetsOnly([$sheet]);
                     //$reader->setReadDataOnly(true);
                     $spreadsheet = $reader->load($localPath);
-/*
+
                     //trim(iconv("UTF-8","ISO-8859-1",$sheet->getCell('B'.$row )->getValue())," \t\n\r\0\x0B\xA0");
-                    $worksheet = $spreadsheet->getActiveSheet();
+                    
+                    $worksheet = $spreadsheet->getSheet(0);
                     foreach ($worksheet->getRowIterator() as $row) {
                         $cellIterator = $row->getCellIterator();
                         $cellIterator->setIterateOnlyExistingCells(TRUE); // This loops through all cells,
@@ -72,7 +75,6 @@ if ($action == 'upload')
                             //trim(utf8_decode($temp)," \t\n\r\0\x0B\xA0");
                         }
                     }
-*/
 
                     $spreadsheet->getActiveSheet()->getStyle('C:C')
                         ->getNumberFormat()
@@ -94,6 +96,7 @@ if ($action == 'upload')
                     $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
                     $writer->setPreCalculateFormulas(false);
 
+                    // TODO: possibly do a trim before save to html
                     $html_location = "uploads/recent_spreadsheet.html";
                     // TODO: delete this file
                     $writer->save($html_location);
@@ -149,9 +152,40 @@ if ($action == 'upload')
     echo json_encode($response);
     exit();
 }
-else if ($action == 'get_database')
+else  // $action == <subcategory>,<sub-subcategory>
 {
+    $input_exploded = explode(',', $action);
+    $subcat_id = $input_exploded[0];
+    $subsubcat_id = $input_exploded[1];
     $mysqli = connectToDB();
-    echo pull_database($mysqli);
+
+    switch ($subcat_id) 
+    {
+        case 2:     // only active employees
+            echo get_active_employees($mysqli, true);
+            break;
+
+        case 3:     // only inactive employees
+            echo get_active_employees($mysqli, false);
+            break;
+
+        case 4:         // upcoming birthdays
+            $num_days = 7; // default choice of 7 days
+            // bday is 14 days out
+            if ($subsubcat_id == 2) $num_days = 14;
+             // bday is 30 days out
+            else if ($subsubcat_id == 3) $num_days = 30;
+                // bday is 60 days out
+            else if ($subsubcat_id == 4) $num_days = 60;
+
+            echo get_birthdays($mysqli, $num_days);
+            break;
+        
+        default:        // all employees
+            echo pull_database($mysqli);
+
+            break;
+    }
+    $mysqli->close();
     exit();
 }

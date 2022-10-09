@@ -25,7 +25,7 @@
             <hr/>
                 <strong>Response (Database Table)</strong>
                 <br><br>
-                <div id="db_out">Database data will populate here</div>
+                <div id="db-out">Database data will populate here</div>
                 <br>
             <hr/>
         </div>
@@ -51,6 +51,7 @@
             {
                 var cat_select = document.getElementById("category-select");
                 var subcat_select = document.getElementById("subcategory-select");
+                var subsubcat_select = document.getElementById("subsubcategory-select");
                 var upload_form = document.getElementById("fileUploadForm");
                 var cat_id = cat_select.options[cat_select.selectedIndex].value;
                 var submit_btn = document.getElementById("submit-btn");
@@ -70,6 +71,7 @@
                             upload_form.style.display = 'inline';
                             subcat_select.style.display = 'none';
                             db_response.style.display = 'none';
+                            subsubcat_select.style.display = 'none';
 
                         }
                         else   // pull from database selected (currently only other option)
@@ -88,17 +90,19 @@
                 var submit_btn =  document.getElementById("submit-btn");
                 submit_btn.style.display = 'inline';
 
+                var cat_select = document.getElementById("category-select");
                 var cat_id = cat_select.options[cat_select.selectedIndex].value;
+
                 var subcat_select = document.getElementById("subcategory-select");
                 var subcat_id = subcat_select.options[subcat_select.selectedIndex].value;
+
                 var db_response = document.getElementById("db-response-form");
                 var subsubcat_select = document.getElementById("subsubcategory-select");
 
                 var url = 'subcategories.php?subcategory_id=' + cat_id + ',' + subcat_id;
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', url, true);
-                xhr.onreadystatechange = function () 
-                {
+                xhr.onreadystatechange = function () {
                     if(xhr.readyState == 4 && xhr.status == 200) 
                     {
                         console.log(xhr.responseText);
@@ -118,14 +122,22 @@
             var cat_select = document.getElementById("category-select");
             cat_select.addEventListener("change", updateSubcategories);
             var submit_btn = document.getElementById("submit-btn");
+            var out = document.getElementById("db-out");
 
             var subcat_select = document.getElementById("subcategory-select");
             subcat_select.addEventListener("change", updateSubSubcategories);
             
+            // Button at top that gets clicked to display results
             submit_btn.addEventListener("click", function(){
-                var url = 'requests.php?action=get_database';
+                var subcat_select = document.getElementById("subcategory-select");
+                var subsubcat_select = document.getElementById("subsubcategory-select");
+
+                var subcat_id = subcat_select.options[subcat_select.selectedIndex].value;
+                var subsubcat_id = subsubcat_select.options[subsubcat_select.selectedIndex].value;
+
+                var url = 'requests.php?action=' + subcat_id + ',' + subsubcat_id;
                 var xhr = new XMLHttpRequest();
-                var out = document.getElementById("db_out");
+                var out = document.getElementById("db-out");
                 xhr.open('GET', url, true);
                 xhr.onreadystatechange = function () 
                 {
@@ -136,7 +148,7 @@
                     }
                 }
                 xhr.send();
-            });
+            });  //TODO: check if need semicolon here or not
 
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
