@@ -301,21 +301,77 @@ function get_col_names($mysqli)
 }
 
 /**
- *  Get full html for table populated from database
+ *  Get full html table for query for employees with upcoming bdays
+ *  
+ * @param $mysqli - mysql database connection
+ * @param $len_time - number of days out to check (int)
+ * @return html with results of query. Table holds: 
+ *             - first_name
+ *             - last_name
+ *             - email
+ *             - date_of_birth
+ */
+function get_birthdays($mysqli, $len_time)
+{
+    $sql = "SELECT first_name, last_name, email ,DATE_FORMAT(date_of_birth, '%m-%d') FROM employees where DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') and DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$len_time DAY), '%m-%d') ORDER BY DATE_FORMAT(date_of_birth, '%m-%d');";
+    $num_cols = 4;
+
+    if($results = mysqli_query($mysqli, $sql))
+    {
+        if(mysqli_num_rows($results) > 0)
+        {
+            echo "Number of records: " . mysqli_num_rows($results);
+            echo "<br>";
+            echo "<table>"; 
+                echo "<tr>";
+                    echo "<th>first_name</th>";
+                    echo "<th>last_name</th>";
+                    echo "<th>email</th>";
+                    echo "<th>date_of_birth (year omitted)</th>";
+                echo "</tr>";
+                while($row = mysqli_fetch_array($results))
+                {
+                    echo "<tr>";
+                    for($i=0; $i<$num_cols; $i++)
+                    {
+                        echo "<td>$row[$i]</td>";
+                    }
+                    echo "</tr>";
+                }
+            echo "</table>";
+            mysqli_free_result($results);    
+        }
+        else
+        {
+            echo "<strong>No employees with birthdays in that timeframe.</strong>";
+        }
+    }else{
+        echo "<strong>ERROR - end of get_birthdays()</strong>";
+    }
+    return;
+
+}
+
+/**
+ *  Get FULL html for table populated from database - FULL DATABASE
+ * 
+ * @param $mysqli - mysql database connection
  */
 function pull_database($mysqli) 
 {
     $columns = get_col_names($mysqli);
-    $num_rows = count($columns);
+    $num_cols = count($columns);
     $sql = "SELECT * FROM employees ORDER BY last_name";
     //$rows = $result->fetch_all(MYSQLI_ASSOC);
     if($result = mysqli_query($mysqli, $sql))
     {
         if(mysqli_num_rows($result) > 0)
         {
+            echo "Number of records: " . mysqli_num_rows($result);
+            echo "<br>";
             echo "<table>"; 
                 echo "<tr>";
-                    for($i=0; $i<$num_rows; $i++)
+                    for($i=0; $i<$num_cols; $i++)   //TODO: should be $num_cols
                     {
                         echo "<th>$columns[$i]</th>";
                     }
@@ -323,7 +379,7 @@ function pull_database($mysqli)
                 while($row = mysqli_fetch_array($result))
                 {
                         echo "<tr>";
-                        for($i=0; $i<$num_rows; $i++)
+                        for($i=0; $i<$num_cols; $i++)
                         {
                             echo "<td>$row[$i]</td>";
                         }
@@ -334,7 +390,7 @@ function pull_database($mysqli)
         }
         else
         {
-            echo json_encode($columns);
+            echo "<strong> No records matched your query</strong>";
         }
     }
     else
@@ -344,12 +400,66 @@ function pull_database($mysqli)
     return;
 }
 
-function get_upcoming_bdays($mysqli)
+/**
+ *  Get FULL HTML table for all ACTIVE OR INACTIVE employees in the db
+ * 
+ * @param $active $boolean 
+ * @param $mysqli - connection to database
+ */
+function get_active_employees($mysqli, $active)
 {
+    //$sql = "";
+    //$sql = "SELECT * FROM employees where active = $active ORDER BY last_name;";
+
+    if($active == true)
+    {
+        $sql = "SELECT * FROM employees where active=true ORDER BY last_name;";
+    }
+    else
+    {
+        $sql = "SELECT * FROM employees where active=false ORDER BY last_name;";
+    }
+
+    $columns = get_col_names($mysqli);
+    $num_cols = count($columns);
+    if($result = mysqli_query($mysqli, $sql))
+    {
+        if(mysqli_num_rows($result) > 0)
+        {
+            echo "Number of records: " . mysqli_num_rows($result);
+            echo "<br>";
+            echo "<table>"; 
+                echo "<tr>";
+                    for($i=0; $i<$num_cols; $i++) 
+                    {
+                        echo "<th>$columns[$i]</th>";
+                    }
+                echo "</tr>";
+                while($row = mysqli_fetch_array($result))
+                {
+                        echo "<tr>";
+                        for($i=0; $i<$num_cols; $i++)
+                        {
+                            echo "<td>$row[$i]</td>";
+                        }
+                        echo "</tr>";
+                }
+            echo "</table>";  
+            mysqli_free_result($result);    
+        }
+        else
+        {
+            echo "<strong>No records matched your query</strong>";
+        }
+    }
+    else
+    {
+        echo "ERROR - end of get_active_employees()";
+    }
     return;
 }
 
-// deprecated. Not using. I believe
+// **DEPRECATED** Not using. I believe
 function csv_to_db($csvPath, $conn)
 {
     $file = fopen($csvPath, "r");
