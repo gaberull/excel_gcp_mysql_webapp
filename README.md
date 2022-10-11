@@ -96,6 +96,9 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
+- [ ] In dislay all employees - outline in red inactive employees, sort by active, then last name
+- [ ] Make sure birthdays displayed are active employees
+- [ ] Delete files created during the upload process (.csv, .html, etc)
 - [ ] Create screen recording gif of web application in action (don't use sensitive data)
 - [ ] maybe color code by position
 - [ ] Calendar visual aide with birthdays on it could be nice - show 2 months (this,next)
@@ -108,7 +111,6 @@ I have been learning PHP on the fly on this project, having never worked with it
 - [ ] Clean up GCP folders and remove old file versions
 - [ ] See about changing permissions on Google cloud storage bucket to not be quite so open
 - [ ] See about moving php scripts and other files to ```scripts/```
-- [ ] Handle multiple files being uploaded
 - [ ] Maybe add similar Link to download .csv file from website (would require upload to GCS like xlsx file)
 - [ ] See about obscuring certain php files
 - [ ] Tighten up user authentification all over, and secure site against potential SQL injection attacks
