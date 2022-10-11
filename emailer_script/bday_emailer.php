@@ -1,5 +1,5 @@
 <?php
-// TODO: schedule this to be run daily
+// This should be scheduled to be run daily with "crontab -e" cmd
 
 require 'vendor/autoload.php';
 use \Mailjet\Resources;
@@ -30,19 +30,18 @@ $body = [
         ]
     ]
 ];
-// Accessing the part of the array where the HTML should be edited
-// $body['Messages'][0]['HTMLPart'] .= 
+// Accessing the part of the array where the HTML should be edited:   $body['Messages'][0]['HTMLPart'] .=
 
 /**
  * Use mysqli extension to connect to MySQL database
  * 
  * @return null - if json_decode() fails
  *         null - if mysqli object isn't created (connection to MySQL DB failed)
- *         mysqli object - if MySQL database connection was successful
+ *         mysqli (conn) object - if MySQL database connection was successful
  */
 function connectToDB()
 {
-    $json_credentials = file_get_contents('keys/db_credentials.json');
+    $json_credentials = file_get_contents(__DIR__.'/keys/db_credentials.json');
     $json_data = json_decode($json_credentials, true);
     if($json_data == null)
     {
@@ -64,10 +63,17 @@ function connectToDB()
 
 /**
  *  Function that sends the actual email
+ * 
+ * @param SENDER_EMAIL - Email addr of sender for MailJet API call
+ * @param RECIPIENT_EMAIL - Email addr of recipient 
+ * @param body - email body (associative array)
+ * 
+ * @return response from post request to MailJet API if successful
+ *         nothing - if not successful
  */
 function send_email($SENDER_EMAIL, $RECIPIENT_EMAIL, $body)
 {
-    $json_credentials = file_get_contents('keys/mailjet_credentials.json');
+    $json_credentials = file_get_contents(__DIR__.'/keys/mailjet_credentials.json');
     $json_data = json_decode($json_credentials, true);
     // Use your saved credentials, specify that you are using Send API v3.1
     //$mj = new \Mailjet\Client(getenv('MJ_APIKEY_PUBLIC'), getenv('MJ_APIKEY_PRIVATE'),true,['version' => 'v3.1']);
@@ -81,7 +87,7 @@ function send_email($SENDER_EMAIL, $RECIPIENT_EMAIL, $body)
     }
     return;
 }
-$fileName = 'bday_logs/bday_email_log_' . date('m-d') . '.html';
+$fileName = 'bday_logs/log_' . date('m-d-Y_H-i-s') . '.html';
 
 // Turn on output buffering
 ob_start();
@@ -108,7 +114,7 @@ else
     exit();
 }
 
-// update databse to be only active employees
+/* update databse to be only active employees   */
 // SQL stmt to put new active employees into bday_emails table
 $update_sql = "INSERT INTO bday_emails (first_name, last_name, date_of_birth) select first_name, last_name, date_of_birth from employees where (first_name, last_name) NOT IN (select first_name, last_name from bday_emails);";
 $result = mysqli_query($mysqli, $update_sql);
@@ -198,6 +204,7 @@ if($result = mysqli_query($mysqli, $to_notify_sql))
         $body['Messages'][0]['HTMLPart'] .= "<br>";
         echo send_email($SENDER_EMAIL, $RECIPIENT_EMAIL, $body);
 
+        // update database to show those employees as notified - no duplicate notifications
         $set_as_notified_sql = "UPDATE bday_emails SET notified = TRUE WHERE (first_name, last_name) IN (SELECT first_name, last_name FROM employees where DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') and DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') ORDER BY DATE_FORMAT(date_of_birth, '%m-%d') );";
         mysqli_free_result($result); 
         $result = mysqli_query($mysqli, $set_as_notified_sql);
