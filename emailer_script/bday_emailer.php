@@ -6,7 +6,7 @@ require 'vendor/autoload.php';
 use \Mailjet\Resources;
 
 // EDIT THESE 3 VARIABLES AS NECESSARY -----------------
-$num_days = 11;
+$num_days = 10;
 $SENDER_EMAIL = "sohyung.cho@boolsa.io";
 $RECIPIENT_EMAIL = "sohyung.cho@boolsa.io";
 // EDIT THESE 3 VARIABLES AS NECESSARY -----------------
@@ -73,7 +73,11 @@ function send_email($SENDER_EMAIL, $RECIPIENT_EMAIL, $body)
 
     $response = $mj->post(Resources::$Email, ['body' => $body]);
     // Read the response
-    $response->success() && var_dump($response->getData());
+    //$response->success() && var_dump($response->getData());
+    if($response->success())
+    {
+        return var_dump($response->getData());
+    }
     return;
 }
 $fileName = 'bday_logs/bday_email_log_' . date('m-d') . '.html';
@@ -159,7 +163,9 @@ if($result = mysqli_query($mysqli, $to_notify_sql))
     {
         echo "Number of records $num_days days out from " . date('Y-m-d');
         echo ": " . mysqli_num_rows($result);
-        $body['Messages'][0]['HTMLPart'] .= "There is/are " . mysqli_num_rows($result) ." birthday(s) $num_days days out from " . date('Y-m-d');
+        $body['Messages'][0]['HTMLPart'] .= 'There is/are ';
+        $body['Messages'][0]['HTMLPart'] .= mysqli_num_rows($result);
+        $body['Messages'][0]['HTMLPart'] .= ' birthday(s) '.$num_days. ' days out from '. date('Y-m-d');
         echo "<br>";
         $body['Messages'][0]['HTMLPart'] .= "<br><br>";
         echo "<table>"; 
@@ -189,7 +195,7 @@ if($result = mysqli_query($mysqli, $to_notify_sql))
         echo "</table>";  
         $body['Messages'][0]['HTMLPart'] .= "</table>";  
         $body['Messages'][0]['HTMLPart'] .= "<br>";
-        send_email($SENDER_EMAIL, $RECIPIENT_EMAIL, $body);
+        echo send_email($SENDER_EMAIL, $RECIPIENT_EMAIL, $body);
 
         $set_as_notified_sql = "UPDATE bday_emails SET notified = TRUE WHERE (first_name, last_name) IN (SELECT first_name, last_name FROM employees where DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') and DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') ORDER BY DATE_FORMAT(date_of_birth, '%m-%d') );";
         mysqli_free_result($result); 
