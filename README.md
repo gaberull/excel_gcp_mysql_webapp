@@ -97,7 +97,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 ## TODO
 
 - [ ] In dislay all employees - outline in red inactive employees, sort by active, then last name
-- [ ] Make sure birthdays displayed are active employees
+- [x] Make sure birthdays displayed are active employees
 - [ ] Delete files created during the upload process (.csv, .html, etc)
 - [ ] Create screen recording gif of web application in action (don't use sensitive data)
 - [ ] maybe color code by position
