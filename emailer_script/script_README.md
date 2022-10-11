@@ -21,7 +21,7 @@
 
 ## TODO
 
-- [x] Schedule this to be run daily with Ubutnu Cronjob
+- [x] Schedule this to be run daily with Ubuntu Cronjob
 - [x] make it so that new additions don't replace current and set everyone to not-notified
 
 Copyright 2022 by Gabe Scott
