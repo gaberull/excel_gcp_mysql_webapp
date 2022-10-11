@@ -17,9 +17,7 @@
 
 ### Notes
 
-18:00 should be 1 PM on GCP Ubtuntu VM
-
-- [ ] **Check log to make sure this is accurate. I scheduled for hour 18 in crontab**
+``date`` on GCP Ubuntu VM gives Tue Oct 11 18:00:12 UTC 2022 and is 1 PM (in Austin, TX)
 
 ## TODO
 
