@@ -104,9 +104,10 @@ I have been learning PHP on the fly on this project, having never worked with it
 - [ ] Calendar visual aide with birthdays on it could be nice - show 2 months (this,next)
 - [ ] See about moving style.css out of html folder in GCP VM
 - [ ] Add buttons for download to csv, download as xslx after populating database table
-- [ ] Rename repository "Spreadsheet Emailer" ?
+- [x] Rename repository "excel_to_mysql"
 - [ ] Finish steps for one to replicate what I did to set it up
 - [ ] Consider changing user verification method to OAuth2
+  - [ ] Add authorization
 - [ ] Figure out which open-source license to add to this project before making repository public
 - [ ] Clean up GCP folders and remove old file versions
 - [ ] See about changing permissions on Google cloud storage bucket to not be quite so open

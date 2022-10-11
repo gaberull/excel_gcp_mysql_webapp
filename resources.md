@@ -2,6 +2,7 @@
 
 I Tried to get as many resources as I could into the list, but I missed some without a doubt
 
+- [MySQL ORDER BY - multiple items](https://www.mysqltutorial.org/mysql-order-by/)
 - [Mailjet API PHP wrapper - Github](https://github.com/mailjet/mailjet-apiv3-php)
 - [Pass multiple parameters in GET request - Stack Overflow](https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values-for-same-parameter-name-in-get-request)
 - [NOT IN set mysql - Stack Overflow](https://stackoverflow.com/questions/4545742/to-take-out-those-dept-who-has-no-employees-assigned-to-it)
