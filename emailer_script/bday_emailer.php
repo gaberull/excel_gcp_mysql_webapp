@@ -4,11 +4,11 @@
 require 'vendor/autoload.php';
 use \Mailjet\Resources;
 
-// EDIT THESE 3 VARIABLES AS NECESSARY -----------------
+// EDIT THESE VARIABLES AS NECESSARY -----------------
 $num_days = 10;
 $SENDER_EMAIL = "sohyung.cho@boolsa.io";
 $RECIPIENT_EMAIL = "sohyung.cho@boolsa.io";
-// EDIT THESE 3 VARIABLES AS NECESSARY -----------------
+// EDIT THESE VARIABLES AS NECESSARY -----------------
 
 /* email request body */              
 $body = [
@@ -166,7 +166,6 @@ if(!$result)
 //$to_notify_sql = "SELECT first_name, last_name, DATE_FORMAT(date_of_birth, '%m-%d') as DOB_no_year from bday_emails where notified=FALSE and (first_name, last_name) in (SELECT first_name, last_name FROM employees where DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') and DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') ORDER BY DATE_FORMAT(date_of_birth, '%m-%d') );";
 // **ALSO, FILTER OUT employees hired in last 6 months OR NO STATED STATING DATE**
 $to_notify_sql = "SELECT first_name, last_name, DATE_FORMAT(date_of_birth, '%m-%d') as DOB_no_year from bday_emails where notified=FALSE and (first_name, last_name) in (SELECT first_name, last_name FROM employees WHERE DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') AND DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') AND (start_date <= curdate() - interval (dayofmonth(curdate()) - 1) day - interval 6 month OR start_date IS NULL) ORDER BY DATE_FORMAT(date_of_birth, '%m-%d'));";
-//$to_notify_sql = "SELECT first_name, last_name, DATE_FORMAT(date_of_birth, '%m-%d') as DOB_no_year from bday_emails where notified=FALSE and (first_name, last_name) in (SELECT first_name, last_name FROM employees WHERE DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') AND DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') AND start_date <= curdate() - interval (dayofmonth(curdate()) - 1) day - interval 6 month ORDER BY DATE_FORMAT(date_of_birth, '%m-%d'));";
 if($result = mysqli_query($mysqli, $to_notify_sql))
 {
     if(mysqli_num_rows($result) > 0)
@@ -208,7 +207,9 @@ if($result = mysqli_query($mysqli, $to_notify_sql))
         echo send_email($SENDER_EMAIL, $RECIPIENT_EMAIL, $body);
 
         // update database to show those employees as notified - no duplicate notifications
+        // Note: this doesn't need to account for new employees. Doesn't matter if they are marked as notified
         $set_as_notified_sql = "UPDATE bday_emails SET notified = TRUE WHERE (first_name, last_name) IN (SELECT first_name, last_name FROM employees where DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') and DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') ORDER BY DATE_FORMAT(date_of_birth, '%m-%d') );";
+                                                                                
         mysqli_free_result($result); 
         $result = mysqli_query($mysqli, $set_as_notified_sql);
         if(!$result)
