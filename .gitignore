@@ -1,6 +1,7 @@
 # Private keys, vendor data from composer in case repo made public
 *.json
 vendor/
+keys/
 
 # Potentially sensitive files
 *.xlsx
