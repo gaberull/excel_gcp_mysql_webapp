@@ -15,9 +15,6 @@ test/*
 .DS_Store
 
 # Random files
-hello_world.php
 import_csv.php
-csv_converter.php
 credentials/
-hello_world.php
 mysqli.php
