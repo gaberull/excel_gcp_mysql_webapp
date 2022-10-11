@@ -26,3 +26,8 @@
 table, th, td {
     border: 1px solid #96D4D4;
 }
+
+/* spinner gif image */
+#spinner {
+    display: none;
+}
