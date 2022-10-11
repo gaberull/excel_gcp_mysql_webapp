@@ -7,7 +7,7 @@ keys/
 *.xlsx
 *.csv
 *.ico
-*/bday_emailer.php
+emailer_script/bday_emailer.php
 
 # Unimportant folder
 test/*
