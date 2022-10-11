@@ -3,7 +3,7 @@
 <?php
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-$json_credentials = file_get_contents('../keys/db_credentials.json');
+$json_credentials = file_get_contents('../../keys/db_credentials.json');
 $json_data = json_decode($json_credentials, true);
 if($json_data == null)
 {

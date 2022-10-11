@@ -17,4 +17,3 @@ test/*
 # Random files
 import_csv.php
 credentials/
-mysqli.php
