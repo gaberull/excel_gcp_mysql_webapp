@@ -362,7 +362,7 @@ function pull_database($mysqli)
     $columns = get_col_names($mysqli);
     $num_cols = count($columns);
     // order employees by active first, then last_name
-    $sql = "SELECT * FROM employees ORDER BY active DESC, last_name";
+    $sql = "SELECT * FROM employees ORDER BY active DESC, position ASC, last_name ASC";
     //$rows = $result->fetch_all(MYSQLI_ASSOC);
     if($result = mysqli_query($mysqli, $sql))
     {
@@ -379,12 +379,27 @@ function pull_database($mysqli)
                 echo "</tr>";
                 while($row = mysqli_fetch_array($result))
                 {
+                    if($row[$num_cols-1]==0)
+                    {
+                        echo "<tr class=\"red-row\">";
+                    }
+                    else
+                    {
                         echo "<tr>";
-                        for($i=0; $i<$num_cols; $i++)
-                        {
+                    }
+                    for($i=0; $i<$num_cols; $i++)
+                    {
+                        // for making a gif for my documentation:
+                        // if ($columns[$i] == 'last_name' || $columns[$i] == 'date_of_birth' || $columns[$i] == 'address' || $columns[$i] == 'email' || $columns[$i]=='phone_number')
+                        //{
+                        //      echo "<td class=\"black-background\">$row[$i]</td>";
+                        //}
+                        //else
+                        //{
                             echo "<td>$row[$i]</td>";
-                        }
-                        echo "</tr>";
+                        //}
+                    }
+                    echo "</tr>";
                 }
             echo "</table>";  
             mysqli_free_result($result);    

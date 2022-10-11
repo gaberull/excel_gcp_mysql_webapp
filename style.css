@@ -31,3 +31,13 @@ table, th, td {
 #spinner {
     display: none;
 }
+
+/* Row of inactive employees being displayed */
+.red-row {
+    background-color: hsl(0, 68%, 51%);
+}
+
+/* censored columns - for my documentation gif */
+.black-background {
+    background-color: #000000;
+}
