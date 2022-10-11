@@ -1,3 +1,6 @@
+<!-- Copyright 2022 Gabe Scott -->
+
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -41,6 +44,9 @@
             <hr/>
             <strong>Public Link (Click to Download Original File):</strong>
             <br/>
+            <div id="spinner">
+                <img src="spinner.gif" width="50" height="50" />
+            </div>
             <!-- json output from post request return - moved it to console   -->
             <div id="output"></div>
             <!-- spreadsheet   -->
@@ -72,7 +78,6 @@
                             subcat_select.style.display = 'none';
                             db_response.style.display = 'none';
                             subsubcat_select.style.display = 'none';
-
                         }
                         else   // pull from database selected (currently only other option)
                         {
@@ -153,10 +158,20 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script>
+            function showSpinner(){
+                var spinner = document.getElementById("spinner");
+                spinner.style.display = 'block';
+            }
+            function hideSpinner(){
+                var spinner = document.getElementById("spinner");
+                spinner.style.display = 'none';
+            }
+
             $("#fileUploadForm").submit(function (e) {
                 e.preventDefault();
                 var action = "requests.php?action=upload";
                 $("#uploadingmsg").html("Uploading...");
+                showSpinner();
                 $("ss").html("");
                 var data = new FormData(e.target);
                 $.ajax({
@@ -167,6 +182,7 @@
                     processData: false,
                 }).done(function (response) {
                     $("#uploadingmsg").html("");
+                    hideSpinner();
                     //$("#json").html(JSON.stringify(response, null, 4));
                     console.log(JSON.stringify(response, null, 4));
                     //https://storage.googleapis.com/[BUCKET_NAME]/[OBJECT_NAME]
@@ -176,6 +192,7 @@
                     }
                     includeHTML("ss", response.spreadsheet_location);
                 }).fail(function (data) {
+                    hideSpinner();  // TODO: should be here as well as in .done ? 
                     alert('ajax failed. Likely the excel file is not correct format');
                 });
             });  
