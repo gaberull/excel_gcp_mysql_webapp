@@ -353,7 +353,7 @@ function get_birthdays($mysqli, $len_time)
 }
 
 /**
- *  Get FULL html for table populated from database - FULL DATABASE
+ *  Get FULL html for table populated from database - ENTIRE DATABASE TABLE 'employees'
  * 
  * @param $mysqli - mysql database connection
  */

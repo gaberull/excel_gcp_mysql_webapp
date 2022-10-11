@@ -6,7 +6,8 @@
         <meta charset="UTF-8">
         <title>GCP Storage File Upload using PHP</title>
         <link href="style.css" rel="stylesheet">
-        <link rel="icon" type="image/x-icon" href="/asset/img/parser_favicon.png">
+        <link rel="icon" type="image/x-icon" href="/asset/img/favicon.ico">
+        <!-- <link rel="icon" type="image/x-icon" href="/asset/img/parser_favicon.png"> -->
     </head>
     <body>
         <div id="option-form">
@@ -45,7 +46,7 @@
             <strong>Public Link (Click to Download Original File):</strong>
             <br/>
             <div id="spinner">
-                <img src="spinner.gif" width="50" height="50" />
+                <img src="asset/img/spinner.gif" width="50" height="50" />
             </div>
             <!-- json output from post request return - moved it to console   -->
             <div id="output"></div>
