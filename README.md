@@ -1,46 +1,43 @@
-# Excel to CSV File Converter, MySQL DB Uploader/Viewer, and Email Scheduler
+# Excel to MySQL
+
+Excel to CSV File Converter, MySQL DB Uploader/Viewer, and Email Scheduler
 
 **Summary:**
 
-Upload spreadsheet of employee records to a MySQL database on running on a GCP Server, View employee data in the database, and automate the scheduling of outgoing "happy birthday" emails to the employees
+Upload spreadsheet of employee records to a MySQL database running on a GCP Server, View employee data from the database in a web browser, and automate the scheduling of outgoing notification emails to the employees' boss for a reminder to send a gift
 
-## Complete List of Tasks Performed by this App
+## Complete List of Tasks Performed
 
-- Uploads an excel file (.xlsx) to a Google cloud storage bucket using Google Storage API calls, PHP code, and ajax POST request
+- Uploads and names according to date an excel file (.xlsx) to a Google Cloud Storage Bucket using Google Storage API calls, PHP, and ajax POST requests
 - Sends POST request to Apache2 web server containing action to perform, using API key authorization
 - Downloads .xlsx file to GCP local folder for processing on Google Cloud Compute Engine VM server from Google Cloud Storage bucket
 - Converts Excel file to .csv file according to chosen formatting specifications
-- Imports parsed data from .csv file into hosted MySQL database
-  - Authenticates user and grants permission to use and change the MySQL database
-- Return from POST request contains file upload metadata, various success/fail messages, the individual SQL queries executed, and new file locations
-- Displays the data from the spreadsheet file in the ```index.php``` page in the client browser
-- Schedules and automates sending of SMTP emails with to go out to employees wishing them a happy birthday a few days before their birth-date
+- Parses and imports data from the .csv file into hosted MySQL database
+  - Authenticates user from locally saved credentials and grants permission to edit the MySQL database
+- POST request reply contains file upload metadata, various success/fail messages, the individual SQL queries executed and success/fail, and new file locations
+- Displays the data from the spreadsheet file in the [index.php](index.php) page in the client browser
+- Each day, the VM runs the script [bday_emailer.php](emailer_script/bday_emailer.php) and checks the mysql database for upcoming employee birthdays (of employees of at least 6 months), automates sending of email to the boss with a reminder to send a birthday gift
 - Updates database of employees when new files are uploaded, or when employee info changes (roughly once per month)
   - Prior to upload of up-to-date employee spreadsheet, a query is run to mark all employees in the MySQL database as "inactive" employees
   - Then the database records are updated and marked with "active=TRUE" once again as each entry in the spreadsheet is inserted or re-inserted into the MySQL database. This is accomplished with a REPLACE statement like the following:
 
-    ```SQL
-    REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?,?,?,?,?,?,?,?,?,?);
-    
-    ```
+  ```SQL
+  REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?,?,?,?,?,?,?,?,?,?);
+  ```
 
-## Future Functionality (Still in Progress)
+More examples of MySQL statements can be viewed in [sql_statements.md](sql_statements.md)
 
-As of 10/5/22:
+## Future Functionality (Tasks still in progress)
 
-- More secure user authentification and authorization to upload to, access Google Cloud Storage bucket
-- Scheduling of SMTP emails to go out to employees prior to their birthday
-- Functions avilable in the user interface to query the database
-- Change primary key from email to combination of first and last names
-  - Currently 'email' is primary key because it is guaranteed to be unique, however the company could potentially not have the email address of an employee on file
+- Specific options avilable in the user interface to query the database
 
 ## Objectives of Project (Note from Developer)
 
-I have been learning PHP on the fly on this project, having never worked with it before. I have also been brushing-up on my server-client programming and setting up webserver type applications and static web-page concepts, as well as learning more about the Ajax, PHP, and HTTP technology stack. Additionally, I have been working at cementing my knowledge of cloud computing concepts, with Apache web server and Google Cloud Platform. So far, it has been a very fruitful project.
+I have been learning PHP on the fly on this project, having never worked with it before. I have also been brushing-up on my server-client programming and setting up webserver type applications and static web-page concepts, as well as learning more about the Ajax, PHP, JavaScript, and HTTP technology stack. Additionally, I have been working at cementing my knowledge of cloud computing concepts, with Apache web server and Google Cloud Platform. So far, it has been a very fruitful project
 
 **Notes to Self:**
 
-- Important file directory structure info can be found in 
+- Important file directory structure info can be found in [directory_structure.md](directory_structure.md)
 - Apache2 publicly hosted files are in ```/var/www/boolsa.io/html``` on webserver
 - API Key, DB credentials are in ```/var/www/boolsa.io/keys/``` in the form of json
 - File Upload script requires ```/var/www/boolsa.io/vendor/``` (created with Composer for php)
@@ -55,18 +52,12 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 **Initial Notes:**
 
-- The files in this repository are not *currently* organized according in the same structure as they are on my server, and thus one cannot simply clone this repository and expect it to work correctly
+- The files in this repository are not *currently* organized according in the same structure as they are on the GCP server, and thus **one cannot simply clone this repository and expect it to work correctly**
   - Throughout my server-side development process, I have been peforming an SCP every time I wanted to push changes to the server rather than just pushing/pulling from my git repo
 - To set up the correct directory organization perform the following steps
   - For the sake of simplicity, I'm going to work with the assumption that you already have a working Apache2 webserver running on a GCP Compute Engine virtual machine - *clearly a big assumption*
 
-### Steps
-
-- View the ```director_structure.md``` file here: [directory_structure.md](directory_structure.md)
-- Set up MySQL database on GCP Compue Engine VM
-- TODO: FINISH these steps
-
-#### Setting up and configuring Composer for PHP
+## Setting up and configuring Composer for PHP
 
 1. I initially set up Composer at the project level on apache at ```/var/www/composer```
 2. Next I configured the ```composer.json``` file to add project dependencies
@@ -96,29 +87,29 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
-- [x] In dislay all employees sort by active, then last name
+- [ ] Rename repository ``excel_to_mysql``
 - [ ] In dislay all employees outline in red inactive employees
-- [x] Make sure birthdays displayed are active employees
 - [ ] Delete files created during the upload process (.csv, .html, etc)
 - [ ] Create screen recording gif of web application in action (don't use sensitive data)
 - [ ] maybe color code by position
 - [ ] Calendar visual aide with birthdays on it could be nice - show 2 months (this,next)
 - [ ] See about moving style.css out of html folder in GCP VM
-- [ ] Add buttons for download to csv, download as xslx after populating database table
-- [x] Rename repository "excel_to_mysql"
-- [ ] Finish steps for one to replicate what I did to set it up
+- [ ] Adjust and secure the user authorization to upload to, access Google Cloud Storage bucket
 - [ ] Consider changing user verification method to OAuth2
   - [ ] Add authorization
 - [ ] Figure out which open-source license to add to this project before making repository public
 - [ ] Clean up GCP folders and remove old file versions
 - [ ] See about changing permissions on Google cloud storage bucket to not be quite so open
-- [ ] See about moving php scripts and other files to ```scripts/```
+- [ ] See about moving php scripts and other files to a folder called ``scripts/``
 - [ ] Maybe add similar Link to download .csv file from website (would require upload to GCS like xlsx file)
 - [ ] See about obscuring certain php files
 - [ ] Tighten up user authentification all over, and secure site against potential SQL injection attacks
 - [ ] Change mysql db user info for user www-data
 - [ ] Read PhpSpreadsheet open-source license and see if attribution is needed in documentation somewhere
 - [ ] Look into the possibility of encrypting sensitive files (GCP Secret API key)
+- [x] Add check in [bday_emailer.php](emailer_script/bday_emailer.php) script to only notify about employees who have been at the company for at least 6 months
+- [x] Change primary key from email to combination of first and last names
+- [x] In dislay all employees sort by active, then last name
 - [x] Style app main webpage
   - [ ] Could use more styling
 - [x] Hide MySQL DB credentials
@@ -128,6 +119,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 - [x] Add ability to print data from MySQL database
 - [x] Successfully handle connecting to MySQL DB
 - [x] Handle conversion from xlsx to csv
+- [x] Make sure birthdays displayed are active employees
 - [x] Trim .csv entries before adding to mysql query strings
   - [x] Trim leading/trailing asterisks
   - [x] Trim leading/trailing whitespace and whitespace-like special characters
