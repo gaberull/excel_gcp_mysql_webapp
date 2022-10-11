@@ -361,7 +361,8 @@ function pull_database($mysqli)
 {
     $columns = get_col_names($mysqli);
     $num_cols = count($columns);
-    $sql = "SELECT * FROM employees ORDER BY last_name";
+    // order employees by active first, then last_name
+    $sql = "SELECT * FROM employees ORDER BY active DESC, last_name";
     //$rows = $result->fetch_all(MYSQLI_ASSOC);
     if($result = mysqli_query($mysqli, $sql))
     {
