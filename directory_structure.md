@@ -1,6 +1,6 @@
 # Structure of Directories, Important Files in Apache Webserver
 
-- var/www/boolsa.io  -  (*APACHE2 root folder*)
+- var/www/boolsa.io/  -  (*APACHE2 project root folder*)
   - vendor/
     - autoload.php
   - keys/
@@ -13,3 +13,17 @@
     - uploads/
       - EMPLOYEE_PROFILES.xlsx -  (*After upload*)
       - employees_0.csv   - (*After conversion*)
+- ~/
+  - bday_emailer/
+    - bday_logs/
+      - log_date1_time1.html
+      - log_date2_time2.html
+      - ...
+    - keys/
+      - mysql_db_credentials.json
+      - mailjet_credentials.json
+    - vendor/
+      - autoload.php
+      - composer/
+      - ...
+    - bday_emailer.php
