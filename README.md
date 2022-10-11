@@ -59,7 +59,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## Setting up and configuring Composer for PHP
 
-1. I initially set up Composer at the project level on apache at ```/var/www/composer```
+1. I initially set up Composer at the project level on apache at ```/var/www/boolsa.io/composer```
 2. Next I configured the ```composer.json``` file to add project dependencies
 3. Then I ran ```php composer.phar update```
 4. I added require statments for ```google/cloud-storage``` and ```phpoffice/phpspreadsheet``` and version numbers
@@ -74,14 +74,14 @@ I have been learning PHP on the fly on this project, having never worked with it
 - See where all php.ini configuration files are ```php --ini```
 - Create info.php file and host it on apache web server. This file has a lot of useful configuration information when viewed in web browser and looks exactly like this:
 
-    ```php
-    <?php
-      // info.php
-      echo("Current user is: "); // optional - get apache2 web server user
-      echo exec('whoami');
-      phpinfo(); 
-     ?>
-    ```
+  ```php
+  <?php
+    // info.php
+    echo("Current user is: "); // optional - get apache2 web server user
+    echo exec('whoami');
+    phpinfo(); 
+    ?>
+  ```
 
 - Get current user: Add ```echo exec('whoami');``` to above ```info.php``` file
 
