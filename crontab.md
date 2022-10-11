@@ -1,6 +1,6 @@
 # Crontab file
 
-Schedule operations to run with ``` crontab -e ```
+Schedule operations to run in Ubuntu with ``` crontab -e ```
 
 ## My Crontab file in GCP
 
