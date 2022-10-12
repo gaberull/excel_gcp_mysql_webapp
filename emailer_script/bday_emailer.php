@@ -232,8 +232,28 @@ if($result = mysqli_query($mysqli, $to_notify_sql))
                 $body['Messages'][0]['HTMLPart'] .= "<tr>";
                 for($i=0; $i<6; $i++)
                 {
-                    echo "<td>$row[$i]</td>";
-                    $body['Messages'][0]['HTMLPart'] .= "<td>$row[$i]</td>";
+                    // if $i==2 (phone number) add dashes
+                    if($i==2)
+                    {
+                        $phone_str = "";
+                        $number = $row[$i];
+                        $n = strlen($number);
+                        for($j = $n-1; $j>=0; $j--) // handle 7, 9, 10, or 11 digits
+                        {
+                            $phone_str = $number[$j] . $phone_str;
+                            if($j==$n-4 || $j==$n-7 || ($n>10 && $j==$n-10))
+                            {
+                                $phone_str = '-'. $phone_str;
+                            }
+                        }
+                        echo "<td>$phone_str</td>";
+                        $body['Messages'][0]['HTMLPart'] .= "<td>$phone_str</td>";
+                    }
+                    else
+                    {
+                        echo "<td>$row[$i]</td>";
+                        $body['Messages'][0]['HTMLPart'] .= "<td>$row[$i]</td>";
+                    }
                 }
                 echo "</tr>";
                 $body['Messages'][0]['HTMLPart'] .= "</tr>";
