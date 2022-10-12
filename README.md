@@ -39,6 +39,8 @@ Note: These images have been censored within the HTML in order to protect the in
 
 #### All Employees
 
+![Display All Employees (Video)](screenshots/all_employees_censored.mov)
+
 #### Active Employees Only
 
 #### Inactive Employees Only
