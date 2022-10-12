@@ -116,7 +116,14 @@ else
 
 /* update databse to be only active employees   */
 // SQL stmt to put new active employees into bday_emails table
-$update_sql = "INSERT INTO bday_emails (first_name, last_name, date_of_birth) select first_name, last_name, date_of_birth from employees where (first_name, last_name) NOT IN (select first_name, last_name from bday_emails);";
+$update_sql = 
+"INSERT INTO bday_emails (first_name, last_name, date_of_birth) 
+SELECT first_name, last_name, date_of_birth 
+FROM employees 
+WHERE (first_name, last_name) 
+NOT IN (SELECT first_name, last_name
+        FROM bday_emails);";
+
 $result = mysqli_query($mysqli, $update_sql);
 if(!$result)
 {
@@ -131,7 +138,10 @@ if(!$result)
     exit();
 }
 // SQL stmt to delete employees from bday_emails table that are no longer active
-$remove_sql = "DELETE FROM bday_emails WHERE (first_name, last_name) NOT IN ( SELECT first_name, last_name from employees where active=TRUE);";
+$remove_sql = 
+"DELETE FROM bday_emails 
+WHERE (first_name, last_name) 
+NOT IN ( SELECT first_name, last_name FROM employees WHERE active=TRUE);";
 $result = mysqli_query($mysqli, $remove_sql);
 if(!$result)
 {
@@ -147,7 +157,15 @@ if(!$result)
     exit();
 }
 // SQL stmt to set employees to NOT-notified if bday not in the specified time frame
-$set_not_notified_sql = "UPDATE bday_emails SET notified = FALSE WHERE (first_name, last_name) NOT IN (SELECT first_name, last_name FROM employees where DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') and DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') ORDER BY DATE_FORMAT(date_of_birth, '%m-%d') );";
+$set_not_notified_sql = 
+"UPDATE bday_emails 
+SET notified = FALSE 
+WHERE (first_name, last_name) 
+NOT IN (SELECT first_name, last_name 
+        FROM employees 
+        WHERE DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') 
+        AND DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') 
+        ORDER BY DATE_FORMAT(date_of_birth, '%m-%d') );";
 $result = mysqli_query($mysqli, $set_not_notified_sql);
 if(!$result)
 {
@@ -224,11 +242,21 @@ if($result = mysqli_query($mysqli, $to_notify_sql))
         $body['Messages'][0]['HTMLPart'] .= "</table>";  
         $body['Messages'][0]['HTMLPart'] .= "<br><br>";
         $body['Messages'][0]['HTMLPart'] .= "<br><p>This automated script was written by Mr. Gabriel Scott  :-) <br>Have a good day!</p><br>";
+        echo "<p>";
+        echo "<b>Email Body:</b><br><br>";
         echo send_email($SENDER_EMAIL, $RECIPIENT_EMAIL, $body);
+        echo "</p>";
 
         // update database to show those employees as notified - no duplicate notifications
         // Note: this doesn't need to account for new employees. Doesn't matter if they are marked as notified
-        $set_as_notified_sql = "UPDATE bday_emails SET notified = TRUE WHERE (first_name, last_name) IN (SELECT first_name, last_name FROM employees where DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') and DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') ORDER BY DATE_FORMAT(date_of_birth, '%m-%d') );";
+        $set_as_notified_sql = 
+        "UPDATE bday_emails 
+        SET notified = TRUE 
+        WHERE (first_name, last_name) 
+        IN (SELECT first_name, last_name 
+            FROM employees where DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') 
+            AND DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') 
+            ORDER BY DATE_FORMAT(date_of_birth, '%m-%d') );";
                                                                                 
         mysqli_free_result($result); 
         $result = mysqli_query($mysqli, $set_as_notified_sql);
