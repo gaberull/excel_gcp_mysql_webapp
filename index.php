@@ -43,8 +43,8 @@
                 <strong>Response (JSON)</strong>
                 <pre id="json">json response will be shown here. If not, look in console.</pre>
             <hr/>
-            <strong>Public Link (Click to Download Original File):</strong>
-            <br/>
+            <strong>Original File (Click Public Link to Download):</strong>
+            <br><br>
             <div id="spinner">
                 <img src="asset/img/spinner.gif" width="50" height="50" />
             </div>
