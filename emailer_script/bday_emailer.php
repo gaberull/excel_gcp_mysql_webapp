@@ -170,9 +170,9 @@ if(!$result)
 
 // below query performs inner join on both employee database tables 
 $to_notify_sql = 
-"SELECT b.first_name, b.last_name, b.phone_number, b.email, DATE_FORMAT(b.date_of_birth, '%m-%d') AS DOB from bday_emails AS a 
-INNER JOIN employees AS b 
-ON a.first_name=b.first_name AND a.last_name=b.last_name 
+"SELECT b.first_name, b.last_name, b.phone_number, b.address, b.email, DATE_FORMAT(b.date_of_birth, '%m-%d') AS DOB from bday_emails AS a 
+INNER JOIN employees AS b
+ON a.first_name=b.first_name AND a.last_name=b.last_name
 WHERE a.notified=FALSE 
 AND DATE_FORMAT(b.date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') 
 AND DATE_FORMAT(b.date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') 
@@ -200,6 +200,8 @@ if($result = mysqli_query($mysqli, $to_notify_sql))
                 $body['Messages'][0]['HTMLPart'] .= "<th><b>Last Name</b></th>";
                 echo "<th>Phone Number</th>";
                 $body['Messages'][0]['HTMLPart'] .= "<th><b>Phone Number</b></th>";
+                echo "<th>Address</th>";
+                $body['Messages'][0]['HTMLPart'] .= "<th><b>Address</b></th>";
                 echo "<th>Email</th>";
                 $body['Messages'][0]['HTMLPart'] .= "<th><b>Email</b></th>";
                 echo "<th>Birthday (mm-dd)</th>";
@@ -210,7 +212,7 @@ if($result = mysqli_query($mysqli, $to_notify_sql))
             {
                 echo "<tr>";
                 $body['Messages'][0]['HTMLPart'] .= "<tr>";
-                for($i=0; $i<5; $i++)
+                for($i=0; $i<6; $i++)
                 {
                     echo "<td>$row[$i]</td>";
                     $body['Messages'][0]['HTMLPart'] .= "<td>$row[$i]</td>";
