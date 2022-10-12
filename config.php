@@ -307,8 +307,9 @@ function get_col_names($mysqli)
 /**
  *  Format number to have dashes in it
  */
-function format_phone_number($number)
+function format_phone_number($number, $censor=false)
 {
+    $censor = ($censor || $GLOBALS['CENSOR']);
     if (!preg_match("/^\d+$/", $number)) 
     {
         return false;
@@ -328,7 +329,15 @@ function format_phone_number($number)
             $phone_str = '-'. $phone_str;
         }
     }
-    return $phone_str;
+    if($censor)
+    {
+        return "X-XXX-XXX-XXXX";
+    }
+    else
+    {
+        return $phone_str;
+    }
+    
 }
 
 /**
@@ -342,8 +351,9 @@ function format_phone_number($number)
  *             - email
  *             - date_of_birth
  */
-function get_birthdays($mysqli, $len_time)
+function get_birthdays($mysqli, $len_time, $censor=false)
 {
+    $censor = ($censor || $GLOBALS['CENSOR']);
     $sql = 
     "SELECT first_name, last_name, email, address, phone_number, DATE_FORMAT(date_of_birth, '%m-%d') 
     FROM employees 
@@ -360,26 +370,51 @@ function get_birthdays($mysqli, $len_time)
             echo "<br>";
             echo "<table>"; 
                 echo "<tr>";
-                    echo "<th>First Name</th>";
-                    echo "<th>Last Name</th>";
-                    echo "<th>Email</th>";
-                    echo "<th>Address</th>";
-                    echo "<th>Phone Number</th>";
-                    echo "<th>Birthday (mm-dd)</th>";
+                    echo "<th>First Name</th>";      // i==0
+                    echo "<th>Last Name</th>";       // i==1
+                    echo "<th>Email</th>";           // i==2
+                    echo "<th>Address</th>";         // i==3
+                    echo "<th>Phone Number</th>";    // i==4
+                    echo "<th>Birthday (mm-dd)</th>";// i==5
                 echo "</tr>";
                 while($row = mysqli_fetch_array($results))
                 {
                     echo "<tr>";
                     for($i=0; $i<$num_cols; $i++)
                     {
-                        if ($i==4)  // if on phone numbers column
+                        if($censor)
                         {
-                            $p = format_phone_number($row[$i]);
-                            echo "<td>$p</td>";
+                            if($i==1 || $i==2 || $i==3 || $i==4)
+                            {
+                                if ($i==4)  // if on phone numbers column
+                                {
+        
+                                    $p = format_phone_number($row[$i], true);
+                                    // class=\"black-background\"
+                                    echo "<td >$p</td>";
+                                }
+                                else
+                                {
+                                    echo "<td class=\"black-background\">$row[$i]</td>";
+                                }
+                            }
+                            else
+                            {
+                                echo "<td>$row[$i]</td>";
+                            }
                         }
-                        else
+                        if(!$censor)
                         {
-                            echo "<td>$row[$i]</td>";
+                            if ($i==4)  // if on phone numbers column
+                            {
+    
+                                $p = format_phone_number($row[$i]);
+                                echo "<td>$p</td>";
+                            }
+                            else
+                            {
+                                echo "<td>$row[$i]</td>";
+                            }
                         }
                     }
                     echo "</tr>";
@@ -403,8 +438,10 @@ function get_birthdays($mysqli, $len_time)
  * 
  * @param $mysqli - mysql database connection
  */
-function pull_database($mysqli) 
+function pull_database($mysqli, $censor=false) 
 {
+    // censor data, yes or no
+    $censor = ($censor || $GLOBALS['CENSOR']);
     $columns = get_col_names($mysqli);
     $num_cols = count($columns);
     // order employees by active first, then last_name
@@ -450,15 +487,15 @@ function pull_database($mysqli)
                     }
                     for($i=0; $i<$num_cols-1; $i++)
                     {
-                        if($GLOBALS['CENSOR'])
+                        if($censor)
                         {
                             // censoring mechanism for making a gif for my documentation:
                             if($columns[$i]=='last_name' || $columns[$i]=='date_of_birth' || $columns[$i]=='address' || $columns[$i]=='email' || $columns[$i]=='phone_number')
                             {
                                 if ($columns[$i]=='phone_number')
                                 {
-                                    $p = format_phone_number($row[$i]);
-                                    echo "<td class=\"black-background\">$p</td>";
+                                    $p = format_phone_number($row[$i], true);
+                                    echo "<td>$p</td>";
                                 }
                                 else
                                 {
@@ -470,7 +507,7 @@ function pull_database($mysqli)
                                 echo "<td>$row[$i]</td>";
                             }
                         }
-                        if(!$GLOBALS['CENSOR'])
+                        if(!$censor)
                         {
                             // insert dashes into phone number
                             if ($columns[$i]=='phone_number')
@@ -508,11 +545,9 @@ function pull_database($mysqli)
  * @param $active $boolean 
  * @param $mysqli - connection to database
  */
-function get_active_employees($mysqli, $active)
+function get_active_employees($mysqli, $active, $censor=false)
 {
-    //$sql = "";
-    //$sql = "SELECT * FROM employees where active = $active ORDER BY last_name;";
-
+    $censor = ($censor || $GLOBALS['CENSOR']);
     if($active == true)
     {
         $sql = "SELECT * FROM employees where active=true ORDER BY position, last_name;";
@@ -567,14 +602,36 @@ function get_active_employees($mysqli, $active)
                     
                     for($i=0; $i<$num_cols-1; $i++)
                     {
-                        if($columns[$i]=="phone_number")
+                        if($censor)
                         {
-                            $p = format_phone_number($row[$i]);
-                            echo "<td>$p</td>";
+                            if($columns[$i]=='last_name' || $columns[$i]=='date_of_birth' || $columns[$i]=='address' || $columns[$i]=='email' || $columns[$i]=='phone_number')
+                            {
+                                if($columns[$i]=="phone_number")
+                                {
+                                    $p = format_phone_number($row[$i], true);
+                                    echo "<td>$p</td>";
+                                }
+                                else
+                                {
+                                    echo "<td class=\"black-background\">$row[$i]</td>";
+                                }
+                            }
+                            else
+                            {
+                                echo "<td>$row[$i]</td>";
+                            }
                         }
-                        else
+                        if(!$censor)
                         {
-                            echo "<td>$row[$i]</td>";
+                            if($columns[$i]=="phone_number")
+                            {
+                                $p = format_phone_number($row[$i]);
+                                echo "<td>$p</td>";
+                            }
+                            else
+                            {
+                                echo "<td>$row[$i]</td>";
+                            }
                         }
                     }
                     echo "</tr>";
