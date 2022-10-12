@@ -124,11 +124,8 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
-- [ ] Add phone number formatting (dashes) for other display options other than display all
 - [ ] Rename repository ``excel_to_mysql``
 - [ ] Delete files created during the upload process (.csv, .html, etc)
-- [ ] Create screen recording gif of web application in action (don't use sensitive data)
-- [ ] maybe color code by position
 - [ ] Calendar visual aide with birthdays on it could be nice - show 2 months (this,next)
 - [ ] See about moving style.css out of html folder in GCP VM
 - [ ] Adjust and secure the user authorization to upload to, access Google Cloud Storage bucket
@@ -136,13 +133,16 @@ I have been learning PHP on the fly on this project, having never worked with it
   - [ ] Add authorization
 - [ ] Figure out which open-source license to add to this project before making repository public
 - [ ] Clean up GCP folders and remove old file versions
-- [ ] See about changing permissions on Google cloud storage bucket to not be quite so open
+- [ ] See about changing permissions on Google cloud storage bucket 
 - [ ] See about moving php scripts and other files to a folder called ``scripts/``
 - [ ] See about obscuring certain php files
 - [ ] Tighten up user authentification all over, and secure site against potential SQL injection attacks
 - [ ] Change mysql db user info for user www-data
 - [ ] Read PhpSpreadsheet open-source license and see if attribution is needed in documentation somewhere
 - [ ] Look into the possibility of encrypting sensitive files (GCP Secret API key)
+- [x] Add phone number formatting (dashes) for other display options other than display all
+- [x] Create screen recording gif of web application in action (don't use sensitive data)
+- [x] color code by position
 - [x] In "dislay all employees" use background color of red for inactive employees
 - [x] Add check in [bday_emailer.php](emailer_script/bday_emailer.php) script to only notify about employees who have been at the company for at least 6 months
 - [x] Change primary key from email to combination of first and last names
