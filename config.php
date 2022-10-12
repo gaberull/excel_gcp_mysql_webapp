@@ -13,6 +13,10 @@ use \PhpOffice\PhpSpreadsheet\Writer\Csv;
 // TODO: encrypt file?
 $privateKeyFilePath = '../keys/silken-reducer-359320-b3cecc9b17ca.json';
 
+// Global variables for debugging, censoring
+$CENSOR = true;
+$DEBUG = false;
+
 /**
  *  Upload file to Google Cloud Storage Bucket
  * 
@@ -446,25 +450,40 @@ function pull_database($mysqli)
                     }
                     for($i=0; $i<$num_cols-1; $i++)
                     {
-                        // insert dashes into phone number
-                        if ($columns[$i]=='phone_number')
+                        if($GLOBALS['CENSOR'])
                         {
-                            $p = format_phone_number($row[$i]);
-                            echo "<td>$p</td>";
+                            // censoring mechanism for making a gif for my documentation:
+                            if($columns[$i]=='last_name' || $columns[$i]=='date_of_birth' || $columns[$i]=='address' || $columns[$i]=='email' || $columns[$i]=='phone_number')
+                            {
+                                if ($columns[$i]=='phone_number')
+                                {
+                                    $p = format_phone_number($row[$i]);
+                                    echo "<td class=\"black-background\">$p</td>";
+                                }
+                                else
+                                {
+                                    echo "<td class=\"black-background\">$row[$i]</td>";
+                                }
+                            }
+                            else
+                            {
+                                echo "<td>$row[$i]</td>";
+                            }
                         }
-                        else
+                        if(!$GLOBALS['CENSOR'])
                         {
-                            echo "<td>$row[$i]</td>";
+                            // insert dashes into phone number
+                            if ($columns[$i]=='phone_number')
+                            {
+                                $p = format_phone_number($row[$i]);
+                                echo "<td>$p</td>";
+                            }
+                            else
+                            {
+                                echo "<td>$row[$i]</td>";
+                            }
                         }
-                        // for making a gif for my documentation:
-                        // if ($columns[$i] == 'last_name' || $columns[$i] == 'date_of_birth' || $columns[$i] == 'address' || $columns[$i] == 'email' || $columns[$i]=='phone_number')
-                        //{
-                        //      echo "<td class=\"black-background\">$row[$i]</td>";
-                        //}
-                        //else
-                        //{
-                        //    echo "<td>$row[$i]</td>";
-                        //}
+                        
                     }
                     echo "</tr>";
                 }
