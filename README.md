@@ -43,17 +43,23 @@ Note: The database records are censored to protect the privacy of real employees
 
 ![Display All Employees (gif)](https://gabrielscott.io/github/all_employees.gif)
 
+![Display All Employees (gif)](images/newest/all_employees.gif)
+
 **Display Active/Inactive Employees:**
 
 <br><br>
 
 ![Active/Inactive Employees (gif)](https://gabrielscott.io/github/active_employees.gif)
 
+![Active/Inactive Employees (gif)](images/newest/active_employees.gif)
+
 **Display Employees with Upcoming Birthdays:**
 
 <br><br>
 
 ![Employee Birthdays (gif)](https://gabrielscott.io/github/upcoming_bdays.gif)
+
+![Employee Birthdays (gif)](images/newest/upcoming_bdays.gif)
 
 ## Future Functionality (Tasks still in progress)
 
