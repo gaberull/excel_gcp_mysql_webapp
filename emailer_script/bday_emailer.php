@@ -26,7 +26,7 @@ $body = [
             ],
             'Subject' => "UPCOMING EMPLOYEE BIRTHDAYS",
             'TextPart' => "Greetings!",
-            'HTMLPart' => "<h3>Birthday Records: </h3><br> "
+            'HTMLPart' => "<p>This is a friendly reminder that you have employee birthdays coming up soon!</p><br><h3>Records From Employee Database: </h3><br> "
         ]
     ]
 ];
@@ -165,35 +165,52 @@ if(!$result)
 // sql stmt setting who to send bday email about for upcoming birthday
 //$to_notify_sql = "SELECT first_name, last_name, DATE_FORMAT(date_of_birth, '%m-%d') as DOB_no_year from bday_emails where notified=FALSE and (first_name, last_name) in (SELECT first_name, last_name FROM employees where DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') and DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') ORDER BY DATE_FORMAT(date_of_birth, '%m-%d') );";
 // **ALSO, FILTER OUT employees hired in last 6 months OR NO STATED STATING DATE**
-$to_notify_sql = "SELECT first_name, last_name, DATE_FORMAT(date_of_birth, '%m-%d') as DOB_no_year from bday_emails where notified=FALSE and (first_name, last_name) in (SELECT first_name, last_name FROM employees WHERE DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') AND DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') AND (start_date <= curdate() - interval (dayofmonth(curdate()) - 1) day - interval 6 month OR start_date IS NULL) ORDER BY DATE_FORMAT(date_of_birth, '%m-%d'));";
+//$to_notify_sql = "SELECT first_name, last_name, phone_number, email, DATE_FORMAT(date_of_birth, '%m-%d') as DOB_no_year from bday_emails where notified=FALSE and (first_name, last_name) in (SELECT first_name, last_name FROM employees WHERE DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') AND DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') AND (start_date <= curdate() - interval (dayofmonth(curdate()) - 1) day - interval 6 month OR start_date IS NULL) ORDER BY DATE_FORMAT(date_of_birth, '%m-%d'));";
+// the above (commented out) query works
+
+// below query performs inner join on both employee database tables 
+$to_notify_sql = 
+"SELECT b.first_name, b.last_name, b.phone_number, b.email, DATE_FORMAT(b.date_of_birth, '%m-%d') AS DOB from bday_emails AS a 
+INNER JOIN employees AS b 
+ON a.first_name=b.first_name AND a.last_name=b.last_name 
+WHERE a.notified=FALSE 
+AND DATE_FORMAT(b.date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') 
+AND DATE_FORMAT(b.date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num_days DAY), '%m-%d') 
+AND (b.start_date <= curdate() - interval (dayofmonth(curdate()) - 1) day - interval 6 month OR b.start_date IS NULL) 
+ORDER BY DATE_FORMAT(b.date_of_birth, '%m-%d');";
+
 if($result = mysqli_query($mysqli, $to_notify_sql))
 {
     if(mysqli_num_rows($result) > 0)
     {
-        echo "Number of records $num_days days out from " . date('Y-m-d');
-        echo ": " . mysqli_num_rows($result);
+        echo "Number of records $num_days days out from <b>" . date('Y-m-d');
+        echo ":</b> " . mysqli_num_rows($result);
         $body['Messages'][0]['HTMLPart'] .= 'There is/are ';
         $body['Messages'][0]['HTMLPart'] .= mysqli_num_rows($result);
-        $body['Messages'][0]['HTMLPart'] .= ' birthday(s) '.$num_days. ' days out from '. date('Y-m-d');
+        $body['Messages'][0]['HTMLPart'] .= ' birthday(s) '.$num_days. ' days out from <b>'. date('Y-m-d');
         echo "<br>";
-        $body['Messages'][0]['HTMLPart'] .= "<br><br>";
+        $body['Messages'][0]['HTMLPart'] .= "</b><br><br>";
         echo "<table>"; 
         $body['Messages'][0]['HTMLPart'] .= "<table>";
             echo "<tr>";
             $body['Messages'][0]['HTMLPart'] .= "<tr>";
                 echo "<th>first_name</th>";
-                $body['Messages'][0]['HTMLPart'] .= "<th>First Name</th>";
+                $body['Messages'][0]['HTMLPart'] .= "<th><b>First Name</b></th>";
                 echo "<th>last_name</th>";
-                $body['Messages'][0]['HTMLPart'] .= "<th>Last Name</th>";
-                echo "<th>Date_of_birth (Year Omitted)</th>";
-                $body['Messages'][0]['HTMLPart'] .= "<th>Birthday (mm-dd) </th>";
+                $body['Messages'][0]['HTMLPart'] .= "<th><b>Last Name</b></th>";
+                echo "<th>Phone Number</th>";
+                $body['Messages'][0]['HTMLPart'] .= "<th><b>Phone Number</b></th>";
+                echo "<th>Email</th>";
+                $body['Messages'][0]['HTMLPart'] .= "<th><b>Email</b></th>";
+                echo "<th>Birthday (mm-dd)</th>";
+                $body['Messages'][0]['HTMLPart'] .= "<th><b>Birthday (mm-dd)</b></th>";
             echo "</tr>";
             $body['Messages'][0]['HTMLPart'] .= "</tr>";
             while($row = mysqli_fetch_array($result))
             {
                 echo "<tr>";
                 $body['Messages'][0]['HTMLPart'] .= "<tr>";
-                for($i=0; $i<3; $i++)
+                for($i=0; $i<5; $i++)
                 {
                     echo "<td>$row[$i]</td>";
                     $body['Messages'][0]['HTMLPart'] .= "<td>$row[$i]</td>";
@@ -203,7 +220,8 @@ if($result = mysqli_query($mysqli, $to_notify_sql))
             }
         echo "</table>";  
         $body['Messages'][0]['HTMLPart'] .= "</table>";  
-        $body['Messages'][0]['HTMLPart'] .= "<br>";
+        $body['Messages'][0]['HTMLPart'] .= "<br><br>";
+        $body['Messages'][0]['HTMLPart'] .= "<br><p>This automated script was written by Mr. Gabriel Scott  :-) <br>Have a good day!</p><br>";
         echo send_email($SENDER_EMAIL, $RECIPIENT_EMAIL, $body);
 
         // update database to show those employees as notified - no duplicate notifications
