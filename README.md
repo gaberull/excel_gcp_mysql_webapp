@@ -45,24 +45,24 @@ WIDTH=600
 
 <br><br>
 
-[<img src="https://gabrielscott.io/hosted_files/all_censored.gif" alt="Display All Employees (gif)" width="600"/>](https://gabrielscott.io/hosted_files/all_censored.gif)
+[<img src="https://gabrielscott.io/hosted_files/all_censored.gif" alt="Display All Employees (gif)" width="600"/>](https://gabrielscott.io/github/all_employees.gif)
 
 <br><br><br>
 
 ORIGINAL - NO HTML
 
-![Display All Employees (gif)](https://gabrielscott.io/hosted_files/all_censored.gif)
+![Display All Employees (gif)](https://gabrielscott.io/github/all_employees.gif)
 
 **Display Active/Inactive Employees:**
 
 <br><br>
 
-![Active/Inactive Employees (gif)](https://gabrielscott.io/hosted_files/active_censored.gif)
+![Active/Inactive Employees (gif)](https://gabrielscott.io/github/active_employees.gif)
 **Display Employees with Upcoming Birthdays:**
 
 <br><br>
 
-![Employee Birthdays (gif)](https://gabrielscott.io/hosted_files/bdays_censored.gif)
+![Employee Birthdays (gif)](https://gabrielscott.io/github/upcoming_bdays.gif)
 
 ## Future Functionality (Tasks still in progress)
 
