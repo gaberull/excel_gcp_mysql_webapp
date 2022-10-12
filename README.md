@@ -37,6 +37,8 @@ Note: These images have been censored within the HTML in order to protect the in
 
 ### Displaying Employee Records
 
+Note: The database records are censored to protect the privacy of real employees
+
 #### All Employees
 
 ![Display All Employees (Video)](screenshots/all_employees_censored.mov)
