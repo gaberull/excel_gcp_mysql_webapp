@@ -107,7 +107,6 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 - [ ] Add phone number formatting (dashes) for other display options other than display all
 - [ ] Rename repository ``excel_to_mysql``
-- [ ] In dislay all employees outline in red inactive employees
 - [ ] Delete files created during the upload process (.csv, .html, etc)
 - [ ] Create screen recording gif of web application in action (don't use sensitive data)
 - [ ] maybe color code by position
@@ -120,12 +119,12 @@ I have been learning PHP on the fly on this project, having never worked with it
 - [ ] Clean up GCP folders and remove old file versions
 - [ ] See about changing permissions on Google cloud storage bucket to not be quite so open
 - [ ] See about moving php scripts and other files to a folder called ``scripts/``
-- [ ] Maybe add similar Link to download .csv file from website (would require upload to GCS like xlsx file)
 - [ ] See about obscuring certain php files
 - [ ] Tighten up user authentification all over, and secure site against potential SQL injection attacks
 - [ ] Change mysql db user info for user www-data
 - [ ] Read PhpSpreadsheet open-source license and see if attribution is needed in documentation somewhere
 - [ ] Look into the possibility of encrypting sensitive files (GCP Secret API key)
+- [x] In "dislay all employees" use background color of red for inactive employees
 - [x] Add check in [bday_emailer.php](emailer_script/bday_emailer.php) script to only notify about employees who have been at the company for at least 6 months
 - [x] Change primary key from email to combination of first and last names
 - [x] In dislay all employees sort by active, then last name
