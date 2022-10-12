@@ -32,12 +32,50 @@ table, th, td {
     display: none;
 }
 
-/* Row of inactive employees being displayed */
+/* class of Rows of inactive employees being displayed */
 .red-row {
     background-color: hsl(0, 68%, 51%);
 }
 
-/* censored columns - for my documentation gif */
+/* class of td's - censored columns for my documentation gif */
 .black-background {
     background-color: #000000;
 }
+
+tr.customer-service {
+    background-color: #C7E0F0;
+}
+
+tr.dispatcher {
+    background-color: #F8FACF;
+}
+
+tr.expeditor {
+    background-color: #C7F0E2;
+}
+
+tr.hr {
+    background-color: #E8E7E6;
+}
+
+tr.messenger {
+    background-color: #DAE8DF;
+}
+
+tr.office-laborer {
+    background-color: #FFF6E6;
+}
+
+tr.ops-manager {
+    background-color: #F2DCF5;
+}
+
+tr.processor {
+    background-color: #F4FFE6;
+}
+
+tr.supervisor {
+    background-color: #E9FFF5;
+}
+
+/* #C7D9C3
