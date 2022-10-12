@@ -1,7 +1,7 @@
 <?php
 
 // load composer generated files
-require_once '../vendor/autoload.php';  // relative path may no longer be correct
+require_once '../vendor/autoload.php'; 
 
 // load GCS library
 use Google\Cloud\Storage\StorageClient;
@@ -288,7 +288,7 @@ function get_insert_queries($csvPath, $mysqli)
 /**
  *  Get Database Table Columns 
  * 
- *  @return - false on failure, string on success 
+ *  @return - false on failure, array on success 
  */
 function get_col_names($mysqli)
 {
@@ -301,7 +301,34 @@ function get_col_names($mysqli)
 }
 
 /**
- *  Get full html table for query for employees with upcoming bdays
+ *  Format number to have dashes in it
+ */
+function format_phone_number($number)
+{
+    if (!preg_match("/^\d+$/", $number)) 
+    {
+        return false;
+    }
+    if($number == "")
+    {
+        return $number;
+    } 
+    // format phone number to hold dashes
+    $phone_str = "";
+    $n = strlen($number);
+    for($j = $n-1; $j>=0; $j--) // handle 7, 9, 10, or 11 digits
+    {
+        $phone_str = $number[$j] . $phone_str;
+        if($j==$n-4 || $j==$n-7 || ($n>10 && $j==$n-10))
+        {
+            $phone_str = '-'. $phone_str;
+        }
+    }
+    return $phone_str;
+}
+
+/**
+ *  Get full html table for query for ACTIVE employees with upcoming bdays
  *  
  * @param $mysqli - mysql database connection
  * @param $len_time - number of days out to check (int)
@@ -313,9 +340,14 @@ function get_col_names($mysqli)
  */
 function get_birthdays($mysqli, $len_time)
 {
-    $sql = "SELECT first_name, last_name, email ,DATE_FORMAT(date_of_birth, '%m-%d') FROM employees where DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') and DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$len_time DAY), '%m-%d') ORDER BY DATE_FORMAT(date_of_birth, '%m-%d');";
-    $num_cols = 4;
-
+    $sql = 
+    "SELECT first_name, last_name, email, address, phone_number, DATE_FORMAT(date_of_birth, '%m-%d') 
+    FROM employees 
+    WHERE DATE_FORMAT(date_of_birth, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') 
+    AND DATE_FORMAT(date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$len_time DAY), '%m-%d') 
+    AND active=TRUE
+    ORDER BY DATE_FORMAT(date_of_birth, '%m-%d');";
+    $num_cols = 6;
     if($results = mysqli_query($mysqli, $sql))
     {
         if(mysqli_num_rows($results) > 0)
@@ -324,17 +356,27 @@ function get_birthdays($mysqli, $len_time)
             echo "<br>";
             echo "<table>"; 
                 echo "<tr>";
-                    echo "<th>first_name</th>";
-                    echo "<th>last_name</th>";
-                    echo "<th>email</th>";
-                    echo "<th>date_of_birth (year omitted)</th>";
+                    echo "<th>First Name</th>";
+                    echo "<th>Last Name</th>";
+                    echo "<th>Email</th>";
+                    echo "<th>Address</th>";
+                    echo "<th>Phone Number</th>";
+                    echo "<th>Birthday (mm-dd)</th>";
                 echo "</tr>";
                 while($row = mysqli_fetch_array($results))
                 {
                     echo "<tr>";
                     for($i=0; $i<$num_cols; $i++)
                     {
-                        echo "<td>$row[$i]</td>";
+                        if ($i==4)  // if on phone numbers column
+                        {
+                            $p = format_phone_number($row[$i]);
+                            echo "<td>$p</td>";
+                        }
+                        else
+                        {
+                            echo "<td>$row[$i]</td>";
+                        }
                     }
                     echo "</tr>";
                 }
@@ -362,17 +404,21 @@ function pull_database($mysqli)
     $columns = get_col_names($mysqli);
     $num_cols = count($columns);
     // order employees by active first, then last_name
-    $sql = "SELECT * FROM employees ORDER BY active DESC, position ASC, last_name ASC";
+    $sql = 
+    "SELECT * FROM employees 
+    ORDER BY active DESC, position ASC, last_name ASC";
     //$rows = $result->fetch_all(MYSQLI_ASSOC);
     if($result = mysqli_query($mysqli, $sql))
     {
         if(mysqli_num_rows($result) > 0)
         {
+            echo "<b>Note:</b> RED background rows are INACTIVE employees";
+            echo "<br><br>";
             echo "Number of records: " . mysqli_num_rows($result);
             echo "<br>";
             echo "<table>"; 
                 echo "<tr>";
-                    for($i=0; $i<$num_cols; $i++)   //TODO: should be $num_cols
+                    for($i=0; $i<$num_cols-1; $i++)   //TODO: should be $num_cols
                     {
                         echo "<th>$columns[$i]</th>";
                     }
@@ -385,10 +431,31 @@ function pull_database($mysqli)
                     }
                     else
                     {
-                        echo "<tr>";
+                        $job = strtolower($row[8]);
+                        for($k=0; $k<strlen($job); $k++)
+                        {
+                            if($job[$k]==' ')
+                            {
+                                $job[$k]='-';
+                            }
+                        }
+                        //$pos_str = str_replace(" ", "-", $temp, 1);
+                        echo "<tr class=\"$job\">";
+                        //echo "<tr><td>$pos_str</td></tr>";
+                        //echo "<tr>";
                     }
-                    for($i=0; $i<$num_cols; $i++)
+                    for($i=0; $i<$num_cols-1; $i++)
                     {
+                        // insert dashes into phone number
+                        if ($columns[$i]=='phone_number')
+                        {
+                            $p = format_phone_number($row[$i]);
+                            echo "<td>$p</td>";
+                        }
+                        else
+                        {
+                            echo "<td>$row[$i]</td>";
+                        }
                         // for making a gif for my documentation:
                         // if ($columns[$i] == 'last_name' || $columns[$i] == 'date_of_birth' || $columns[$i] == 'address' || $columns[$i] == 'email' || $columns[$i]=='phone_number')
                         //{
@@ -396,7 +463,7 @@ function pull_database($mysqli)
                         //}
                         //else
                         //{
-                            echo "<td>$row[$i]</td>";
+                        //    echo "<td>$row[$i]</td>";
                         //}
                     }
                     echo "</tr>";
@@ -429,11 +496,11 @@ function get_active_employees($mysqli, $active)
 
     if($active == true)
     {
-        $sql = "SELECT * FROM employees where active=true ORDER BY last_name;";
+        $sql = "SELECT * FROM employees where active=true ORDER BY position, last_name;";
     }
     else
     {
-        $sql = "SELECT * FROM employees where active=false ORDER BY last_name;";
+        $sql = "SELECT * FROM employees where active=false ORDER BY position, last_name;";
     }
 
     $columns = get_col_names($mysqli);
@@ -446,19 +513,52 @@ function get_active_employees($mysqli, $active)
             echo "<br>";
             echo "<table>"; 
                 echo "<tr>";
-                    for($i=0; $i<$num_cols; $i++) 
-                    {
-                        echo "<th>$columns[$i]</th>";
-                    }
+                //for($i=0; $i<$num_cols-1; $i++)     // don't show active row ($num_cols-1)
+                //{
+                //    echo "<th>$columns[$i]</th>";
+                //}
+                echo "<th>First Name</th>";
+                echo "<th>Last Name</th>";
+                echo "<th>Start Date</th>";
+                echo "<th>Date Of Birth</th>";
+                echo "<th>Address</th>";
+                echo "<th>Email</th>";
+                echo "<th>Phone Number</th>";
+                echo "<th>Schedule</th>";
+                echo "<th>Position</th>";
                 echo "</tr>";
                 while($row = mysqli_fetch_array($result))
                 {
-                        echo "<tr>";
-                        for($i=0; $i<$num_cols; $i++)
+                    if($active)
+                    {
+                        $role = strtolower($row[8]);
+                        for($k=0; $k<strlen($role); $k++)
+                        {
+                            if($role[$k]==' ')
+                            {
+                                $role[$k]='-';
+                            }
+                        }
+                        echo "<tr class=\"$role\">";
+                    }
+                    else    // inactive record row (red background)
+                    {
+                        echo "<tr class=\"red-row\">";
+                    }
+                    
+                    for($i=0; $i<$num_cols-1; $i++)
+                    {
+                        if($columns[$i]=="phone_number")
+                        {
+                            $p = format_phone_number($row[$i]);
+                            echo "<td>$p</td>";
+                        }
+                        else
                         {
                             echo "<td>$row[$i]</td>";
                         }
-                        echo "</tr>";
+                    }
+                    echo "</tr>";
                 }
             echo "</table>";  
             mysqli_free_result($result);    
