@@ -47,8 +47,8 @@ WIDTH=600
 
 <br><br><br><br>
 
-ORIGINAL - NO HTML
-![Display All Employees (gif)](https://gabrielscott.io/hosted_files/all_censored.gif)
+ORIGINAL - 60% width, height
+![Display All Employees (gif)](https://gabrielscott.io/hosted_files/all_censored.gif){ width=60% height=60% }
 
 **Display Active/Inactive Employees:**
 
