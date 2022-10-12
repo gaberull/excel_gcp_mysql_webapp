@@ -41,8 +41,6 @@ Note: The database records are censored to protect the privacy of real employees
 
 **Display All Employees:**
 
-ORIGINAL - NO HTML
-
 ![Display All Employees (gif)](https://gabrielscott.io/github/all_employees.gif)
 
 **Display Active/Inactive Employees:**
@@ -50,6 +48,7 @@ ORIGINAL - NO HTML
 <br><br>
 
 ![Active/Inactive Employees (gif)](https://gabrielscott.io/github/active_employees.gif)
+
 **Display Employees with Upcoming Birthdays:**
 
 <br><br>
