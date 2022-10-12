@@ -33,8 +33,8 @@ if ($action == 'upload')
             $temp = downloadLocally($bucketName, $cloudPath, $localPath);
             if($temp != false)
             {
-                $response['download_xlsx_msg'] = 'SUCCESS: File saved to ' . $localPath;
-
+                $response['download_xlsx_msg'] = 'SUCCESS: File xlsx file saved locally';
+                $response['download_xlsx_loc'] = $localPath;
                 // Convert file to csv
                 $name = 'employees';
                 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
