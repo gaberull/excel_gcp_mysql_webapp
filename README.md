@@ -42,16 +42,19 @@ Note: The database records are censored to protect the privacy of real employees
 **Display All Employees:**
 
 <br><br>
-![Employee Birthdays (gif)](images/all_employees.gif)
+
+![Display All Employees (gif)](images/all_employees.gif)
 
 **Display Active/Inactive Employees:**
 
 <br><br>
-![Employee Birthdays (gif)](images/active_employees.gif)
+
+![Active/Inactive Employees (gif)](images/active_employees.gif)
 
 **Display Employees with Upcoming Birthdays:**
 
 <br><br>
+
 ![Employee Birthdays (gif)](images/bdays_censored.gif)
 
 ## Future Functionality (Tasks still in progress)
