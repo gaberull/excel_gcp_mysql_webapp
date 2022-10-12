@@ -38,7 +38,7 @@ table, th, td {
 }
 
 /* class of td's - censored columns for my documentation gif */
-.black-background {
+td.black-background {
     background-color: #000000;
 }
 
