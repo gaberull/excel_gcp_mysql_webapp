@@ -41,8 +41,13 @@ Note: The database records are censored to protect the privacy of real employees
 
 **Display All Employees:**
 
+WIDTH=600
 <br><br>
+[<img src="https://gabrielscott.io/hosted_files/all_censored.gif" alt="Display All Employees (gif)" width="600"/>](https://gabrielscott.io/hosted_files/all_censored.gif)
 
+<br><br><br><br>
+
+ORIGINAL - NO HTML
 ![Display All Employees (gif)](https://gabrielscott.io/hosted_files/all_censored.gif)
 
 **Display Active/Inactive Employees:**
