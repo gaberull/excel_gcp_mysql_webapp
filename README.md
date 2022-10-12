@@ -41,9 +41,13 @@ Note: The database records are censored to protect the privacy of real employees
 
 **Display All Employees:**
 
-**Display Active Employees:**
+<br><br>
+![Employee Birthdays (gif)](images/all_employees.gif)
 
-**Display Inactive Employees:**
+**Display Active/Inactive Employees:**
+
+<br><br>
+![Employee Birthdays (gif)](images/active_employees.gif)
 
 **Display Employees with Upcoming Birthdays:**
 
