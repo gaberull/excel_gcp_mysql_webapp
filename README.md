@@ -1,20 +1,22 @@
 # Excel to MySQL
 
-Excel to CSV File Converter, MySQL DB Uploader/Viewer, and Email Scheduler
+Excel to CSV File Converter, MySQL Database Uploader and Viewer, and automated Email Scheduler
 
 **Summary:**
 
-Upload spreadsheet of employee records to a MySQL database running on a GCP Server, View employee data from the database in a web browser, and automate the scheduling of outgoing notification emails to the employees' boss for a reminder to send a gift
+Upload spreadsheet of employee records to a MySQL database running on a GCP Server, view employee data from the database in a web browser, and automate the scheduling of outgoing notification emails to the employees' boss for a reminder to send a gift
 
 ## Complete List of Tasks Performed
 
-- Uploads and names according to date an excel file (.xlsx) to a Google Cloud Storage Bucket using Google Storage API calls, PHP, and ajax POST requests
+- Dynamically offers drop down menu options to the user based on choice of uploading new data, or displaying existing data from the database in the browser
+- Uploads an excel file (.xlsx) to a Google Cloud Storage Bucket using Google Storage API calls, PHP, and ajax POST requests, then appends current date to uploaded file name for long-term storage and organization of previous employee files
 - Sends POST request to Apache2 web server containing action to perform, using API key authorization
 - Downloads .xlsx file to GCP local folder for processing on Google Cloud Compute Engine VM server from Google Cloud Storage bucket
+- Displays uploaded file in it's original state to the browser using PhpSpreadsheet open-source software
 - Converts Excel file to .csv file according to chosen formatting specifications
 - Parses and imports data from the .csv file into hosted MySQL database
-  - Authenticates user from locally saved credentials and grants permission to edit the MySQL database
-- POST request reply contains file upload metadata, various success/fail messages, the individual SQL queries executed and success/fail, and new file locations
+  - Authenticates user from locally saved credentials and grants permission to access and alter the MySQL database
+- POST request reply contains file upload metadata, various success/fail messages, the individual SQL queries executed and their success/failure statuses, and new file locations
 - Displays the data from the spreadsheet file in the [index.php](index.php) page in the client browser
 - Each day, the VM runs the script [bday_emailer.php](emailer_script/bday_emailer.php) and checks the mysql database for upcoming employee birthdays (of employees of at least 6 months), automates sending of email to the boss with a reminder to send a birthday gift
 - Updates database of employees when new files are uploaded, or when employee info changes (roughly once per month)
@@ -27,6 +29,22 @@ Upload spreadsheet of employee records to a MySQL database running on a GCP Serv
 
 More examples of MySQL statements can be viewed in [sql_statements.md](sql_statements.md)
 
+## Demo
+
+Note: These images have been censored within the HTML in order to protect the information of the employees
+
+### Uploading an Excel File to the Database
+
+### Displaying Employee Records
+
+#### All Employees
+
+#### Active Employees Only
+
+#### Inactive Employees Only
+
+#### Employees with Upcoming Birthdays
+
 ## Future Functionality (Tasks still in progress)
 
 - Specific options avilable in the user interface to query the database
@@ -35,7 +53,7 @@ More examples of MySQL statements can be viewed in [sql_statements.md](sql_state
 
 I have been learning PHP on the fly on this project, having never worked with it before. I have also been brushing-up on my server-client programming and setting up webserver type applications and static web-page concepts, as well as learning more about the Ajax, PHP, JavaScript, and HTTP technology stack. Additionally, I have been working at cementing my knowledge of cloud computing concepts, with Apache web server and Google Cloud Platform. So far, it has been a very fruitful project
 
-**Notes to Self:**
+**Notes to Self (dev):**
 
 - Important file directory structure info can be found in [directory_structure.md](directory_structure.md)
 - Apache2 publicly hosted files are in ```/var/www/boolsa.io/html``` on webserver
@@ -87,6 +105,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
+- [ ] Add phone number formatting (dashes) for other display options other than display all
 - [ ] Rename repository ``excel_to_mysql``
 - [ ] In dislay all employees outline in red inactive employees
 - [ ] Delete files created during the upload process (.csv, .html, etc)
