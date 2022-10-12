@@ -43,7 +43,7 @@ Note: The database records are censored to protect the privacy of real employees
 
 <br><br>
 
-![Display All Employees (gif)](https://github.com/gaberull/file_uploader/blob/df4dac2fe6384d182ef671b4785e75c9dc43f136/images/all_employees.gif)
+![Display All Employees (gif)](images/all_employees.gif)
 
 **Display Active/Inactive Employees:**
 
