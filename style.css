@@ -42,40 +42,47 @@ table, th, td {
     background-color: #000000;
 }
 
+/* table row class for customer-service role */
 tr.customer-service {
     background-color: #C7E0F0;
 }
 
+/* table row class for dispatcher role */
 tr.dispatcher {
     background-color: #F8FACF;
 }
 
+/* table row class for expeditor role */
 tr.expeditor {
     background-color: #C7F0E2;
 }
 
+/* table row class for HR role */
 tr.hr {
     background-color: #C7D9C3;
 }
 
+/* table row class for messenger role */
 tr.messenger {
     background-color: #8ACBF7;
 }
 
+/* table row class for office-laborer role */
 tr.office-laborer {
     background-color: #FFF6E6;
 }
 
+/* table row class for ops-manager role */
 tr.ops-manager {
     background-color: #CEDDF5;
 }
 
+/* table row class for processor role */
 tr.processor {
     background-color: #F4FFE6;
 }
 
+/* table row class for supervisor role */
 tr.supervisor {
     background-color: #E9FFF5;
 }
-
-/* 
