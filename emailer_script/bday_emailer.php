@@ -87,7 +87,7 @@ function send_email($SENDER_EMAIL, $RECIPIENT_EMAIL, $body)
     }
     return;
 }
-$fileName = 'bday_logs/log_' . date('m-d-Y_H-i-s') . '.html';
+$fileName = __DIR__.'/bday_logs/log_' . date('m-d-Y_H-i-s') . '.html';
 
 // Turn on output buffering
 ob_start();
