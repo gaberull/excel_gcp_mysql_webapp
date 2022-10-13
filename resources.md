@@ -2,6 +2,8 @@
 
 I Tried to get as many resources as I could into the list, but I missed some without a doubt
 
+- [Staticrypt Static Webpage password protection- Github repository](https://github.com/robinmoisson/staticrypt)
+- [Very simple password authorization](https://www.geeksforgeeks.org/password-protect-a-static-website/)
 - [Adobe Color Wheel](https://color.adobe.com/create/color-wheel)
 - [MailJet API - Send an email](https://dev.mailjet.com/email/guides/send-api-v31/#send-a-basic-email)
 - [MySQL ORDER BY - multiple items](https://www.mysqltutorial.org/mysql-order-by/)
