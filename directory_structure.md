@@ -4,20 +4,20 @@
   - uploads/   (folder where new files are added. Not publicly accessible)
     - recent_excel.xlsx -  (*After upload*)
     - employees_0.csv   - (*After conversion*)
-    - protected.html (pre-encryption file - also index.php)
+    - protected.html  - (*pre-encryption file - also index.php*)
   - boolsa.io/  -  (*APACHE2 project root folder*)
     - vendor/
       - autoload.php
     - keys/
       - GCS_api_key.json
       - mysql_db_credentials.json
-    - html/       -  (*Publicly accessible folder*)
+    - html/   -  (*Publicly accessible folder*)
       - employees.html (index.php)
       - config.php
       - requests.php
       - subcategories.php
       - style.css
-      - censored_demo/ (no ability to upload, no sensitive data displayed)
+      - censored_demo/  - (*no ability to upload, no sensitive data displayed*)
         - index.php
         - config.php
         - requests.php
