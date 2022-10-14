@@ -1,7 +1,7 @@
 # Structure of Directories, Important Files for Project
 
 - var/www/   (*document root folder*)
-  - uploads/   (folder where new files are added. Not publicly accessible)
+  - uploads/   (*folder where new files are added. Not publicly accessible*)
     - recent_excel.xlsx -  (*After upload*)
     - employees_0.csv   - (*After conversion*)
     - protected.html  - (*pre-encryption file - also index.php*)
