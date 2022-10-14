@@ -1,6 +1,6 @@
 # Excel to MySQL
 
-Excel to CSV File Converter, MySQL Database Uploader and Viewer, and automated Email Scheduler
+Excel to CSV File Converter, MySQL Database Uploader and Viewer, and automated Email Scheduler - [Censored Product Demo](https://boolsa.io/censored_demo/index.php)
 
 **Summary:**
 
@@ -31,7 +31,9 @@ More examples of MySQL statements can be viewed in [sql_statements.md](sql_state
 
 ## Demo
 
-Note: These images have been censored within the HTML in order to protect the information of the employees
+Notes: 
+- A demonstration of this application without sensitive data or ability to upload can be viewed [HERE](https://boolsa.io/censored_demo/index.php)
+- These images have been censored within the HTML in order to protect the information of the employees
 
 ### Uploading an Excel File to the Database
 
@@ -111,22 +113,22 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
+- [ ] Create demonstration web app with same functionality minus ability to update DB or view sensitive data
 - [ ] Rename repository ``excel_to_mysql``
 - [ ] Delete files created during the upload process (.csv, .html, etc)
 - [ ] Calendar visual aide with birthdays on it could be nice - show 2 months (this,next)
 - [ ] See about moving style.css out of html folder in GCP VM
 - [ ] Adjust and secure the user authorization to upload to, access Google Cloud Storage bucket
-- [ ] Consider changing user verification method to OAuth2
-  - [ ] Add authorization
 - [ ] Figure out which open-source license to add to this project before making repository public
-- [ ] Clean up GCP folders and remove old file versions
+
 - [ ] See about changing permissions on Google cloud storage bucket 
 - [ ] See about moving php scripts and other files to a folder called ``scripts/``
 - [ ] See about obscuring certain php files
 - [ ] Tighten up user authentification all over, and secure site against potential SQL injection attacks
 - [ ] Change mysql db user info for user www-data
 - [ ] Read PhpSpreadsheet open-source license and see if attribution is needed in documentation somewhere
-- [ ] Look into the possibility of encrypting sensitive files (GCP Secret API key)
+- [x] Clean up GCP folders and remove old file versions
+- [x] Add authorization
 - [x] Add phone number formatting (dashes) for other display options other than display all
 - [x] Create screen recording gif of web application in action (don't use sensitive data)
 - [x] color code by position
@@ -138,7 +140,7 @@ I have been learning PHP on the fly on this project, having never worked with it
   - [ ] Could use more styling
 - [x] Hide MySQL DB credentials
   - [ ] *Encrypt credentials on GCP VM ?*
-  - [ ] Double check that this is not accessible from outside
+  - [x] Double check that this is not accessible from outside
 - [x] Add date to uploaded xlsx files for storage
 - [x] Add ability to print data from MySQL database
 - [x] Successfully handle connecting to MySQL DB
