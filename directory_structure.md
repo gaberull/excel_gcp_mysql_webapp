@@ -1,18 +1,19 @@
 # Structure of Directories, Important Files in Apache Webserver
+- var/www/   (*document root folder*)
+    - uploads/   (folder where new files are added. Not publicly accessible)
+  - boolsa.io/  -  (*APACHE2 project root folder*)
+    - vendor/
+      - autoload.php
+    - keys/
+      - GCS_api_key.json
+      - mysql_db_credentials.json
+    - html/       -  (*Publicly accessible folder*)
+      - index.php
+      - config.php
+      - requests.php
 
-- var/www/boolsa.io/  -  (*APACHE2 project root folder*)
-  - vendor/
-    - autoload.php
-  - keys/
-    - GCS_api_key.json
-    - mysql_db_credentials.json
-  - html/       -  (*Publicly accessible folder*)
-    - index.php
-    - config.php
-    - requests.php
-    - uploads/
-      - EMPLOYEE_PROFILES.xlsx -  (*After upload*)
-      - employees_0.csv   - (*After conversion*)
+        - EMPLOYEE_PROFILES.xlsx -  (*After upload*)
+        - employees_0.csv   - (*After conversion*)
 - ~/
   - bday_emailer/
     - bday_logs/
