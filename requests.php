@@ -28,7 +28,8 @@ if ($action == 'upload')
             // TEST: get object detail (filesize, contentType, updated [date], etc.)
             $response['data'] = getFileInfo($bucketName, $cloudPath);
             //$localpath = 'uploads/' . $_FILES['file']['name'];
-            $localPath = $cloudPath;
+            //$localPath = '../' . $cloudPath;
+            $localPath = '../uploads/recent_excel.xlsx';
             //downloadLocally($bucketName, $cloudPath, $localPath);
             $temp = downloadLocally($bucketName, $cloudPath, $localPath);
             if($temp != false)
@@ -89,19 +90,18 @@ if ($action == 'upload')
                     $writer->setLineEnding("\r\n");
 
                     //$csvPath = 'uploads/' . $sheet.'.csv';
-                    $csvPath = 'uploads/' . $name.'_'.$count.'.csv';    // will look like employees_0.csv
+                    //$csvPath = 'uploads/' . $name.'_'.$count.'.csv';    // will look like employees_0.csv
+                    $csvPath = '../uploads/' . $name.'_'.$count.'.csv';     // will look like employees_0.csv
                     //Write the CSV file
                     $writer->save($csvPath);
                     
                     $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
                     $writer->setPreCalculateFormulas(false);
 
-                    // TODO: possibly do a trim before save to html
-                    $html_location = "uploads/recent_spreadsheet.html";
-                    // TODO: delete this file
-                    $writer->save($html_location);
-                    $response['spreadsheet_location'] = $html_location;
-                    //$response['spreadsheet'] = $writer->save('php://output');
+                    ob_start();
+                    $writer->save('php://output');
+                    $html = ob_get_clean();
+                    $response['spreadsheet_html'] = $html;
                     $count++;
                 }
                 $response['csv_conversion_msg'] = 'SUCCESS Converted to .csv';
