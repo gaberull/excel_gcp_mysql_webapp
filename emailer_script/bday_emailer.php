@@ -6,7 +6,7 @@ use \Mailjet\Resources;
 
 // EDIT THESE VARIABLES AS NECESSARY -----------------
 $num_days = 10;
-$SENDER_EMAIL = "sohyung.cho@boolsa.io";
+$SENDER_EMAIL = "sohyung.cho@boolsa.io";  // DON'T CHANGE THIS ONE
 $RECIPIENT_EMAIL = "sohyung.cho@boolsa.io";
 // EDIT THESE VARIABLES AS NECESSARY -----------------
 
@@ -30,7 +30,8 @@ $body = [
         ]
     ]
 ];
-// Accessing the part of the array where the HTML should be edited:   $body['Messages'][0]['HTMLPart'] .=
+// Accessing the part of the array where the HTML should be edited:   
+//      $body['Messages'][0]['HTMLPart'] .=
 
 /**
  * Use mysqli extension to connect to MySQL database
