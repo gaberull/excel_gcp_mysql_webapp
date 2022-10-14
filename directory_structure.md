@@ -1,4 +1,4 @@
-# Structure of Directories, Important Files in Apache Webserver
+# Structure of Directories, Important Files for Project
 
 - var/www/   (*document root folder*)
   - uploads/   (folder where new files are added. Not publicly accessible)
