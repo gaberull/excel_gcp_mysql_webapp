@@ -17,6 +17,12 @@
       - requests.php
       - subcategories.php
       - style.css
+      - censored_demo/ (no ability to upload, no sensitive data displayed)
+        - index.php
+        - config.php
+        - requests.php
+        - subcategories.php
+        - style.css
 
 - ~/
   - bday_emailer/
