@@ -1,6 +1,7 @@
 # Structure of Directories, Important Files in Apache Webserver
+
 - var/www/   (*document root folder*)
-    - uploads/   (folder where new files are added. Not publicly accessible)
+  - uploads/   (folder where new files are added. Not publicly accessible)
   - boolsa.io/  -  (*APACHE2 project root folder*)
     - vendor/
       - autoload.php
