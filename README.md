@@ -1,25 +1,24 @@
 # Excel to MySQL
 
-Excel to CSV File Converter, MySQL Database Uploader and Viewer, and automated Email Scheduler - [Censored Product Demo](https://boolsa.io/censored_demo/index.php)
+Excel to CSV File Converter, MySQL Database Uploader and Viewer, and automated Email Scheduler
 
 **Summary:**
 
-Upload spreadsheet of employee records to a MySQL database running on a GCP Server, view employee data from the database in a web browser, and automate the scheduling of outgoing notification emails to the employees' boss for a reminder to send a gift
+Upload spreadsheet of employee records to a MySQL database running on a GCP Server, view original file and database employee data in the web browser, and automate the scheduling of outgoing notification emails to the employees' boss for a reminder to send a gift
 
 ## Complete List of Tasks Performed
 
 - Dynamically offers drop down menu options to the user based on choice of uploading new data, or displaying existing data from the database in the browser
-- Uploads an excel file (.xlsx) to a Google Cloud Storage Bucket using Google Storage API calls, PHP, and ajax POST requests, then appends current date to uploaded file name for long-term storage and organization of previous employee files
+- Uploads an excel file (.xlsx) to a Google Cloud Storage Bucket using Google Storage API calls, PHP, and ajax POST/GET requests, then appends current date to uploaded file name for long-term storage and organization of previous employee files
 - Sends POST request to Apache2 web server containing action to perform, using API key authorization
-- Downloads .xlsx file to GCP local folder for processing on Google Cloud Compute Engine VM server from Google Cloud Storage bucket
-- Displays uploaded file in it's original state to the browser using PhpSpreadsheet open-source software
-- Converts Excel file to .csv file according to chosen formatting specifications
-- Parses and imports data from the .csv file into hosted MySQL database
+- Displays uploaded file in it's original state in the browser using PhpSpreadsheet open-source software
+- Converts Excel file to .csv file according to specific formatting requirements
+- Parses, formats, and imports data from the .csv file into hosted MySQL database
   - Authenticates user from locally saved credentials and grants permission to access and alter the MySQL database
-- POST request reply contains file upload metadata, various success/fail messages, the individual SQL queries executed and their success/failure statuses, and new file locations
-- Displays the data from the spreadsheet file in the [index.php](index.php) page in the client browser
-- Each day, the VM runs the script [bday_emailer.php](emailer_script/bday_emailer.php) and checks the mysql database for upcoming employee birthdays (of employees of at least 6 months), automates sending of email to the boss with a reminder to send a birthday gift
-- Updates database of employees when new files are uploaded, or when employee info changes (roughly once per month)
+- POST request response contains file upload metadata, various success/fail messages, the individual SQL queries executed and their success/failure statuses, and new file locations
+- One time per day, the VM runs the script [bday_emailer.php](emailer_script/bday_emailer.php) and checks the mysql database for upcoming employee birthdays (of employees of at least 6 months), automates sending of email to the boss with a reminder to send a birthday gift
+  - Script creates and prints to local log file for record of email sent, and/or result of queries run
+- Updates database of employees when new files are uploaded (roughly once per month); specifically when employee records change
   - Prior to upload of up-to-date employee spreadsheet, a query is run to mark all employees in the MySQL database as "inactive" employees
   - Then the database records are updated and marked with "active=TRUE" once again as each entry in the spreadsheet is inserted or re-inserted into the MySQL database. This is accomplished with a REPLACE statement like the following:
 
@@ -31,9 +30,8 @@ More examples of MySQL statements can be viewed in [sql_statements.md](sql_state
 
 ## Demo
 
-Notes: 
-- A demonstration of this application without sensitive data or ability to upload can be viewed [HERE](https://boolsa.io/censored_demo/index.php)
-- These images have been censored within the HTML in order to protect the information of the employees
+- [Working Demonstration](https://boolsa.io/censored_demo/index.php)
+  - Censored to protect the information of the real people in the database
 
 ### Uploading an Excel File to the Database
 
