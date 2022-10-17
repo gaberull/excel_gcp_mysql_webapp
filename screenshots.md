@@ -1,5 +1,9 @@
 # Screenshots
 
+## Authorization Page
+
+![Authorized Users Only](screenshots/authorized_users.png)
+
 ## MySQL Queries
 
 **Query:**
