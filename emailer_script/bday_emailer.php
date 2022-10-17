@@ -1,11 +1,11 @@
 <?php
 // This should be scheduled to be run daily with "crontab -e" cmd
 
-require 'vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 use \Mailjet\Resources;
 
 // EDIT THESE VARIABLES AS NECESSARY -----------------
-$num_days = 10;
+$num_days = 14;
 $SENDER_EMAIL = "sohyung.cho@boolsa.io";  // DON'T CHANGE THIS ONE
 $RECIPIENT_EMAIL = "sohyung.cho@boolsa.io";
 // EDIT THESE VARIABLES AS NECESSARY -----------------
