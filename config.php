@@ -1,4 +1,14 @@
 <?php
+// block direct access of this page
+if(basename($_SERVER['PHP_SELF']) == 'config.php')
+{
+    header('Location: ./employees.html');
+    exit();
+}
+
+?>
+
+<?php
 
 // load composer generated files
 require_once '../vendor/autoload.php'; 
@@ -14,7 +24,7 @@ use \PhpOffice\PhpSpreadsheet\Writer\Csv;
 $privateKeyFilePath = '../keys/silken-reducer-359320-b3cecc9b17ca.json';
 
 // Global variables for debugging, censoring
-$CENSOR = true;
+$CENSOR = false;
 $DEBUG = false;
 
 /**
@@ -331,7 +341,7 @@ function format_phone_number($number, $censor=false)
     }
     if($censor)
     {
-        return "X-XXX-XXX-XXXX";
+        return "XXX-XXX-XXXX";
     }
     else
     {
@@ -391,11 +401,12 @@ function get_birthdays($mysqli, $len_time, $censor=false)
         
                                     $p = format_phone_number($row[$i], true);
                                     // class=\"black-background\"
-                                    echo "<td >$p</td>";
+                                    echo "<td class=\"black-background\">$p</td>";
                                 }
                                 else
                                 {
-                                    echo "<td class=\"black-background\">$row[$i]</td>";
+                                    //echo "<td class=\"black-background\">$row[$i]</td>";
+                                    echo "<td class=\"black-background\">XXXXXXXXXXXX</td>";
                                 }
                             }
                             else
@@ -495,11 +506,12 @@ function pull_database($mysqli, $censor=false)
                                 if ($columns[$i]=='phone_number')
                                 {
                                     $p = format_phone_number($row[$i], true);
-                                    echo "<td>$p</td>";
+                                    echo "<td class=\"black-background\">$p</td>";
                                 }
                                 else
                                 {
-                                    echo "<td class=\"black-background\">$row[$i]</td>";
+                                    //echo "<td class=\"black-background\">$row[$i]</td>";
+                                    echo "<td class=\"black-background\">XXXXXXXXX</td>";
                                 }
                             }
                             else
@@ -609,11 +621,12 @@ function get_active_employees($mysqli, $active, $censor=false)
                                 if($columns[$i]=="phone_number")
                                 {
                                     $p = format_phone_number($row[$i], true);
-                                    echo "<td>$p</td>";
+                                    echo "<td class=\"black-background\">$p</td>";
                                 }
                                 else
                                 {
-                                    echo "<td class=\"black-background\">$row[$i]</td>";
+                                    //echo "<td class=\"black-background\">$row[$i]</td>";
+                                    echo "<td class=\"black-background\">XXXXXXXXXXXXXXXX</td>";
                                 }
                             }
                             else
@@ -651,7 +664,9 @@ function get_active_employees($mysqli, $active, $censor=false)
     return;
 }
 
-// **DEPRECATED** Not using. I believe
+/**
+ *     **DEPRECATED** 
+ */ 
 function csv_to_db($csvPath, $conn)
 {
     $file = fopen($csvPath, "r");
