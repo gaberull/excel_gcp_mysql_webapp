@@ -2,6 +2,12 @@
 include_once 'config.php';
 //include_once 'subcategories.php';
 
+if(!isset($_REQUEST['action']))
+{
+    // include error msg
+    header('Location: ./employees.html');
+}
+
 $action = filter_var(trim($_REQUEST['action']), FILTER_SANITIZE_STRING);
 if ($action == 'upload') 
 {
@@ -157,20 +163,25 @@ else  // $action == <subcategory>,<sub-subcategory>
     $input_exploded = explode(',', $action);
     $subcat_id = $input_exploded[0];
     $subsubcat_id = $input_exploded[1];
-    $mysqli = connectToDB();
+    //$mysqli = connectToDB();
 
     switch ($subcat_id) 
     {
         case 2:     // only active employees
+            $mysqli = connectToDB();
             echo get_active_employees($mysqli, true);
+            $mysqli->close();
             break;
 
         case 3:     // only inactive employees
+            $mysqli = connectToDB();
             echo get_active_employees($mysqli, false);
+            $mysqli->close();
             break;
 
         case 4:         // upcoming birthdays
-            $num_days = 7; // default choice of 7 days
+            $mysqli = connectToDB();
+            $num_days = 7; // default choice of 7 daysy
             // bday is 14 days out
             if ($subsubcat_id == 2) $num_days = 14;
              // bday is 30 days out
@@ -179,13 +190,19 @@ else  // $action == <subcategory>,<sub-subcategory>
             else if ($subsubcat_id == 4) $num_days = 60;
 
             echo get_birthdays($mysqli, $num_days);
+            $mysqli->close();
             break;
         
-        default:        // all employees
+        case 5:        // all employees
+            $mysqli = connectToDB();
             echo pull_database($mysqli);
+            $mysqli->close();
+            break;
+            
+        default:        // do nothing
 
             break;
     }
-    $mysqli->close();
+    //$mysqli->close();
     exit();
 }
