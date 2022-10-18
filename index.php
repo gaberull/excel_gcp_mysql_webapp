@@ -27,31 +27,39 @@
         <!-- Database response form (table) -->
         <div id="db-response-form">
             <hr/>
-                <strong>Response (Database Table)</strong>
+                <strong>Response (Database Table):</strong>
                 <br><br>
                 <div id="db-out">Database data will populate here</div>
                 <br>
             <hr/>
         </div>
-        <br><br><br>
+        <br><br>
         <!-- File upload form (also holds response from post request) -->
         <form id="fileUploadForm" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" accept=".xlsx"/>  
+            <input type="file" name="file" accept=".xlsx"/>
+            <div class="space"></div>  
             <input type="submit" name="upload" value="Upload"/>
             <span id="uploadingmsg"></span>
+            <br>
+    <!--
             <hr/>
                 <strong>Response (JSON)</strong>
                 <pre id="json">json response will be shown here. If not, look in console.</pre>
             <hr/>
-            <strong>Original File (Click Public Link to Download):</strong>
+    -->
+            <hr/>
+            <strong>Uploaded File:</strong>
             <br><br>
+            <div id="output"></div>
+            <!-- spreadsheet   -->
+            <div id="ss">Your Excel file will be displayed here in it's original format</div> 
+            <br>
+            <hr/>
             <div id="spinner">
                 <img src="asset/img/spinner.gif" width="50" height="50" />
             </div>
             <!-- json output from post request return - moved it to console   -->
-            <div id="output"></div>
-            <!-- spreadsheet   -->
-            <div id="ss"></div> 
+            
         </form>
         <script>
             function updateSubcategories() 
