@@ -18,3 +18,4 @@ test/*
 import_csv.php
 credentials/
 .idea
+protected.html
