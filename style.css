@@ -86,3 +86,13 @@ tr.processor {
 tr.supervisor {
     background-color: #E9FFF5;
 }
+
+.italicized {
+    font-style: italic;
+}
+
+.space {
+    width: 50px;
+    height: auto;
+    display: inline-block;
+}
