@@ -1,4 +1,5 @@
 <!-- Copyright 2022 Gabe Scott -->
+<?php include_once 'index_header.php'; ?>
 <!doctype html>
 <html>
     <head>
@@ -36,9 +37,9 @@
         <a href="" id="get-csv"></a>
         <!-- File upload form (also holds response from post request) -->
         <form id="fileUploadForm" method="post" enctype="multipart/form-data"> <!-- change this below onclick to javascript or php get request -->
-            <input disabled type="file" id="file-chooser" name="file" accept=".xlsx"/>
+            <input type="file" id="file-chooser" name="file" accept=".xlsx"/>
             <div class="space"></div>  
-            <input disabled type="submit" name="upload" id="upload-btn" value="Upload"/>
+            <input type="submit" name="upload" id="upload-btn" value="Upload"/>
             <input type="button" id="loadFileXml" value="Download As CSV" onclick="document.getElementById('get-csv').click();"/>
 
             <span id="uploadingmsg"></span>
@@ -142,10 +143,6 @@
 
             var subcat_select = document.getElementById("subcategory-select");
             subcat_select.addEventListener("change", updateSubSubcategories);
-            
-            // Button that gets clicked to choose a file to upload
-            file_choose_btn = document.getElementById("file-chooser");
-            file_choose_btn.addEventListener("click", swapButtons);
 
             // Button at top that gets clicked to display results
             submit_btn.addEventListener("click", function(){
@@ -168,7 +165,7 @@
                     }
                 }
                 xhr.send();
-            }); 
+            });  //TODO: check if need semicolon here or not
 
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -202,10 +199,15 @@
                 }).done(function (response) {
                     $("#uploadingmsg").html("");
                     hideSpinner();
-                    $("#upload-btn").css('display', 'none');
-                    $("#loadFileXml").css('display', 'inline-block');
+
                     // DEBUG OUTPUT
                     //console.log(JSON.stringify(response, null, 4));
+
+                    //https://storage.googleapis.com/[BUCKET_NAME]/[OBJECT_NAME]
+                    //$("#output").html('<a href="https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '"><i>https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '</i></a>');
+                    //if(response.data.contentType === 'image/jpeg' || response.data.contentType === 'image/jpg' || response.data.contentType === 'image/png') {
+                    //    $("#output").append('<br/><img src="https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '"/>');
+                    //}
                     $("#ss").html(response.spreadsheet_html);
                 }).fail(function (data) {
                     hideSpinner();  // TODO: should be here as well as in .done ? 
