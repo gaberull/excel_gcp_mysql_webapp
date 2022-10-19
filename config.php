@@ -2,10 +2,9 @@
 // block direct access of this page
 if(basename($_SERVER['PHP_SELF']) == 'config.php')
 {
-    header('Location: ./employees.html');
+    header('Location: ./index.php');
     exit();
 }
-
 ?>
 
 <?php

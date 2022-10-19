@@ -1,5 +1,12 @@
 <?php
+include_once 'other_header.php';
 // Categories for upload menu options
+if(!isset($_SESSION['going']))
+{
+  header('Location: ./index.php');
+  exit();
+}
+
 $categories = 
 [
   ['id' => 1, 'name' => 'Upload Employee File to DB', 'subcategories' => 
@@ -37,6 +44,7 @@ $categories =
     ]
   ]
 ];
+
 
 $category_id = isset($_GET['category_id']) ? (int) $_GET['category_id'] : 0;
 if(isset($_GET['category_id']))

@@ -1,11 +1,18 @@
 <?php
+include_once 'other_header.php';
 include_once 'config.php';
 //include_once 'subcategories.php';
 
+if(!isset($_SESSION['going']))
+{
+    header('Location: ./index.php');
+    exit();
+}
 if(!isset($_REQUEST['action']))
 {
     // include error msg
-    header('Location: ./employees.html');
+    header('Location: ./index.php');
+    exit();
 }
 
 $action = filter_var(trim($_REQUEST['action']), FILTER_SANITIZE_STRING);
