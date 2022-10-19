@@ -36,19 +36,13 @@
         <a href="" id="get-csv"></a>
         <!-- File upload form (also holds response from post request) -->
         <form id="fileUploadForm" method="post" enctype="multipart/form-data"> <!-- change this below onclick to javascript or php get request -->
-            <input type="file" id="file-chooser" name="file" accept=".xlsx"/>
+            <input disabled type="file" id="file-chooser" name="file" accept=".xlsx"/>
             <div class="space"></div>  
-            <input type="submit" name="upload" id="upload-btn" value="Upload"/>
+            <input disabled type="submit" name="upload" id="upload-btn" value="Upload"/>
             <input type="button" id="loadFileXml" value="Download As CSV" onclick="document.getElementById('get-csv').click();"/>
 
             <span id="uploadingmsg"></span>
             <br>
-    <!--
-            <hr/>
-                <strong>Response (JSON)</strong>
-                <pre id="json">json response will be shown here. If not, look in console.</pre>
-            <hr/>
-    -->
             <hr/>
             <strong>Uploaded File:</strong>
             <br><br>
@@ -174,7 +168,7 @@
                     }
                 }
                 xhr.send();
-            });  //TODO: check if need semicolon here or not
+            }); 
 
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
