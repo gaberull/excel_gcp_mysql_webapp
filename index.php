@@ -208,22 +208,10 @@
                 }).done(function (response) {
                     $("#uploadingmsg").html("");
                     hideSpinner();
-                    $("#get-csv").attr("href", "download.php?path=" + response.csv_path);
-                    //$("[name='upload']").hide();
-                    // switch buttons
                     $("#upload-btn").css('display', 'none');
                     $("#loadFileXml").css('display', 'inline-block');
-                    //flipVisible($('#loadFileXml'));
-                    //$("#json").html(JSON.stringify(response, null, 4));
-
                     // DEBUG OUTPUT
                     //console.log(JSON.stringify(response, null, 4));
-
-                    //https://storage.googleapis.com/[BUCKET_NAME]/[OBJECT_NAME]
-                    //$("#output").html('<a href="https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '"><i>https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '</i></a>');
-                    //if(response.data.contentType === 'image/jpeg' || response.data.contentType === 'image/jpg' || response.data.contentType === 'image/png') {
-                    //    $("#output").append('<br/><img src="https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '"/>');
-                    //}
                     $("#ss").html(response.spreadsheet_html);
                 }).fail(function (data) {
                     hideSpinner();  // TODO: should be here as well as in .done ? 
