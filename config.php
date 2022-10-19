@@ -368,14 +368,14 @@ function get_birthdays($mysqli, $len_time, $censor=false)
         {
             echo "Number of records: " . mysqli_num_rows($results);
             echo "<br>";
-            echo "<table>"; 
+            echo "<table class=\"dt\">"; 
                 echo "<tr>";
-                    echo "<th>First Name</th>";      // i==0
-                    echo "<th>Last Name</th>";       // i==1
-                    echo "<th>Email</th>";           // i==2
-                    echo "<th>Address</th>";         // i==3
-                    echo "<th>Phone Number</th>";    // i==4
-                    echo "<th>Birthday (mm-dd)</th>";// i==5
+                    echo "<th class=\"dt\">First Name</th>";      // i==0
+                    echo "<th class=\"dt\">Last Name</th>";       // i==1
+                    echo "<th class=\"dt\">Email</th>";           // i==2
+                    echo "<th class=\"dt\">Address</th>";         // i==3
+                    echo "<th class=\"dt\">Phone Number</th>";    // i==4
+                    echo "<t class=\"dt\">Birthday (mm-dd)</th>";// i==5
                 echo "</tr>";
                 while($row = mysqli_fetch_array($results))
                 {
@@ -391,17 +391,17 @@ function get_birthdays($mysqli, $len_time, $censor=false)
         
                                     $p = format_phone_number($row[$i], true);
                                     // class=\"black-background\"
-                                    echo "<td class=\"black-background\">$p</td>";
+                                    echo "<td class=\"black-background\" \"dt\">$p</td>";
                                 }
                                 else
                                 {
                                     //echo "<td class=\"black-background\">$row[$i]</td>";
-                                    echo "<td class=\"black-background\">XXXXXXXXXXXX</td>";
+                                    echo "<td class=\"black-background\" \"dt\">XXXXXXXXXXXX</td>";
                                 }
                             }
                             else
                             {
-                                echo "<td>$row[$i]</td>";
+                                echo "<td class=\"dt\">$row[$i]</td>";
                             }
                         }
                         if(!$censor)
@@ -410,11 +410,11 @@ function get_birthdays($mysqli, $len_time, $censor=false)
                             {
     
                                 $p = format_phone_number($row[$i]);
-                                echo "<td>$p</td>";
+                                echo "<td class=\"dt\">$p</td>";
                             }
                             else
                             {
-                                echo "<td>$row[$i]</td>";
+                                echo "<td class=\"dt\">$row[$i]</td>";
                             }
                         }
                     }
@@ -458,11 +458,11 @@ function pull_database($mysqli, $censor=false)
             echo "<br><br>";
             echo "Number of records: " . mysqli_num_rows($result);
             echo "<br>";
-            echo "<table>"; 
+            echo "<table class=\"dt\">"; 
                 echo "<tr>";
                     for($i=0; $i<$num_cols-1; $i++)   //TODO: should be $num_cols
                     {
-                        echo "<th>$columns[$i]</th>";
+                        echo "<th class=\"dt\">$columns[$i]</th>";
                     }
                 echo "</tr>";
                 while($row = mysqli_fetch_array($result))
@@ -496,17 +496,17 @@ function pull_database($mysqli, $censor=false)
                                 if ($columns[$i]=='phone_number')
                                 {
                                     $p = format_phone_number($row[$i], true);
-                                    echo "<td class=\"black-background\">$p</td>";
+                                    echo "<td class=\"black-background\" \"dt\">$p</td>";
                                 }
                                 else
                                 {
                                     //echo "<td class=\"black-background\">$row[$i]</td>";
-                                    echo "<td class=\"black-background\">XXXXXXXXX</td>";
+                                    echo "<td class=\"black-background\" \"dt\">XXXXXXXXX</td>";
                                 }
                             }
                             else
                             {
-                                echo "<td>$row[$i]</td>";
+                                echo "<td class=\"dt\">$row[$i]</td>";
                             }
                         }
                         if(!$censor)
@@ -515,11 +515,11 @@ function pull_database($mysqli, $censor=false)
                             if ($columns[$i]=='phone_number')
                             {
                                 $p = format_phone_number($row[$i]);
-                                echo "<td>$p</td>";
+                                echo "<td class=\"dt\">$p</td>";
                             }
                             else
                             {
-                                echo "<td>$row[$i]</td>";
+                                echo "<td class=\"dt\">$row[$i]</td>";
                             }
                         }
                         
@@ -567,21 +567,21 @@ function get_active_employees($mysqli, $active, $censor=false)
         {
             echo "Number of records: " . mysqli_num_rows($result);
             echo "<br>";
-            echo "<table>"; 
+            echo "<table class=\"dt\">"; 
                 echo "<tr>";
                 //for($i=0; $i<$num_cols-1; $i++)     // don't show active row ($num_cols-1)
                 //{
                 //    echo "<th>$columns[$i]</th>";
                 //}
-                echo "<th>First Name</th>";
-                echo "<th>Last Name</th>";
-                echo "<th>Start Date</th>";
-                echo "<th>Date Of Birth</th>";
-                echo "<th>Address</th>";
-                echo "<th>Email</th>";
-                echo "<th>Phone Number</th>";
-                echo "<th>Schedule</th>";
-                echo "<th>Position</th>";
+                echo "<th class=\"dt\">First Name</th>";
+                echo "<th class=\"dt\">Last Name</th>";
+                echo "<th class=\"dt\">Start Date</th>";
+                echo "<th class=\"dt\">Date Of Birth</th>";
+                echo "<th class=\"dt\">Address</th>";
+                echo "<th class=\"dt\">Email</th>";
+                echo "<th class=\"dt\">Phone Number</th>";
+                echo "<th class=\"dt\">Schedule</th>";
+                echo "<th class=\"dt\">Position</th>";
                 echo "</tr>";
                 while($row = mysqli_fetch_array($result))
                 {
@@ -611,17 +611,17 @@ function get_active_employees($mysqli, $active, $censor=false)
                                 if($columns[$i]=="phone_number")
                                 {
                                     $p = format_phone_number($row[$i], true);
-                                    echo "<td class=\"black-background\">$p</td>";
+                                    echo "<td class=\"black-background\" \"dt\">$p</td>";
                                 }
                                 else
                                 {
                                     //echo "<td class=\"black-background\">$row[$i]</td>";
-                                    echo "<td class=\"black-background\">XXXXXXXXXXXXXXXX</td>";
+                                    echo "<td class=\"black-background\" \"dt\">XXXXXXXXXXXXXXXX</td>";
                                 }
                             }
                             else
                             {
-                                echo "<td>$row[$i]</td>";
+                                echo "<td class=\"dt\">$row[$i]</td>";
                             }
                         }
                         if(!$censor)
@@ -629,11 +629,11 @@ function get_active_employees($mysqli, $active, $censor=false)
                             if($columns[$i]=="phone_number")
                             {
                                 $p = format_phone_number($row[$i]);
-                                echo "<td>$p</td>";
+                                echo "<td class=\"dt\">$p</td>";
                             }
                             else
                             {
-                                echo "<td>$row[$i]</td>";
+                                echo "<td class=\"dt\">$row[$i]</td>";
                             }
                         }
                     }
