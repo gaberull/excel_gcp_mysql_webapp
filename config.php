@@ -9,12 +9,10 @@ use Google\Cloud\Storage\StorageClient;
 use \PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use \PhpOffice\PhpSpreadsheet\Writer\Csv;
 
-// Path to private API key stored on GCP VM (not publicly)
-// TODO: use PHP to get relative path. Encrypt file?
-$privateKeyFilePath = '../keys/silken-reducer-359320-b3cecc9b17ca.json';
+$privateKeyFilePath = '../../keys/silken-reducer-359320-b3cecc9b17ca.json';
 
 // Global variables for debugging, CENSOR   -------------------------
-$CENSOR = false;
+$CENSOR = true;
 $DEBUG = false;
 //   CENSOR ABOVE        --------------------------------------------
 /**
@@ -177,7 +175,7 @@ function downloadLocally($bucketName, $cloudPath, $localpath)
  */
 function connectToDB()
 {
-    $json_credentials = file_get_contents('../keys/db_credentials.json');
+    $json_credentials = file_get_contents('../../keys/db_credentials.json');
     $json_data = json_decode($json_credentials, true);
     if($json_data == null)
     {
@@ -652,20 +650,4 @@ function get_active_employees($mysqli, $active, $censor=false)
         echo "ERROR - end of get_active_employees()";
     }
     return;
-}
-
-/**
- *     **DEPRECATED** 
- */ 
-function csv_to_db($csvPath, $conn)
-{
-    $file = fopen($csvPath, "r");
-    while (($data = fgetcsv($file, 10000, ",")) !== FALSE)
-    {
-        $sql = "REPLACE INTO employees(first_name,last_name,start_date,date_of_birth,address,email,phone_number,schedule,position,active) VALUES('$data[0]','$data[1]','$data[2]','$data[3]','$data[4]','$data[5]','$data[6]','$data[7]','$data[8]',1);";
-        mysqli_query($conn, $sql);
-    }
-    fclose($file);
-
-    return $conn;
 }
