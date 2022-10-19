@@ -111,20 +111,20 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
-- [ ] Create demonstration web app with same functionality minus ability to update DB or view sensitive data
+- [ ] Add click to download as CSV. For original file, or DB query selection, or both
 - [ ] Rename repository ``excel_to_mysql``
-- [ ] Delete files created during the upload process (.csv, .html, etc)
 - [ ] Calendar visual aide with birthdays on it could be nice - show 2 months (this,next)
 - [ ] See about moving style.css out of html folder in GCP VM
-- [ ] Adjust and secure the user authorization to upload to, access Google Cloud Storage bucket
 - [ ] Figure out which open-source license to add to this project before making repository public
-
-- [ ] See about changing permissions on Google cloud storage bucket 
-- [ ] See about moving php scripts and other files to a folder called ``scripts/``
+- [ ] See about changing permissions on Google cloud storage bucket
+- [ ] See about moving php scripts and other files to a folder called `scripts/`
 - [ ] See about obscuring certain php files
-- [ ] Tighten up user authentification all over, and secure site against potential SQL injection attacks
-- [ ] Change mysql db user info for user www-data
 - [ ] Read PhpSpreadsheet open-source license and see if attribution is needed in documentation somewhere
+- [x] Tighten up user authentification all over, and secure site against potential SQL injection attacks
+- [x] Adjust and secure the user authorization to upload to, access Google Cloud Storage bucket
+- [x] Change mysql db user info for user www-data
+- [x] Delete files created during the upload process (.csv, .html, etc)
+- [x] Create demonstration web app with same functionality minus ability to update DB or view sensitive data
 - [x] Clean up GCP folders and remove old file versions
 - [x] Add authorization
 - [x] Add phone number formatting (dashes) for other display options other than display all
