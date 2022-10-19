@@ -1,13 +1,6 @@
 <?php
-include_once 'other_header.php';
 include_once 'config.php';
-//include_once 'subcategories.php';
 
-if(!isset($_SESSION['going']))
-{
-    header('Location: ./index.php');
-    exit();
-}
 if(!isset($_REQUEST['action']))
 {
     // include error msg
@@ -38,12 +31,8 @@ if ($action == 'upload')
         if ($isSucceed == true) 
         {
             $response['uploadmsg'] = 'SUCCESS: to upload ' . $cloudPath;
-            // TEST: get object detail (filesize, contentType, updated [date], etc.)
             $response['data'] = getFileInfo($bucketName, $cloudPath);
-            //$localpath = 'uploads/' . $_FILES['file']['name'];
-            //$localPath = '../' . $cloudPath;
-            $localPath = '../uploads/recent_excel.xlsx';
-            //downloadLocally($bucketName, $cloudPath, $localPath);
+            $localPath = '../../uploads/recent_excel.xlsx';
             $temp = downloadLocally($bucketName, $cloudPath, $localPath);
             if($temp != false)
             {
@@ -52,8 +41,6 @@ if ($action == 'upload')
                 // Convert file to csv
                 $name = 'employees';
                 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-                //$reader->setReadDataOnly(false);
-                //$reader->setReadDataOnly(false);
                 $reader->setReadEmptyCells(false);
 
                 //Get all sheets in file
@@ -63,14 +50,8 @@ if ($action == 'upload')
                 $count = 0;
                 foreach($sheets as $sheet)
                 {
-                    //trim(iconv("UTF-8","ISO-8859-1",$sheet->getCell('B'.$row )->getValue())," \t\n\r\0\x0B\xA0");
-                    //trim(utf8_decode($sheet->getCell('B'.$row )->getValue())," \t\n\r\0\x0B\xA0");
-                    //Load the file
                     $reader->setLoadSheetsOnly([$sheet]);
-                    //$reader->setReadDataOnly(true);
                     $spreadsheet = $reader->load($localPath);
-
-                    //trim(iconv("UTF-8","ISO-8859-1",$sheet->getCell('B'.$row )->getValue())," \t\n\r\0\x0B\xA0");
                     
                     $worksheet = $spreadsheet->getSheet(0);
                     foreach ($worksheet->getRowIterator() as $row) {
@@ -84,9 +65,7 @@ if ($action == 'upload')
                         foreach ($cellIterator as $cell) {
                             $temp = $cell->getValue();
                             $temp = trim($temp, " \x20\x2A\n\r\t\v\x00");
-                            //$cell->setValue(trim(iconv("UTF-8","ISO-8859-1",$temp)," \t\n\r\0\x0B\xA0"));
                             $cell->setValue($temp);
-                            //trim(utf8_decode($temp)," \t\n\r\0\x0B\xA0");
                         }
                     }
 
@@ -96,15 +75,11 @@ if ($action == 'upload')
                     $spreadsheet->getActiveSheet()->getStyle('D:D')
                         ->getNumberFormat()
                         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
-                    
                     $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
                     $writer->setEnclosure("'");
                     $writer->setDelimiter(';'); // comma was causing addresses to split up into new cells
                     $writer->setLineEnding("\r\n");
-
-                    //$csvPath = 'uploads/' . $sheet.'.csv';
-                    //$csvPath = 'uploads/' . $name.'_'.$count.'.csv';    // will look like employees_0.csv
-                    $csvPath = '../uploads/' . $name.'_'.$count.'.csv';     // will look like employees_0.csv
+                    $csvPath = '../../uploads/' . $name.'_'.$count.'.csv';     // will look like employees_0.csv
                     //Write the CSV file
                     $writer->save($csvPath);
                     
@@ -119,7 +94,6 @@ if ($action == 'upload')
                 }
                 $response['csv_conversion_msg'] = 'SUCCESS Converted to .csv';
                 $response['csv_path'] = $csvPath;
-                //$response['html_path'] $htmlPath;
 
                 // Function call to Connect to mysql database
                 $mysqli = connectToDB();
@@ -176,13 +150,13 @@ else  // $action == <subcategory>,<sub-subcategory>
     {
         case 2:     // only active employees
             $mysqli = connectToDB();
-            echo get_active_employees($mysqli, true);
+            echo get_active_employees($mysqli, true, true);
             $mysqli->close();
             break;
 
         case 3:     // only inactive employees
             $mysqli = connectToDB();
-            echo get_active_employees($mysqli, false);
+            echo get_active_employees($mysqli, false, true);
             $mysqli->close();
             break;
 
@@ -196,13 +170,13 @@ else  // $action == <subcategory>,<sub-subcategory>
                 // bday is 60 days out
             else if ($subsubcat_id == 4) $num_days = 60;
 
-            echo get_birthdays($mysqli, $num_days);
+            echo get_birthdays($mysqli, $num_days, true);
             $mysqli->close();
             break;
         
         case 5:        // all employees
             $mysqli = connectToDB();
-            echo pull_database($mysqli);
+            echo pull_database($mysqli, true);
             $mysqli->close();
             break;
             
@@ -210,6 +184,5 @@ else  // $action == <subcategory>,<sub-subcategory>
 
             break;
     }
-    //$mysqli->close();
     exit();
 }
