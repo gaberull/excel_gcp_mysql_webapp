@@ -22,8 +22,9 @@
     display: none;
 }
 
-/* html table of database results TODO: add class .ddt for display data table*/
-table, th, td {
+/* html table of database results 
+   - blue border                   */
+table.dt, th.dt, td.dt {
     border: 1px solid #96D4D4;
 }
 
