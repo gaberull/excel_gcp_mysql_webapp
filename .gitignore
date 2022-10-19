@@ -19,5 +19,5 @@ import_csv.php
 credentials/
 .idea
 protected.html
-session_header.php
-session_header0.php
+index_header.php
+other_header.php
