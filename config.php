@@ -1,13 +1,4 @@
 <?php
-// block direct access of this page
-if(basename($_SERVER['PHP_SELF']) == 'config.php')
-{
-    header('Location: ./index.php');
-    exit();
-}
-?>
-
-<?php
 
 // load composer generated files
 require_once '../vendor/autoload.php'; 
@@ -19,13 +10,13 @@ use \PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use \PhpOffice\PhpSpreadsheet\Writer\Csv;
 
 // Path to private API key stored on GCP VM (not publicly)
-// TODO: encrypt file?
+// TODO: use PHP to get relative path. Encrypt file?
 $privateKeyFilePath = '../keys/silken-reducer-359320-b3cecc9b17ca.json';
 
-// Global variables for debugging, censoring
+// Global variables for debugging, CENSOR   -------------------------
 $CENSOR = false;
 $DEBUG = false;
-
+//   CENSOR ABOVE        --------------------------------------------
 /**
  *  Upload file to Google Cloud Storage Bucket
  * 

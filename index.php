@@ -7,7 +7,6 @@
         <title>GCP Storage File Upload using PHP</title>
         <link href="style.css" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="/asset/img/favicon.ico">
-        <!-- <link rel="icon" type="image/x-icon" href="/asset/img/parser_favicon.png"> -->
     </head>
     <body>
         <div id="option-form">
@@ -34,11 +33,15 @@
             <hr/>
         </div>
         <br><br>
+    <!--   Download csvfile link - called from button id=loadFileXml, href will be set from post request response  -->
+        <a href="" id="get-csv"></a>
         <!-- File upload form (also holds response from post request) -->
-        <form id="fileUploadForm" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" accept=".xlsx"/>
+        <form id="fileUploadForm" method="post" enctype="multipart/form-data"> <!-- change this below onclick to javascript or php get request -->
+            <input type="file" id="file-chooser" name="file" accept=".xlsx"/>
             <div class="space"></div>  
-            <input type="submit" name="upload" value="Upload"/>
+            <input type="submit" name="upload" id="upload-btn" value="Upload"/>
+            <input type="button" id="loadFileXml" value="Download As CSV" onclick="document.getElementById('get-csv').click();"/>
+
             <span id="uploadingmsg"></span>
             <br>
     <!--
@@ -62,6 +65,12 @@
             
         </form>
         <script>
+            function swapButtons()
+            {
+                document.getElementById('upload-btn').style.display = 'inline-block';
+                // download as CSV button
+                document.getElementById('loadFileXml').style.display = 'none';
+            }
             function updateSubcategories() 
             {
                 var cat_select = document.getElementById("category-select");
@@ -141,6 +150,10 @@
             var subcat_select = document.getElementById("subcategory-select");
             subcat_select.addEventListener("change", updateSubSubcategories);
             
+            // Button that gets clicked to choose a file to upload
+            file_choose_btn = document.getElementById("file-chooser");
+            file_choose_btn.addEventListener("click", swapButtons);
+
             // Button at top that gets clicked to display results
             submit_btn.addEventListener("click", function(){
                 var subcat_select = document.getElementById("subcategory-select");
@@ -167,6 +180,10 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script>
+            function flipVisible($id){
+                var displayType = ( ! $id.is(':visible') ) ? 'inline-block' : 'none';
+                $id.css('display', displayType);
+            }
             function showSpinner(){
                 var spinner = document.getElementById("spinner");
                 spinner.style.display = 'block';
@@ -192,8 +209,14 @@
                 }).done(function (response) {
                     $("#uploadingmsg").html("");
                     hideSpinner();
+                    $("#get-csv").attr("href", "download.php?path=" + response.csv_path);
+                    //$("[name='upload']").hide();
+                    // switch buttons
+                    $("#upload-btn").css('display', 'none');
+                    $("#loadFileXml").css('display', 'inline-block');
+                    //flipVisible($('#loadFileXml'));
                     //$("#json").html(JSON.stringify(response, null, 4));
-                    //console.log(JSON.stringify(response, null, 4));
+                    console.log(JSON.stringify(response, null, 4));
                     //https://storage.googleapis.com/[BUCKET_NAME]/[OBJECT_NAME]
                     //$("#output").html('<a href="https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '"><i>https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '</i></a>');
                     //if(response.data.contentType === 'image/jpeg' || response.data.contentType === 'image/jpg' || response.data.contentType === 'image/png') {

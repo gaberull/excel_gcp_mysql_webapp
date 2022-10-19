@@ -22,7 +22,7 @@
     display: none;
 }
 
-/* html table of database results */
+/* html table of database results TODO: add class .ddt for display data table*/
 table, th, td {
     border: 1px solid #96D4D4;
 }
@@ -87,12 +87,29 @@ tr.supervisor {
     background-color: #E9FFF5;
 }
 
+/* italicize words */
 .italicized {
     font-style: italic;
 }
 
+/*  Space between two buttons (choose file, upload) */
 .space {
-    width: 50px;
+    width: 40px;
     height: auto;
     display: inline-block;
+}
+
+/* Linked button label thing */
+#loadFileXml {
+    display: none;
+}
+
+/*  Upload button */
+#upload-btn {
+    display: inline-block;
+}
+
+/* a tag link to send git request to downloads.php and dl csv file */
+#get-csv {
+    display: none;
 }
