@@ -18,6 +18,5 @@ test/*
 import_csv.php
 credentials/
 .idea
-protected.html
 index_header.php
 other_header.php
