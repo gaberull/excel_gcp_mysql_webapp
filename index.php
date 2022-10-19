@@ -1,5 +1,4 @@
 <!-- Copyright 2022 Gabe Scott -->
-<?php include_once 'index_header.php'; ?>
 <!doctype html>
 <html>
     <head>
