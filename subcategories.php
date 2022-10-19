@@ -1,11 +1,4 @@
 <?php
-include_once 'other_header.php';
-// Categories for upload menu options
-if(!isset($_SESSION['going']))
-{
-  header('Location: ./index.php');
-  exit();
-}
 
 $categories = 
 [
@@ -109,7 +102,6 @@ else if(isset($_GET['subcategory_id']))
                  }
                  else
                  {
-                    //note: hiding this here doesn't seem to be effective on the webpage
                     echo "<option hidden></option>";  
                  }
               }
