@@ -3,6 +3,7 @@
     display: none;
 }
 
+/*  make sub-category selector invisible at load */
 #subsubcategory-select {
     display: none;
 }

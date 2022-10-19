@@ -180,6 +180,7 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script>
+            // flip whether an element is visible or not by it's id
             function flipVisible($id){
                 var displayType = ( ! $id.is(':visible') ) ? 'inline-block' : 'none';
                 $id.css('display', displayType);
@@ -192,7 +193,6 @@
                 var spinner = document.getElementById("spinner");
                 spinner.style.display = 'none';
             }
-
             $("#fileUploadForm").submit(function (e) {
                 e.preventDefault();
                 var action = "requests.php?action=upload";
@@ -216,7 +216,10 @@
                     $("#loadFileXml").css('display', 'inline-block');
                     //flipVisible($('#loadFileXml'));
                     //$("#json").html(JSON.stringify(response, null, 4));
+
+                    // DEBUG OUTPUT
                     //console.log(JSON.stringify(response, null, 4));
+
                     //https://storage.googleapis.com/[BUCKET_NAME]/[OBJECT_NAME]
                     //$("#output").html('<a href="https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '"><i>https://storage.googleapis.com/' + response.data.bucket + '/' + response.data.name + '</i></a>');
                     //if(response.data.contentType === 'image/jpeg' || response.data.contentType === 'image/jpg' || response.data.contentType === 'image/png') {

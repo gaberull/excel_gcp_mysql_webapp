@@ -62,14 +62,14 @@ I have been learning PHP on the fly on this project, having never worked with it
 **Notes to Self (dev):**
 
 - Important file directory structure info can be found in [directory_structure.md](directory_structure.md)
-- Apache2 publicly hosted files are in ```/var/www/boolsa.io/html``` on webserver
-- API Key, DB credentials are in ```/var/www/boolsa.io/keys/``` in the form of json
-- File Upload script requires ```/var/www/boolsa.io/vendor/``` (created with Composer for php)
+- Apache2 publicly hosted files are in `/var/www/boolsa.io/html` on webserver
+- API Key, DB credentials are in `/var/www/boolsa.io/keys/` in the form of json
+- File Upload script requires `/var/www/boolsa.io/vendor/` (created with Composer for php)
   - ***Should not be publicly visible***
-- Apache2 php.ini file is located at ```/etc/php/8.1/apache2/php.ini```
-  - This is separate from ubuntu php.ini file which is located at ```/etc/php/8.1/cli/php.ini```
-    - conf.d file is located at ```/etc/php/8.1/cli/conf.d```
-  - Enabled extension=myslqi here by uncommenting line after searching in vim with ```ls ./ | grep php```
+- Apache2 php.ini file is located at `/etc/php/8.1/apache2/php.ini`
+  - This is separate from ubuntu php.ini file which is located at `/etc/php/8.1/cli/php.ini`
+    - conf.d file is located at `/etc/php/8.1/cli/conf.d`
+  - Enabled extension=myslqi here by uncommenting line after searching in vim with `ls ./ | grep php`
 - Working with GCP from command line is made very easy in VSCode bash terminal with the GCP extension. Makes it easy to SCP files in to the VM
 
 ## Installation Instructions
@@ -111,14 +111,14 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
-- [ ] Add click to download as CSV. For original file, or DB query selection, or both
 - [ ] Rename repository ``excel_to_mysql``
 - [ ] Calendar visual aide with birthdays on it could be nice - show 2 months (this,next)
 - [ ] See about moving style.css out of html folder in GCP VM
 - [ ] Figure out which open-source license to add to this project before making repository public
-- [ ] See about changing permissions on Google cloud storage bucket
-- [ ] See about moving php scripts and other files to a folder called `scripts/`
-- [ ] See about obscuring certain php files
+- [ ] See about moving PHP scripts and other files to a folder called `scripts/`
+- [x] Change permissions on Google Cloud Storage bucket
+- [x] Add click to download as CSV. For original file, or DB query selection, or both
+- [x] See about obscuring certain php files
 - [ ] Read PhpSpreadsheet open-source license and see if attribution is needed in documentation somewhere
 - [x] Tighten up user authentification all over, and secure site against potential SQL injection attacks
 - [x] Adjust and secure the user authorization to upload to, access Google Cloud Storage bucket
@@ -137,7 +137,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 - [x] Style app main webpage
   - [ ] Could use more styling
 - [x] Hide MySQL DB credentials
-  - [ ] *Encrypt credentials on GCP VM ?*
+  - [x] *Encrypt credentials on GCP VM ?*
   - [x] Double check that this is not accessible from outside
 - [x] Add date to uploaded xlsx files for storage
 - [x] Add ability to print data from MySQL database
