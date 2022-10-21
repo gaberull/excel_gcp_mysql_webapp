@@ -51,3 +51,7 @@ AND DATE_FORMAT(b.date_of_birth, '%m-%d') <= DATE_FORMAT((NOW() + INTERVAL +$num
 AND (b.start_date <= curdate() - interval (dayofmonth(curdate()) - 1) day - interval 6 month OR b.start_date IS NULL) 
 ORDER BY DATE_FORMAT(b.date_of_birth, '%m-%d');
 ```
+
+```SQL
+insert into users (userID, password_hash, display_name) VALUES(1, SHA2('THIS IS NOT REAL PASSPHRASE', 256), 'gabe');
+```
