@@ -1,215 +1,208 @@
 <?php
-include_once 'other_header.php';
+session_start();
 include_once 'config.php';
-//include_once 'subcategories.php';
 
-if(!isset($_SESSION['going']))
+if(!isset($_SESSION['username']))
 {
-    header('Location: ./index.php');
-    exit();
+    header('Location: ./login.php');
+    //
+    die();
+    exit;
 }
-if(!isset($_REQUEST['action']))
-{
-    // include error msg
-    header('Location: ./index.php');
-    exit();
-}
-
-$action = filter_var(trim($_REQUEST['action']), FILTER_SANITIZE_STRING);
-if ($action == 'upload') 
-{
-    $response['code'] = "200";
-    if ($_FILES['file']['error'] != 4) 
+    $action = '';
+    if(isset($_REQUEST['action']))
     {
-        //set which bucket to work in
-        $bucketName = "xlsx-uploads";
-        // get local file for upload testing
-        $fileContent = file_get_contents($_FILES['file']['tmp_name']);
-        
-        // Add date to filename in order to save changes over time in GCS bucket
-        $path = $_FILES['file']['name'];
-        $ext = pathinfo($path, PATHINFO_EXTENSION);
-        $base = pathinfo($path, PATHINFO_FILENAME);
-        $name = $base. '_' . date("Y-m-d"). '.' . $ext;
+        $action = filter_var(trim($_REQUEST['action']), FILTER_SANITIZE_STRING);
+    }
 
-        $cloudPath = 'uploads/' . $name;
-        $isSucceed = uploadFile($bucketName, $fileContent, $cloudPath);
-
-        if ($isSucceed == true) 
+    if ($action == 'upload') 
+    {
+        $response['code'] = "200";
+        if ($_FILES['file']['error'] != 4) 
         {
-            $response['uploadmsg'] = 'SUCCESS: to upload ' . $cloudPath;
-            // TEST: get object detail (filesize, contentType, updated [date], etc.)
-            $response['data'] = getFileInfo($bucketName, $cloudPath);
-            //$localpath = 'uploads/' . $_FILES['file']['name'];
-            //$localPath = '../' . $cloudPath;
-            $localPath = '../uploads/recent_excel.xlsx';
-            //downloadLocally($bucketName, $cloudPath, $localPath);
-            $temp = downloadLocally($bucketName, $cloudPath, $localPath);
-            if($temp != false)
+            //set which bucket to work in
+            $bucketName = "xlsx-uploads";
+            // get local file for upload testing
+            $fileContent = file_get_contents($_FILES['file']['tmp_name']);
+            
+            // Add date to filename in order to save changes over time in GCS bucket
+            $path = $_FILES['file']['name'];
+            $ext = pathinfo($path, PATHINFO_EXTENSION);
+            $base = pathinfo($path, PATHINFO_FILENAME);
+            $name = $base. '_' . date("Y-m-d"). '.' . $ext;
+
+            $cloudPath = 'uploads/' . $name;
+            $isSucceed = uploadFile($bucketName, $fileContent, $cloudPath);
+
+            if ($isSucceed == true) 
             {
-                $response['download_xlsx_msg'] = 'SUCCESS: File xlsx file saved locally';
-                $response['download_xlsx_loc'] = $localPath;
-                // Convert file to csv
-                $name = 'employees';
-                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-                //$reader->setReadDataOnly(false);
-                //$reader->setReadDataOnly(false);
-                $reader->setReadEmptyCells(false);
-
-                //Get all sheets in file
-                $sheets = $reader->listWorksheetNames($localPath);
-                
-                //Loop over each sheet and save an individual file
-                $count = 0;
-                foreach($sheets as $sheet)
+                $response['uploadmsg'] = 'SUCCESS: to upload ' . $cloudPath;
+                // TEST: get object detail (filesize, contentType, updated [date], etc.)
+                $response['data'] = getFileInfo($bucketName, $cloudPath);
+                //$localpath = 'uploads/' . $_FILES['file']['name'];
+                //$localPath = '../' . $cloudPath;
+                $localPath = '../uploads/recent_excel.xlsx';
+                //downloadLocally($bucketName, $cloudPath, $localPath);
+                $temp = downloadLocally($bucketName, $cloudPath, $localPath);
+                if($temp != false)
                 {
-                    //trim(iconv("UTF-8","ISO-8859-1",$sheet->getCell('B'.$row )->getValue())," \t\n\r\0\x0B\xA0");
-                    //trim(utf8_decode($sheet->getCell('B'.$row )->getValue())," \t\n\r\0\x0B\xA0");
-                    //Load the file
-                    $reader->setLoadSheetsOnly([$sheet]);
-                    //$reader->setReadDataOnly(true);
-                    $spreadsheet = $reader->load($localPath);
+                    $response['download_xlsx_msg'] = 'SUCCESS: File xlsx file saved locally';
+                    $response['download_xlsx_loc'] = $localPath;
+                    // Convert file to csv
+                    $name = 'employees';
+                    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+                    //$reader->setReadDataOnly(false);
+                    //$reader->setReadDataOnly(false);
+                    $reader->setReadEmptyCells(false);
 
-                    //trim(iconv("UTF-8","ISO-8859-1",$sheet->getCell('B'.$row )->getValue())," \t\n\r\0\x0B\xA0");
+                    //Get all sheets in file
+                    $sheets = $reader->listWorksheetNames($localPath);
                     
-                    $worksheet = $spreadsheet->getSheet(0);
-                    foreach ($worksheet->getRowIterator() as $row) {
-                        $cellIterator = $row->getCellIterator();
-                        $cellIterator->setIterateOnlyExistingCells(TRUE); // This loops through all cells,
-                                                                        //    even if a cell value is not set.
-                                                                        // For 'TRUE', we loop through cells
-                                                                        //    only when their value is set.
-                                                                        // If this method is not called,
-                                                                        //    the default value is 'false'.
-                        foreach ($cellIterator as $cell) {
-                            $temp = $cell->getValue();
-                            $temp = trim($temp, " \x20\x2A\n\r\t\v\x00");
-                            //$cell->setValue(trim(iconv("UTF-8","ISO-8859-1",$temp)," \t\n\r\0\x0B\xA0"));
-                            $cell->setValue($temp);
-                            //trim(utf8_decode($temp)," \t\n\r\0\x0B\xA0");
+                    //Loop over each sheet and save an individual file
+                    $count = 0;
+                    foreach($sheets as $sheet)
+                    {
+                        //Load the file
+                        $reader->setLoadSheetsOnly([$sheet]);
+                        //$reader->setReadDataOnly(true);
+                        $spreadsheet = $reader->load($localPath);
+                        $worksheet = $spreadsheet->getSheet(0);
+                        foreach ($worksheet->getRowIterator() as $row) {
+                            $cellIterator = $row->getCellIterator();
+                            $cellIterator->setIterateOnlyExistingCells(TRUE); // This loops through all cells,
+                                                                            //    even if a cell value is not set.
+                                                                            // For 'TRUE', we loop through cells
+                                                                            //    only when their value is set.
+                                                                            // If this method is not called,
+                                                                            //    the default value is 'false'.
+                            foreach ($cellIterator as $cell) {
+                                $temp = $cell->getValue();
+                                $temp = trim($temp, " \x20\x2A\n\r\t\v\x00");
+                                //$cell->setValue(trim(iconv("UTF-8","ISO-8859-1",$temp)," \t\n\r\0\x0B\xA0"));
+                                $cell->setValue($temp);
+                            }
                         }
+
+                        $spreadsheet->getActiveSheet()->getStyle('C:C')
+                            ->getNumberFormat()
+                            ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
+                        $spreadsheet->getActiveSheet()->getStyle('D:D')
+                            ->getNumberFormat()
+                            ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
+                        
+                        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
+                        $writer->setEnclosure("'");
+                        $writer->setDelimiter(';'); // comma was causing addresses to split up into new cells
+                        $writer->setLineEnding("\r\n");
+
+                        //$csvPath = 'uploads/' . $sheet.'.csv';
+                        //$csvPath = 'uploads/' . $name.'_'.$count.'.csv';    // will look like employees_0.csv
+                        $csvPath = '../uploads/' . $name.'_'.$count.'.csv';     // will look like employees_0.csv
+                        //Write the CSV file
+                        $writer->save($csvPath);
+                        
+                        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
+                        $writer->setPreCalculateFormulas(false);
+
+                        ob_start();
+                        $writer->save('php://output');
+                        $html = ob_get_clean();
+                        $response['spreadsheet_html'] = $html;
+                        $count++;
+                    }
+                    $response['csv_conversion_msg'] = 'SUCCESS Converted to .csv';
+                    $response['csv_path'] = $csvPath;
+
+                    // Function call to Connect to mysql database
+                    $mysqli = connectToDB();
+                    if ($mysqli->connect_errno) {
+                        $response['db_connection'] = 'MySQL DB Connection failed: Error ' .$mysqli->connect_error;
+                    } 
+                    else
+                    {
+                        $response['db_connection_host'] = 'MySQL DB Connection Successful: '. $mysqli->host_info;
+                        $response['db_connection_client'] = 'MySQL DB Connection Successful: '. $mysqli->client_info;
                     }
 
-                    $spreadsheet->getActiveSheet()->getStyle('C:C')
-                        ->getNumberFormat()
-                        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
-                    $spreadsheet->getActiveSheet()->getStyle('D:D')
-                        ->getNumberFormat()
-                        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
-                    
-                    $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
-                    $writer->setEnclosure("'");
-                    $writer->setDelimiter(';'); // comma was causing addresses to split up into new cells
-                    $writer->setLineEnding("\r\n");
+                    /* check if server is alive */
+                    if ($mysqli->ping()) {
+                        $response['alive'] = 'Our connection is ok!';
+                    } else {
+                        $response['alive'] = 'Ping Error: '. $mysqli->error;
+                    }
 
-                    //$csvPath = 'uploads/' . $sheet.'.csv';
-                    //$csvPath = 'uploads/' . $name.'_'.$count.'.csv';    // will look like employees_0.csv
-                    $csvPath = '../uploads/' . $name.'_'.$count.'.csv';     // will look like employees_0.csv
-                    //Write the CSV file
-                    $writer->save($csvPath);
-                    
-                    $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
-                    $writer->setPreCalculateFormulas(false);
-
-                    ob_start();
-                    $writer->save('php://output');
-                    $html = ob_get_clean();
-                    $response['spreadsheet_html'] = $html;
-                    $count++;
+                    $query_str_arr = get_insert_queries($csvPath, $mysqli);
+                    $size_arr = count($query_str_arr);
+                    for($i=0; $i<$size_arr; $i++)
+                    {
+                        $a = 'query_' .$i;
+                        $b = 'query_' .$i . '_SUCCESS';
+                        $response[$a] = $query_str_arr[$i];
+                        $response[$b] = $mysqli->query($query_str_arr[$i]);
+                    }
+                    $mysqli->close();
                 }
-                $response['csv_conversion_msg'] = 'SUCCESS Converted to .csv';
-                $response['csv_path'] = $csvPath;
-                //$response['html_path'] $htmlPath;
-
-                // Function call to Connect to mysql database
-                $mysqli = connectToDB();
-                if ($mysqli->connect_errno) {
-                    $response['db_connection'] = 'MySQL DB Connection failed: Error ' .$mysqli->connect_error;
-                } 
                 else
                 {
-                    $response['db_connection_host'] = 'MySQL DB Connection Successful: '. $mysqli->host_info;
-                    $response['db_connection_client'] = 'MySQL DB Connection Successful: '. $mysqli->client_info;
-                 }
-
-                /* check if server is alive */
-                if ($mysqli->ping()) {
-                    $response['alive'] = 'Our connection is ok!';
-                } else {
-                    $response['alive'] = 'Ping Error: '. $mysqli->error;
+                    $response['download_xlsx_msg'] = 'Failed: to download to ' . $localpath;
                 }
-
-                $query_str_arr = get_insert_queries($csvPath, $mysqli);
-                $size_arr = count($query_str_arr);
-                for($i=0; $i<$size_arr; $i++)
-                {
-                    $a = 'query_' .$i;
-                    $b = 'query_' .$i . '_SUCCESS';
-                    $response[$a] = $query_str_arr[$i];
-                    $response[$b] = $mysqli->query($query_str_arr[$i]);
-                }
-                $mysqli->close();
-            }
-            else
+            } 
+            else 
             {
-                $response['download_xlsx_msg'] = 'Failed: to download to ' . $localpath;
+                $response['code'] = "201";
+                $response['msg'] = 'FAILED: to upload ' . $cloudPath . PHP_EOL;
             }
-        } 
-        else 
-        {
-            $response['code'] = "201";
-            $response['msg'] = 'FAILED: to upload ' . $cloudPath . PHP_EOL;
         }
+        header("Content-Type:application/json");
+        echo json_encode($response);
+        exit();
     }
-    header("Content-Type:application/json");
-    echo json_encode($response);
-    exit();
-}
-else  // $action == <subcategory>,<sub-subcategory>
-{
-    $input_exploded = explode(',', $action);
-    $subcat_id = $input_exploded[0];
-    $subsubcat_id = $input_exploded[1];
-    //$mysqli = connectToDB();
-
-    switch ($subcat_id) 
+    else if($action != '')
     {
-        case 2:     // only active employees
-            $mysqli = connectToDB();
-            echo get_active_employees($mysqli, true);
-            $mysqli->close();
-            break;
+        $input_exploded = explode(',', $action);
+        $subcat_id = $input_exploded[0];
+        $subsubcat_id = $input_exploded[1];
+        //$mysqli = connectToDB();
 
-        case 3:     // only inactive employees
-            $mysqli = connectToDB();
-            echo get_active_employees($mysqli, false);
-            $mysqli->close();
-            break;
+        switch ($subcat_id) 
+        {
+            case 2:     // only active employees
+                $mysqli = connectToDB();
+                echo get_active_employees($mysqli, true);
+                $mysqli->close();
+                break;
 
-        case 4:         // upcoming birthdays
-            $mysqli = connectToDB();
-            $num_days = 7; // default choice of 7 daysy
-            // bday is 14 days out
-            if ($subsubcat_id == 2) $num_days = 14;
-             // bday is 30 days out
-            else if ($subsubcat_id == 3) $num_days = 30;
-                // bday is 60 days out
-            else if ($subsubcat_id == 4) $num_days = 60;
+            case 3:     // only inactive employees
+                $mysqli = connectToDB();
+                echo get_active_employees($mysqli, false);
+                $mysqli->close();
+                break;
 
-            echo get_birthdays($mysqli, $num_days);
-            $mysqli->close();
-            break;
-        
-        case 5:        // all employees
-            $mysqli = connectToDB();
-            echo pull_database($mysqli);
-            $mysqli->close();
-            break;
+            case 4:         // upcoming birthdays
+                $mysqli = connectToDB();
+                $num_days = 7; // default choice of 7 daysy
+                // bday is 14 days out
+                if ($subsubcat_id == 2) $num_days = 14;
+                // bday is 30 days out
+                else if ($subsubcat_id == 3) $num_days = 30;
+                    // bday is 60 days out
+                else if ($subsubcat_id == 4) $num_days = 60;
+
+                echo get_birthdays($mysqli, $num_days);
+                $mysqli->close();
+                break;
             
-        default:        // do nothing
+            case 5:        // all employees
+                $mysqli = connectToDB();
+                echo pull_database($mysqli);
+                $mysqli->close();
+                break;
+                
+            default:        // do nothing
 
-            break;
+                break;
+        }
+        //$mysqli->close();
+        exit();
     }
-    //$mysqli->close();
-    exit();
-}
+?>

@@ -1,12 +1,13 @@
 <?php
-include_once 'other_header.php';
-// Categories for upload menu options
-if(!isset($_SESSION['going']))
-{
-  header('Location: ./index.php');
-  exit();
-}
+session_start();
 
+if(!isset($_SESSION['username']))
+{
+  header('Location: ./login.php');
+  die();
+  exit;
+}
+// Categories for upload menu options
 $categories = 
 [
   ['id' => 1, 'name' => 'Upload Employee File to DB', 'subcategories' => 
@@ -46,75 +47,75 @@ $categories =
 ];
 
 
-$category_id = isset($_GET['category_id']) ? (int) $_GET['category_id'] : 0;
-if(isset($_GET['category_id']))
-{
-    foreach($categories as $category) 
-    {
-        if($category['id'] == $category_id) // if this id matches requested id
-        {
-          $subcategories = $category['subcategories'];
-          foreach($subcategories as $subcategory) 
-          {
-            if($subcategory['name']=='Select Option')
-            {
-                echo "<option disabled selected value=\"{$subcategory['id']}\">";
-                echo $subcategory['name'];
-                echo "</option>";
-            }
-            else
-            {
-                echo "<option value=\"{$subcategory['id']}\">";
-                echo $subcategory['name'];
-                echo "</option>";
-            }
-              
-          }
-        }
-    }
-}
-else if(isset($_GET['subcategory_id']))
-{
-  $input =  $_GET['subcategory_id'];
-  $input_exploded = explode(',', $input);
-  $category_id = $input_exploded[0];
-  $subcategory_id = $input_exploded[1];
-  foreach($categories as $category) 
+  $category_id = isset($_GET['category_id']) ? (int) $_GET['category_id'] : 0;
+  if(isset($_GET['category_id']))
   {
-      if($category['id'] == $category_id) 
+      foreach($categories as $category) 
       {
-          $subcategories = $category['subcategories'];
-          foreach($subcategories as $subcategory) 
+          if($category['id'] == $category_id) // if this id matches requested id
           {
-              if($subcategory['id'] == $subcategory_id)
+            $subcategories = $category['subcategories'];
+            foreach($subcategories as $subcategory) 
+            {
+              if($subcategory['name']=='Select Option')
               {
-                 if(is_array( $subcategory['subcategories'] ) || is_object( $subcategory['subcategories'] ))
-                 {
-                    $subsubcategories = $subcategory['subcategories'];
-                    foreach($subsubcategories as $subsubcategory)
-                    {
-                      if($subsubcategory['id'] == 1)
-                      {
-                          echo "<option selected value=\"{$subsubcategory['id']}\">";
-                          echo $subsubcategory['name'];
-                          echo "</option>";
-                      }
-                      else
-                      {
-                          echo "<option value=\"{$subsubcategory['id']}\">";
-                          echo $subsubcategory['name'];
-                          echo "</option>";
-                      }
-                    }
-                 }
-                 else
-                 {
-                    //note: hiding this here doesn't seem to be effective on the webpage
-                    echo "<option hidden></option>";  
-                 }
+                  echo "<option disabled selected value=\"{$subcategory['id']}\">";
+                  echo $subcategory['name'];
+                  echo "</option>";
               }
+              else
+              {
+                  echo "<option value=\"{$subcategory['id']}\">";
+                  echo $subcategory['name'];
+                  echo "</option>";
+              }
+                
+            }
           }
       }
   }
-}
+  else if(isset($_GET['subcategory_id']))
+  {
+    $input =  $_GET['subcategory_id'];
+    $input_exploded = explode(',', $input);
+    $category_id = $input_exploded[0];
+    $subcategory_id = $input_exploded[1];
+    foreach($categories as $category) 
+    {
+        if($category['id'] == $category_id) 
+        {
+            $subcategories = $category['subcategories'];
+            foreach($subcategories as $subcategory) 
+            {
+                if($subcategory['id'] == $subcategory_id)
+                {
+                  if(is_array( $subcategory['subcategories'] ) || is_object( $subcategory['subcategories'] ))
+                  {
+                      $subsubcategories = $subcategory['subcategories'];
+                      foreach($subsubcategories as $subsubcategory)
+                      {
+                        if($subsubcategory['id'] == 1)
+                        {
+                            echo "<option selected value=\"{$subsubcategory['id']}\">";
+                            echo $subsubcategory['name'];
+                            echo "</option>";
+                        }
+                        else
+                        {
+                            echo "<option value=\"{$subsubcategory['id']}\">";
+                            echo $subsubcategory['name'];
+                            echo "</option>";
+                        }
+                      }
+                  }
+                  else
+                  {
+                      //note: hiding this here doesn't seem to be effective on the webpage
+                      echo "<option hidden></option>";  
+                  }
+                }
+            }
+        }
+    }
+  }
 ?>

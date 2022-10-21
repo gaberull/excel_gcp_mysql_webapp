@@ -1,12 +1,24 @@
+<?php
+session_start();
+if(!isset($_SESSION['username']))
+{
+    //redirect to login page if not logged in
+    header('Location: ./login.php');
+    //echo ("<script> window.location = 'https://boolsa.io/login.php'; </script>");
+    die();
+    exit;
+}
+?>
+
 <!-- Copyright 2022 Gabe Scott -->
-<?php include_once 'index_header.php'; ?>
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>GCP Storage File Upload using PHP</title>
         <link href="style.css" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="/asset/img/favicon.ico">
+        <script src="/scripts/jquery-3.6.1.js"></script>
     </head>
     <body>
         <div id="option-form">
@@ -178,7 +190,6 @@
             });  //TODO: check if need semicolon here or not
 
         </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script>
             // flip whether an element is visible or not by it's id
             function flipVisible($id){
