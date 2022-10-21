@@ -2,6 +2,8 @@
 
 I Tried to get as many resources as I could into the list, but I missed some without a doubt
 
+- [Apache2 and PHP](https://www.php.net/manual/en/install.unix.apache2.php)
+- [Sessions and User AUthentication with PHP](https://phppot.com/php/user-authentication-using-php-and-mysql/#:~:text=Steps%20to%20create%20a%20user,with%20the%20MySQL%20user%20database.)
 - [Staticrypt Static Webpage password protection- Github repository](https://github.com/robinmoisson/staticrypt)
 - [Very simple password authorization](https://www.geeksforgeeks.org/password-protect-a-static-website/)
 - [Adobe Color Wheel](https://color.adobe.com/create/color-wheel)
