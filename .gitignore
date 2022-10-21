@@ -21,3 +21,6 @@ credentials/
 index_header.php
 other_header.php
 temp.txt
+authenticate.php
+note.php
+js_post.js
