@@ -1,43 +1,40 @@
 <?php
-
-include_once 'other_header.php';
-// Categories for upload menu options
-if(!isset($_SESSION['going']))
+session_start();
+if(!isset($_SESSION['username']))
 {
-  header('Location: ./index.php');
-  exit();
+  header('Location: ./login.php');
+  die();
+  exit;
 }
+  if(isset($_GET['path']))
+  {
+    //Read the filename
+    $filename = $_GET['path'];
+    //Check the file exists or not
+    if(file_exists($filename)) 
+    {
 
-if(isset($_GET['path']))
-{
-//Read the filename
-$filename = $_GET['path'];
+      //Define header information
+      header('Content-Description: File Transfer');
+      header('Content-Type: application/octet-stream');
+      header("Cache-Control: no-cache, must-revalidate");
+      header("Expires: 0");
+      header('Content-Disposition: attachment; filename="'.basename($filename).'"');
+      header('Content-Length: ' . filesize($filename));
+      header('Pragma: public');
 
-//Check the file exists or not
-if(file_exists($filename)) {
+      //Clear system output buffer
+      flush();
 
-//Define header information
-header('Content-Description: File Transfer');
-header('Content-Type: application/octet-stream');
-header("Cache-Control: no-cache, must-revalidate");
-header("Expires: 0");
-header('Content-Disposition: attachment; filename="'.basename($filename).'"');
-header('Content-Length: ' . filesize($filename));
-header('Pragma: public');
+      //Read the size of the file
+      readfile($filename);
 
-//Clear system output buffer
-flush();
-
-//Read the size of the file
-readfile($filename);
-
-//Terminate from the script
-die();
-}
-else{
-echo "File does not exist.";
-}
-}
-else
-echo "Filename is not defined."
+      //Terminate from the script
+      die();
+    }
+    else
+    {
+      echo "File does not exist.";
+    }
+  }
 ?>
