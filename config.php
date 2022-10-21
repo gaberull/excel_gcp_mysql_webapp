@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // load composer generated files
 require_once '../vendor/autoload.php'; 
 
