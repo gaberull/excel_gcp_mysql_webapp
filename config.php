@@ -15,6 +15,10 @@ $privateKeyFilePath = '../keys/silken-reducer-359320-b3cecc9b17ca.json';
 
 // Global variables for debugging, CENSOR   -------------------------
 $CENSOR = false;
+if($_SESSION['username']=='guest')
+{
+    $CENSOR = true;
+}
 $DEBUG = false;
 //   CENSOR ABOVE        --------------------------------------------
 /**
@@ -375,7 +379,7 @@ function get_birthdays($mysqli, $len_time, $censor=false)
                     echo "<th class=\"dt\">Email</th>";           // i==2
                     echo "<th class=\"dt\">Address</th>";         // i==3
                     echo "<th class=\"dt\">Phone Number</th>";    // i==4
-                    echo "<t class=\"dt\">Birthday (mm-dd)</th>";// i==5
+                    echo "<th class=\"dt\">Birthday (mm-dd)</th>";// i==5
                 echo "</tr>";
                 while($row = mysqli_fetch_array($results))
                 {

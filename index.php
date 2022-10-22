@@ -49,9 +49,9 @@ if(!isset($_SESSION['username']))
         <a href="" id="get-csv"></a>
         <!-- File upload form (also holds response from post request) -->
         <form id="fileUploadForm" method="post" enctype="multipart/form-data"> <!-- change this below onclick to javascript or php get request -->
-            <input type="file" id="file-chooser" name="file" accept=".xlsx"/>
+            <input <?php if($_SESSION['username']=='guest') echo "disabled" ?> type="file" id="file-chooser" name="file" accept=".xlsx"/>
             <div class="space"></div>  
-            <input type="submit" name="upload" id="upload-btn" value="Upload"/>
+            <input <?php if($_SESSION['username']=='guest') echo "disabled" ?> type="submit" name="upload" id="upload-btn" value="Upload"/>
             <input type="button" id="loadFileXml" value="Download As CSV" onclick="document.getElementById('get-csv').click();"/>
 
             <span id="uploadingmsg"></span>
@@ -67,7 +67,7 @@ if(!isset($_SESSION['username']))
             <br><br>
             <div id="output"></div>
             <!-- spreadsheet   -->
-            <div id="ss">Your Excel file will be displayed here in it's original format</div> 
+            <div id="ss"><?php if($_SESSION['username']=='guest') echo "If you were not in demonstration mode, your uploaded Excel file would display here in its original format"; else echo "Your Excel file will be displayed here in its original format"; ?></div> 
             <br>
             <hr/>
             <div id="spinner">

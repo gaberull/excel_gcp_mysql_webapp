@@ -37,10 +37,9 @@ if(isset($_POST['send']) && isset($_POST['username']) && isset($_POST['password'
 
     if($DEBUG)
     {
-        echo "<br>USE THIS TO HASH A PASSWORD AND THEN STORE IT IN THE DB MANUALLY: <br>";
+        echo "<br><strong>USE THIS TO HASH A PASSWORD AND THEN STORE IT IN THE DB MANUALLY: </strong><br>";
         $input_pw_hash = password_hash($input_pw, PASSWORD_DEFAULT);
-        echo $input_pw_hash;
-        echo "<br>";
+        echo "<br><strong>$input_pw_hash</strong<br>";
     }
 
     //$sql = "SELECT password_hash FROM users WHERE display_name='$input_username';";
@@ -70,12 +69,12 @@ if(isset($_POST['send']) && isset($_POST['username']) && isset($_POST['password'
 
     $conn->close();
     if ($isSuccess == 0) {
-        header('Location: ./login.php?invalid_login');
+        if(!$DEBUG) header('Location: ./login.php?invalid_login');
         
     } else {
         //echo "<br><strong>User Authenticated!</strong><br>";
         //sleep(2);
-        header("Location: ./index.php");
+        if(!$DEBUG) header("Location: ./index.php");
     }
 }
 ?>
@@ -93,7 +92,7 @@ if(isset($_POST['send']) && isset($_POST['username']) && isset($_POST['password'
         <br><br>
         <form id="frmUser" name="user-form" method="post" action="">
             <h1 class="table-header">Authorized Users Only</h1>
-            <br>
+            <h3 class="table-subheader">Censored Demo: use username 'guest' and password 'demo' </h3>
             <div class="message" id="successmsg"><?php if(isset($_GET['invalid_login'])){ echo "<p>Invalid Username or Password!</p>";} else echo "<br>"; ?></div>
             <table class="tblLogin">
                 <tbody class="body">
@@ -107,7 +106,7 @@ if(isset($_POST['send']) && isset($_POST['username']) && isset($_POST['password'
                         <td><input class="login-input" type="password" name="password" class="full-width" required></input></td>
                     </tr>
                     <tr class="table-row">                                                                          <!-- value="Submit" -->
-                        <td id="submit-btn" colspan="2"><input id="post-btn" class="btnSubmit" type="submit" name="send"></input></td>
+                        <td id="submit-btn" colspan="2"><input id="post-btn" class="btnSubmit" type="submit" name="send" value="Submit"></input></td>
                     </tr>
                 </tbody>
             </table>        <!-- TODO: TEST THIS POST TO authenticate.php -->
