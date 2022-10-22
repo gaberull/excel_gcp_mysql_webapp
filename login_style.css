@@ -19,15 +19,15 @@ body {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    padding-bottom: 16px;
+    padding-bottom: 10px;
 }
 
 .table-subheader {
-	font-size: 18px;
+	font-size: 15px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    padding-bottom: 7px;
+    padding-bottom: 24px;
 }
 
 .table-header td {
