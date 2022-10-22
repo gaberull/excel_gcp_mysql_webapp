@@ -43,10 +43,15 @@ if(isset($_POST['send']) && isset($_POST['username']) && isset($_POST['password'
         echo "<br>";
     }
 
-    $sql = "SELECT password_hash FROM users WHERE display_name='$input_username';";
-    if($DEBUG) echo "<br><strong>SQL stmt -   $sql</strong><br>";
-    $results = mysqli_query($conn, $sql);
-    //var_dump($results);
+    //$sql = "SELECT password_hash FROM users WHERE display_name='$input_username';";
+    //if($DEBUG) echo "<br><strong>SQL stmt -   $sql</strong><br>";
+    //$results = mysqli_query($conn, $sql);
+
+    // prepare stmt to protect against sql injection
+    $stmt = $conn->prepare('SELECT password_hash FROM users WHERE display_name= ?');
+    $stmt->bind_param('s', $input_username);
+    $stmt->execute();
+    $results = $stmt->get_result();
 
     $db_hashed_pw = "";
     if($row = mysqli_fetch_array($results))
