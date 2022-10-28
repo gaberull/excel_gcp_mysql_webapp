@@ -1,5 +1,5 @@
 <?php
-session_start();
+if(!isset($_SESSION)) session_start();
 // load composer generated files
 require_once '../vendor/autoload.php'; 
 
@@ -294,7 +294,8 @@ function get_insert_queries($csvPath, $mysqli)
 }
 
 /**
- *  Get Database Table Columns 
+ *  FORMAT and GET Database Table Columns with upper case letters and spacing
+ *  between words
  * 
  *  @return - false on failure, array on success 
  */
@@ -303,7 +304,18 @@ function get_col_names($mysqli)
     $sql = 'SHOW COLUMNS FROM employees';
     $res = $mysqli->query($sql);
     while($row = $res->fetch_assoc()){
-        $columns[] = $row['Field'];
+        $temp_arr = explode('_', $row['Field']);
+        $temp_str = "";
+        for($i=0; $i<count($temp_arr); $i++)
+        {
+            $temp_str .= ucfirst($temp_arr[$i]);
+            if($i < count($temp_arr)-1)
+            {
+                $temp_str .= ' ';
+            }
+        }
+        $columns[] = $temp_str;
+        
     }
     return $columns;    //TODO: return false if !$columns
 }
@@ -400,7 +412,7 @@ function get_birthdays($mysqli, $len_time, $censor=false)
                                 else
                                 {
                                     //echo "<td class=\"black-background\">$row[$i]</td>";
-                                    echo "<td class=\"black-background\" \"dt\">XXXXXXXXXXXX</td>";
+                                    echo "<td class=\"black-background\" \"dt\">XXXXXXXXXX</td>";
                                 }
                             }
                             else
@@ -495,9 +507,9 @@ function pull_database($mysqli, $censor=false)
                         if($censor)
                         {
                             // censoring mechanism for making a gif for my documentation:
-                            if($columns[$i]=='last_name' || $columns[$i]=='date_of_birth' || $columns[$i]=='address' || $columns[$i]=='email' || $columns[$i]=='phone_number')
+                            if($columns[$i]=='Last Name' || $columns[$i]=='Date Of Birth' || $columns[$i]=='Address' || $columns[$i]=='Email' || $columns[$i]=='Phone Number')
                             {
-                                if ($columns[$i]=='phone_number')
+                                if ($columns[$i]=='Phone Number')
                                 {
                                     $p = format_phone_number($row[$i], true);
                                     echo "<td class=\"black-background\" \"dt\">$p</td>";
@@ -505,7 +517,7 @@ function pull_database($mysqli, $censor=false)
                                 else
                                 {
                                     //echo "<td class=\"black-background\">$row[$i]</td>";
-                                    echo "<td class=\"black-background\" \"dt\">XXXXXXXXX</td>";
+                                    echo "<td class=\"black-background\" \"dt\">XXXXXXXXXX</td>";
                                 }
                             }
                             else
@@ -516,7 +528,7 @@ function pull_database($mysqli, $censor=false)
                         if(!$censor)
                         {
                             // insert dashes into phone number
-                            if ($columns[$i]=='phone_number')
+                            if ($columns[$i]=='Phone Number')
                             {
                                 $p = format_phone_number($row[$i]);
                                 echo "<td class=\"dt\">$p</td>";
@@ -610,9 +622,9 @@ function get_active_employees($mysqli, $active, $censor=false)
                     {
                         if($censor)
                         {
-                            if($columns[$i]=='last_name' || $columns[$i]=='date_of_birth' || $columns[$i]=='address' || $columns[$i]=='email' || $columns[$i]=='phone_number')
+                            if($columns[$i]=='Last Name' || $columns[$i]=='Date Of Birth' || $columns[$i]=='Address' || $columns[$i]=='Email' || $columns[$i]=='Phone Number')
                             {
-                                if($columns[$i]=="phone_number")
+                                if($columns[$i]=="Phone Number")
                                 {
                                     $p = format_phone_number($row[$i], true);
                                     echo "<td class=\"black-background\" \"dt\">$p</td>";
@@ -620,7 +632,7 @@ function get_active_employees($mysqli, $active, $censor=false)
                                 else
                                 {
                                     //echo "<td class=\"black-background\">$row[$i]</td>";
-                                    echo "<td class=\"black-background\" \"dt\">XXXXXXXXXXXXXXXX</td>";
+                                    echo "<td class=\"black-background\" \"dt\">XXXXXXXXXX</td>";
                                 }
                             }
                             else
@@ -630,7 +642,7 @@ function get_active_employees($mysqli, $active, $censor=false)
                         }
                         if(!$censor)
                         {
-                            if($columns[$i]=="phone_number")
+                            if($columns[$i]=="Phone Number")
                             {
                                 $p = format_phone_number($row[$i]);
                                 echo "<td class=\"dt\">$p</td>";
