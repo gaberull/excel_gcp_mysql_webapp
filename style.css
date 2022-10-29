@@ -115,3 +115,14 @@ tr.supervisor {
 #get-csv {
     display: none;
 }
+
+.logout-form {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+}
+.logout {
+    position: relative;
+    right: 0px;
+    top: 0px;
+}
