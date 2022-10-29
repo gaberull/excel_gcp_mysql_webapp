@@ -16,22 +16,23 @@ Upload spreadsheet of employee records to a MySQL database running on a GCP Serv
 - Parses, formats, and imports data from the .csv file into hosted MySQL database
   - Authenticates user from locally saved credentials and grants permission to access and alter the MySQL database
 - POST request response contains file upload metadata, various success/fail messages, the individual SQL queries executed and their success/failure statuses, and new file locations
-- One time per day, the VM runs the script [bday_emailer.php](emailer_script/bday_emailer.php) and checks the mysql database for upcoming employee birthdays (of employees of at least 6 months), automates sending of email to the boss with a reminder to send a birthday gift
+- One time per day, the VM runs the script [bday_emailer.php](emailer_script/bday_emailer.php) via cron job and checks the mysql database for upcoming employee birthdays (employees who have been employed at least 6 months), automates sending of email to the boss with a reminder to send a birthday gift
   - Script creates and prints to local log file for record of email sent, and/or result of queries run
 - Updates database of employees when new files are uploaded (roughly once per month); specifically when employee records change
   - Prior to upload of up-to-date employee spreadsheet, a query is run to mark all employees in the MySQL database as "inactive" employees
   - Then the database records are updated and marked with "active=TRUE" once again as each entry in the spreadsheet is inserted or re-inserted into the MySQL database. This is accomplished with a REPLACE statement like the following:
 
   ```SQL
-  REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?,?,?,?,?,?,?,?,?,?);
+  REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?,?,?,?,?,?,?,?,?,TRUE);
   ```
 
 More examples of MySQL statements can be viewed in [sql_statements.md](sql_statements.md)
 
 ## Demo
 
-- [Working Demonstration](https://boolsa.io/censored_demo/index.php)
-  - Censored to protect the information of the real people in the database
+- [Working Demonstration](https://boolsa.io/index.php)
+  - Use credentials user 'guest', password 'demo'
+    - Censored to protect the information of the real people in the database
 
 ### Uploading an Excel File to the Database
 
