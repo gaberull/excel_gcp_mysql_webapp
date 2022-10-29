@@ -1,5 +1,5 @@
 <?php
-session_start();
+if(!isset($_SESSION)) session_start();
 $DEBUG = false;
 function connectToDB()
 {
@@ -41,10 +41,6 @@ if(isset($_POST['send']) && isset($_POST['username']) && isset($_POST['password'
         $input_pw_hash = password_hash($input_pw, PASSWORD_DEFAULT);
         echo "<br><strong>$input_pw_hash</strong<br>";
     }
-
-    //$sql = "SELECT password_hash FROM users WHERE display_name='$input_username';";
-    //if($DEBUG) echo "<br><strong>SQL stmt -   $sql</strong><br>";
-    //$results = mysqli_query($conn, $sql);
 
     // prepare stmt to protect against sql injection
     $stmt = $conn->prepare('SELECT password_hash FROM users WHERE display_name= ?');
@@ -92,7 +88,7 @@ if(isset($_POST['send']) && isset($_POST['username']) && isset($_POST['password'
         <br><br>
         <form id="frmUser" name="user-form" method="post" action="">
             <h1 class="table-header">Authorized Users Only</h1>
-            <h3 class="table-subheader">Censored Demo: use username 'guest' and password 'demo' </h3>
+            
             <div class="message" id="successmsg"><?php if(isset($_GET['invalid_login'])){ echo "<p>Invalid Username or Password!</p>";} else echo "<br>"; ?></div>
             <table class="tblLogin">
                 <tbody class="body">
@@ -111,7 +107,24 @@ if(isset($_POST['send']) && isset($_POST['username']) && isset($_POST['password'
                 </tbody>
             </table>        <!-- TODO: TEST THIS POST TO authenticate.php -->
             <br><br>
+            <h3 class="table-subheader">Demo Mode: <br>username 'guest' <br>password 'demo' </h3>
         </form> 
+        <!--
+        <div class="demo">
+            <table class="demo-msg-tbl">
+                <tr class="table-row">
+                    <td colspan="2">Demo Mode</td>
+                </tr>
+                <tr class="table-row">
+                    <td >Username:</td>
+                    <td >guest</td>
+                </tr>
+                <tr class="table-row">
+                    <td >Password:</td>
+                    <td >demo</td>
+                </tr>
+            </table>
+        </div>   -->
     </body>
 </html>
 
