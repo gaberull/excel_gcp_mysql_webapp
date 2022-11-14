@@ -1,5 +1,5 @@
 <?php
-session_start();
+if(!isset($_SESSION)) session_start();
 if(!isset($_SESSION['username']))
 {
     //redirect to login page if not logged in
@@ -21,6 +21,10 @@ if(!isset($_SESSION['username']))
         <script src="/scripts/jquery-3.6.1.js"></script>
     </head>
     <body>
+    <form action="logout.php" class="logout-form" method="post">    <!-- TODO: finish this post/get method -->
+        <input class ="logout" type="submit" name="logout" value="Log Out" />
+    </form>
+  <!--      <input type="button" class="logout" value="Log Out">    -->
         <div id="option-form">
             <strong>Which Action would you like to take?</strong><br><br>
             <select id="category-select">
@@ -140,7 +144,7 @@ if(!isset($_SESSION['username']))
                 xhr.onreadystatechange = function () {
                     if(xhr.readyState == 4 && xhr.status == 200) 
                     {
-                        console.log(xhr.responseText);
+                        //console.log(xhr.responseText);
                         subsubcat_select.innerHTML = xhr.responseText;
                         if(subcat_select.selectedIndex == 3)   //upcoming birthdays
                         {
@@ -183,7 +187,7 @@ if(!isset($_SESSION['username']))
                     if(xhr.readyState == 4 && xhr.status == 200) 
                     {
                         out.innerHTML = xhr.responseText;
-                        console.log(xhr.responseText);
+                        //console.log(xhr.responseText);
                     }
                 }
                 xhr.send();
