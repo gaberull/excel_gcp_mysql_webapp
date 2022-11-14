@@ -5,7 +5,6 @@ include_once 'config.php';
 if(!isset($_SESSION['username']))
 {
     header('Location: ./login.php');
-    //
     die();
     exit;
 }
@@ -123,22 +122,18 @@ if(!isset($_SESSION['username']))
                         $response['db_connection_host'] = 'MySQL DB Connection Successful: '. $mysqli->host_info;
                         $response['db_connection_client'] = 'MySQL DB Connection Successful: '. $mysqli->client_info;
                     }
-
                     /* check if server is alive */
                     if ($mysqli->ping()) {
                         $response['alive'] = 'Our connection is ok!';
                     } else {
                         $response['alive'] = 'Ping Error: '. $mysqli->error;
                     }
-
-                    $query_str_arr = get_insert_queries($csvPath, $mysqli);
+                    $query_str_arr = get_insert_queries($csvPath, $mysqli);   // builds,runs queries in the function
                     $size_arr = count($query_str_arr);
                     for($i=0; $i<$size_arr; $i++)
                     {
                         $a = 'query_' .$i;
-                        $b = 'query_' .$i . '_SUCCESS';
                         $response[$a] = $query_str_arr[$i];
-                        $response[$b] = $mysqli->query($query_str_arr[$i]);
                     }
                     $mysqli->close();
                 }
