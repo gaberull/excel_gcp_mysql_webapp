@@ -2,6 +2,7 @@
 
 I Tried to get as many resources as I could into the list, but I missed some without a doubt
 
+- [Bind and unpack arrays for mysqli prepared statements - Stack Overflow](https://stackoverflow.com/questions/25045318/mysqli-prepared-statements-passing-an-array)
 - [Apache2 and PHP](https://www.php.net/manual/en/install.unix.apache2.php)
 - [Sessions and User AUthentication with PHP](https://phppot.com/php/user-authentication-using-php-and-mysql/#:~:text=Steps%20to%20create%20a%20user,with%20the%20MySQL%20user%20database.)
 - [Staticrypt Static Webpage password protection- Github repository](https://github.com/robinmoisson/staticrypt)
