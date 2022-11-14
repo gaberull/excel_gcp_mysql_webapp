@@ -202,12 +202,13 @@ function connectToDB()
 }
 
 /**
- *  Builds strings for inserting csv items into DB to return to requests.php
+ *  Builds strings for inserting csv items into DB to return to requests.php,
+ *  Runs queries to update mysql server
  * 
  *  @param $mysqli - connection to mysql database
  *  @param $csvPath - string path to csv file in apache directory
  * 
- *  @return array of strings containing mysql queries to insert from csv
+ *  @return array of strings containing mysql queries to insert from csv. SUCCESS or FAIL is appended to end of each
  */
 function get_insert_queries($csvPath, $mysqli)
 {
@@ -226,17 +227,25 @@ function get_insert_queries($csvPath, $mysqli)
         $num = count($data);
         if($row != 0)
         {
-            //$stmt = $mysqli->prepare($mysqli, "REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
-            //$stmt = $mysqli->prepare($mysqli, "REPLACE INTO employees(first_name,last_name,start_date,date_of_birth,address,email,phone_number,schedule,position,active) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
-            //echo "<p> $num fields in line $row: <br /></p>\n";
+            // NOTE: as of 11/14/22, $stmt and $values_arr are not being used
+            //$stmt = $mysqli->prepare("REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (?,?,?,?,?,?,?,?,?,?)");
+            //$values_arr = array();
             $query = "REPLACE INTO employees (first_name, last_name, start_date, date_of_birth, address, email, phone_number, schedule, position, active) VALUES (";
             for ($c=0; $c < $num; $c++) 
             {
-                $value = $data[$c];
+                $value = $data[$c];  
+                // handle blank values. just add blank to string and continue
+                if($value == '' || $value == "''" || strlen($value) <=1 || $value == null)
+                {
+                    //array_push($values_arr, NULL);
+                    $query .= 'NULL,';
+                    continue;
+                }           
                 // IMPORTANT: trim() progresses from first char to last in the character string
                 // trim leading/trailing single quotes first, then asterisks(\x2A), then whitespace and similar chars
-                $value = trim($value, "'\x2A \n\r\t\v\x00");    // \x2A means 0x2A - hex code for asterisk on ascii table
+                $value = trim($value, "'\x2A \n\r\t\v\x00");    // \x2A means 0x2A - hex code for asterisk on ascii table            
                 // re-add single quotes to start and end of string    
+
                 $value = "'$value'"; 
                 // change all multiple spaces and space characters to just one single space character 
                 $value = trim(preg_replace('/[\t\n\r\s]+/', ' ', $value));
@@ -255,7 +264,7 @@ function get_insert_queries($csvPath, $mysqli)
                 else if($col === "start_date" || $col === "date_of_birth")
                 {
                     // if there are slashes in the date, will be like 01/09/1984 OR 1984/01/09
-                    // find out which one it is and put it in the correct format
+                    // here, we find out which one it is and put it in the correct format
                     $pos = strpos($value, '/'); // Check if string contains a backslash at all
                     if($pos !== false)
                     {
@@ -263,6 +272,7 @@ function get_insert_queries($csvPath, $mysqli)
                         $tok = strtok($value, "/"); // from 01/09/1984 OR 1984/01/09 this gives '1984' OR '01' - never '09'
                         if(strlen($tok)>3)  // length of 4. First token is year
                         {
+                            // TODO: this works but day and month variable names need to be switched. also in $value
                             $year = $tok;
                             $day = strtok( "/");
                             $month = strtok("/");
@@ -270,22 +280,35 @@ function get_insert_queries($csvPath, $mysqli)
                         }
                         else    // length of 2. First token is the day ('01)
                         {
+                            // TODO: this works but day and month variable names need to be switched. also in $value
                             $day = $tok;
                             $month = strtok( "/");
                             $year = strtok( "/");
                             $value = "$year-$day-$month";
                         }
+                        
                         $value = "'$value'";    // add single quotes back to string
                     }
                 }
                 $query .= "$value,";    // add cell and comma to query string
+                //array_push($values_arr, $value);
             } 
             // "active" is not in csv file. Adding it manually to update which employees are still active
-            $query .= "TRUE);";     
+            $query .= "TRUE);";  
+            // push int value of 1 or 0 to mysql server for boolean  (active)
+            //array_push($values_arr, 1); 
+            //$stmt->bind_param("sssssssssi", ...$param_arr);
+            //$success = $stmt->execute();
+            $res = $mysqli->query($query);
+            if($res)
+            {
+                $query .= " SUCCESS";
+            }
+            else
+            {
+                $query .= " FAIL";
+            }
             array_push($query_str_arr, $query);
-            //$fields_assoc[$fields[$num]] = 1;
-            //$stmt->bind_param('sssssssssi', $fields_assoc[$fields[0]], $fields_assoc[$fields[1]], $fields_assoc[$fields[2]], $fields_assoc[$fields[3]], $fields_assoc[$fields[4]], $fields_assoc[$fields[5]], $fields_assoc[$fields[6]], $fields_assoc[$fields[7]], $fields_assoc[$fields[8]], $fields_assoc[$fields[9]]);
-            //$stmt->execute();
         }    
         $row++;
     }
@@ -315,13 +338,12 @@ function get_col_names($mysqli)
             }
         }
         $columns[] = $temp_str;
-        
     }
     return $columns;    //TODO: return false if !$columns
 }
 
 /**
- *  Format number to have dashes in it
+ *  Format phone number to have dashes in it
  */
 function format_phone_number($number, $censor=false)
 {
@@ -330,7 +352,7 @@ function format_phone_number($number, $censor=false)
     {
         return false;
     }
-    if($number == "")
+    if($number == ""|| $number=='NULL')
     {
         return $number;
     } 
@@ -447,7 +469,6 @@ function get_birthdays($mysqli, $len_time, $censor=false)
         echo "<strong>ERROR - end of get_birthdays()</strong>";
     }
     return;
-
 }
 
 /**
@@ -538,7 +559,6 @@ function pull_database($mysqli, $censor=false)
                                 echo "<td class=\"dt\">$row[$i]</td>";
                             }
                         }
-                        
                     }
                     echo "</tr>";
                 }
