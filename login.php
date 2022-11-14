@@ -107,7 +107,9 @@ if(isset($_POST['send']) && isset($_POST['username']) && isset($_POST['password'
                 </tbody>
             </table>        <!-- TODO: TEST THIS POST TO authenticate.php -->
             <br><br>
-            <h3 class="table-subheader">Demo Mode: <br>username 'guest' <br>password 'demo' </h3>
+            <div>
+                <h3 class="table-subheader">Demo Mode: <br>username: guest <br>password: demo </h3>
+            </div>
         </form> 
         <!--
         <div class="demo">
