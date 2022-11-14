@@ -26,12 +26,13 @@ if(!isset($_SESSION['username']))
     </form>
   <!--      <input type="button" class="logout" value="Log Out">    -->
         <div id="option-form">
-            <strong>Which Action would you like to take?</strong><br><br>
+            <br>
+            <strong>Please Choose an Action</strong><br><br>
             <select id="category-select">
                 <option disabled selected>select option</option>
-                <option value="1">Upload Employee Spreadsheet to DB</option>
-                <option value="2">Display Employee Data in Browser</option>
-                <option disabled value="3">Query Database</option>
+                <option value="1">Upload Employee Data</option>
+                <option value="2">Display Employee Data</option>
+              <!--  <option disabled value="3">Query Database</option>  -->
             </select>
             <select id="subcategory-select"></select>
             <select id="subsubcategory-select"></select>
