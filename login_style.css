@@ -62,3 +62,42 @@ body {
     width: 100%;
     
 }
+
+h3 {
+    color: #2ab37e;
+}
+
+.logout {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+#post-btn {
+    font-size: 20px;
+}
+#post-btn:hover {
+    font-size: 140%;
+    background-color: #3D7EEB;
+    transition: 0.2s;
+}
+
+div.demo {
+	border: #2ab37e 1px solid;
+	background: #d0d2a7;
+	border-radius: 4px;
+    margin-left: auto; 
+    margin-right: auto; 
+    padding-top: 11px;
+    padding-bottom: 19px;
+    padding-right: 11px;
+    padding-left: 11px;
+}
+
+
+.demo {
+	font-size: 15px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 24px;
+}
