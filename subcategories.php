@@ -10,7 +10,7 @@ if(!isset($_SESSION['username']))
 // Categories for upload menu options
 $categories = 
 [
-  ['id' => 1, 'name' => 'Upload Employee File to DB', 'subcategories' => 
+  ['id' => 1, 'name' => 'Upload Employee Data', 'subcategories' => 
     [
       ['id' => 1, 'name' => '.xlsx file'],
       ['id' => 2, 'name' => '.csv file']
@@ -20,8 +20,8 @@ $categories =
     'id' => 2, 'name' => 'Display Employee Data', 'subcategories' => 
     [
       ['id' => 1, 'name' => 'Select Option'],
-      ['id' => 2, 'name' => 'Active Employees Only'],
-      ['id' => 3, 'name' => 'Inactive Employees Only'],
+      ['id' => 2, 'name' => 'Active Employees'],
+      ['id' => 3, 'name' => 'Inactive Employees'],
       ['id' => 4, 'name' => 'Upcoming Birthdays', 'subcategories' => 
         [
           ['id' => 1, 'name' => '7 days out'],
