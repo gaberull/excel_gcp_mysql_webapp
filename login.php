@@ -43,9 +43,7 @@ if(isset($_POST['send']) && isset($_POST['username']) && isset($_POST['password'
     }
 
     // prepare stmt to protect against sql injection
-    $stmt = $conn->prepare('SELECT password_hash FROM users WHERE display_name= ?');
-    $stmt->bind_param('s', $input_username);
-    $stmt->execute();
+    
     $results = $stmt->get_result();
 
     $db_hashed_pw = "";
