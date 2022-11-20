@@ -157,7 +157,6 @@ if(!isset($_SESSION['username']))
         $input_exploded = explode(',', $action);
         $subcat_id = $input_exploded[0];
         $subsubcat_id = $input_exploded[1];
-        //$mysqli = connectToDB();
 
         switch ($subcat_id) 
         {
@@ -194,10 +193,8 @@ if(!isset($_SESSION['username']))
                 break;
                 
             default:        // do nothing
-
                 break;
         }
-        //$mysqli->close();
         exit();
     }
 ?>
