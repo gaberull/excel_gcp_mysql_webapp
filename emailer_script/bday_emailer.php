@@ -6,8 +6,8 @@ use \Mailjet\Resources;
 
 // EDIT THESE VARIABLES AS NECESSARY -----------------
 $num_days = 14;
-$SENDER_EMAIL = "sohyung.cho@boolsa.io";  // DON'T CHANGE THIS ONE
-$RECIPIENT_EMAIL = "sohyung.cho@boolsa.io";
+$SENDER_EMAIL = "Jason@examplemail.com";  // DON'T CHANGE THIS ONE
+$RECIPIENT_EMAIL = "Jason@examplemail.com";
 // EDIT THESE VARIABLES AS NECESSARY -----------------
 
 /* email request body */              
