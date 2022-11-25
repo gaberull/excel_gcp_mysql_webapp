@@ -6,7 +6,7 @@
 - This script uses JetMail API version 3.1, with public and private keys saved as environment variables in Bash shell
 - The MySQL database credentials are pulled from a json file in a seperate directory
 - The MailJet API credentials are pulled from a json file in a separate directory
-- This script creates a daily log of html files organized by date in the folder ```bday_logs/```
+- This script creates a daily log of html files organized by date in the folder `bday_logs/`
   - **NOTE:**Might change this to something else from html later. Perhaps .txt files
 
 ## Usage
