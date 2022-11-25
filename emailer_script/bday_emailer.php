@@ -77,11 +77,9 @@ function send_email($SENDER_EMAIL, $RECIPIENT_EMAIL, $body)
     $json_credentials = file_get_contents(__DIR__.'/keys/mailjet_credentials.json');
     $json_data = json_decode($json_credentials, true);
     // Use your saved credentials, specify that you are using Send API v3.1
-    //$mj = new \Mailjet\Client(getenv('MJ_APIKEY_PUBLIC'), getenv('MJ_APIKEY_PRIVATE'),true,['version' => 'v3.1']);
     $mj = new \Mailjet\Client($json_data['MJ_APIKEY_PUBLIC'], $json_data['MJ_APIKEY_PRIVATE'], true, ['version' => 'v3.1']);
     $response = $mj->post(Resources::$Email, ['body' => $body]);
     // Read the response
-    //$response->success() && var_dump($response->getData());
     if($response->success())
     {
         return var_dump($response->getData());
