@@ -1,4 +1,4 @@
-# Excel to MySQL
+# Excel to MySQL Web Application
 
 Excel to CSV File Converter, MySQL Database Uploader and Viewer, and automated Email Scheduler
 
@@ -60,23 +60,14 @@ Note: The database records are censored to protect the privacy of real employees
 
 I have been learning PHP on the fly on this project, having never worked with it before. I have also been brushing-up on my server-client programming and setting up webserver type applications and static web-page concepts, as well as learning more about the Ajax, PHP, JavaScript, and HTTP technology stack. Additionally, I have been working at cementing my knowledge of cloud computing concepts, with Apache web server and Google Cloud Platform. So far, it has been a very fruitful project
 
-**Notes to Self (dev):**
+**Notes:**
 
-- Important file directory structure info can be found in [directory_structure.md](directory_structure.md)
-- Apache2 publicly hosted files are in `/var/www/boolsa.io/html` on webserver
-- API Key, DB credentials are in `/var/www/boolsa.io/keys/` in the form of json
-- File Upload script requires `/var/www/boolsa.io/vendor/` (created with Composer for php)
-  - ***Should not be publicly visible***
+- File Upload script requires `/var/www/domain.com/vendor/` (created with Composer for php)
 - Apache2 php.ini file is located at `/etc/php/8.1/apache2/php.ini`
   - This is separate from ubuntu php.ini file which is located at `/etc/php/8.1/cli/php.ini`
     - conf.d file is located at `/etc/php/8.1/cli/conf.d`
   - Enabled extension=myslqi here by uncommenting line after searching in vim with `ls ./ | grep php`
 - Working with GCP from command line is made very easy in VSCode bash terminal with the GCP extension. Makes it easy to SCP files in to the VM
-
-## Installation Instructions
-
-**Initial Notes:**
-
 - The files in this repository are not *currently* organized according in the same structure as they are on the GCP server, and thus **one cannot simply clone this repository and expect it to work correctly**
   - Throughout my server-side development process, I have been peforming an SCP every time I wanted to push changes to the server rather than just pushing/pulling from my git repo
 - To set up the correct directory organization perform the following steps
@@ -84,7 +75,7 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## Setting up and configuring Composer for PHP
 
-1. I initially set up Composer at the project level on apache at ```/var/www/boolsa.io/composer```
+1. I initially set up Composer at the project level on apache at ```/var/www/domain.com/composer```
 2. Next I configured the ```composer.json``` file to add project dependencies
 3. Then I ran ```php composer.phar update```
 4. I added require statments for ```google/cloud-storage``` and ```phpoffice/phpspreadsheet``` and version numbers
@@ -112,15 +103,12 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
-- [ ] Rename repository ``excel_to_mysql``
+- [x] Rename repository ``excel_to_mysql``
 - [ ] Calendar visual aide with birthdays on it could be nice - show 2 months (this,next)
-- [ ] See about moving style.css out of html folder in GCP VM
-- [ ] Figure out which open-source license to add to this project before making repository public
-- [ ] See about moving PHP scripts and other files to a folder called `scripts/`
+- [x] Figure out which open-source license to add to this project before making repository public
 - [x] Change permissions on Google Cloud Storage bucket
 - [x] Add click to download as CSV. For original file, or DB query selection, or both
 - [x] See about obscuring certain php files
-- [ ] Read PhpSpreadsheet open-source license and see if attribution is needed in documentation somewhere
 - [x] Tighten up user authentification all over, and secure site against potential SQL injection attacks
 - [x] Adjust and secure the user authorization to upload to, access Google Cloud Storage bucket
 - [x] Change mysql db user info for user www-data
