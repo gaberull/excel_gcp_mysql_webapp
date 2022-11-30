@@ -7,7 +7,7 @@
     - recent_excel.xlsx -  (*After upload*)
     - employees_0.csv   - (*After conversion*)
     - protected.html  - (*pre-encryption file - also index.php*)
-  - boolsa.io/  -  (*APACHE2 project root folder*)
+  - domain.com/  -  (*APACHE2 project root folder*)
     - vendor/
       - autoload.php
     - keys/
