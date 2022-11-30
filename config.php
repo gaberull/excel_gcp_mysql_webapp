@@ -691,7 +691,7 @@ function get_active_employees($mysqli, $active, $censor=false)
 }
 
 /**
- *     **DEPRECATED** 
+ *     DEPRECATED
  */ 
 function csv_to_db($csvPath, $conn)
 {

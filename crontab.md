@@ -19,6 +19,6 @@ Schedule operations to run in Ubuntu with ` crontab -e`
 # 
 # m h  dom mon dow   command
 # Run script that updates bday_emails mysql db and sends mailjet email
-# 0 4 * * * php /home/gabescott/bday_emailer/bday_emailer.php
-0 10 * * * php /home/gabescott/bday_emailer/bday_emailer.php
+# 0 4 * * * php /home/user/bday_emailer/bday_emailer.php
+0 10 * * * php /home/user/bday_emailer/bday_emailer.php
 ```

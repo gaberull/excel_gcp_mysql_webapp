@@ -4,7 +4,6 @@ if(!isset($_SESSION['username']))
 {
     //redirect to login page if not logged in
     header('Location: ./login.php');
-    //echo ("<script> window.location = 'https://boolsa.io/login.php'; </script>");
     die();
     exit;
 }
