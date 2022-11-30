@@ -1,6 +1,8 @@
 # Screenshots
 
-## Authorization Page
+### Old Authorization Page
+
+This page no longer looks like this
 
 ![Authorized Users Only](screenshots/authorized_users.png)
 
