@@ -30,9 +30,9 @@ More examples of MySQL statements can be viewed in [sql_statements.md](sql_state
 
 ## Demo
 
-- [Working Demonstration](https://boolsa.io/index.php)
+- [Working Demonstration](https://app.gabrielscott.io)
   - Use credentials user 'guest', password 'demo'
-    - Censored to protect the information of the real people in the database
+    - dummy data used to protect the information of real people in the database
 
 ### Uploading an Excel File to the Database
 
