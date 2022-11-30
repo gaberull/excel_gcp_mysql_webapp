@@ -1,5 +1,7 @@
 # Structure of Directories, Important Files for Project
 
+**Note:** This web application no longer running on the original server
+
 - var/www/   (*document root folder*)
   - uploads/   (*folder where new files are added. Not publicly accessible*)
     - recent_excel.xlsx -  (*After upload*)
