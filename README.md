@@ -36,13 +36,11 @@ More examples of MySQL statements can be viewed in [sql_statements.md](sql_state
 
 ### Uploading an Excel File to the Database
 
-Note: Censoring sensitive data
+Note: The database records are censored to protect the privacy of real people
 
 ![Upload Excel File (gif)](images/uploading.gif)
 
 ### Displaying Employee Records
-
-Note: The database records are censored to protect the privacy of real employees
 
 **Display All Employees:**
 
