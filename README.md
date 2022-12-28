@@ -31,8 +31,7 @@ More examples of MySQL statements can be viewed in [sql_statements.md](sql_state
 ## Demo
 
 - [Working Demonstration](https://app.gabrielscott.io)
-  - Use credentials user 'guest', password 'demo'
-    - dummy data used to protect the information of real people in the database
+  - dummy data used to protect the information of real people in the database
 
 ### Uploading an Excel File to the Database
 
@@ -105,7 +104,8 @@ I have been learning PHP on the fly on this project, having never worked with it
 
 ## TODO
 
-- [x] Rename repository ``excel_to_mysql``
+- [ ] Style charts and rest of page
+- [x] Rename repository
 - [ ] Calendar visual aide with birthdays on it could be nice - show 2 months (this,next)
 - [x] Figure out which open-source license to add to this project before making repository public
 - [x] Change permissions on Google Cloud Storage bucket
@@ -126,7 +126,6 @@ I have been learning PHP on the fly on this project, having never worked with it
 - [x] Change primary key from email to combination of first and last names
 - [x] In dislay all employees sort by active, then last name
 - [x] Style app main webpage
-  - [ ] Could use more styling
 - [x] Hide MySQL DB credentials
   - [x] *Encrypt credentials on GCP VM ?*
   - [x] Double check that this is not accessible from outside
