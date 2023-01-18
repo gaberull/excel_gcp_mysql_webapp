@@ -2,7 +2,11 @@
 
 Excel to CSV File Converter, MySQL Database Uploader and Viewer, and automated Email Scheduler
 
-**Summary:**
+**This project is in on-going development, but as a security precaution, most updates are no longer being pushed to this repository (January 2023)**
+
+See the working application at [app.gabrielscott.io](https://app.gabrielscott.io)
+
+## Summary
 
 Upload spreadsheet of employee records to a MySQL database running on a GCP Server, view original file and database employee data in the web browser, and automate the scheduling of outgoing notification emails to the employees' boss for a reminder to send a gift
 
