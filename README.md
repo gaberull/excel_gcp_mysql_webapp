@@ -2,7 +2,7 @@
 
 Excel to CSV File Converter, MySQL Database Uploader and Viewer, and automated Email Scheduler
 
-**This project is in on-going development, but as a security precaution, most updates are no longer being pushed to this repository (January 2023)**
+**This project is in on-going development, but as a security precaution, most code updates are no longer being pushed to this repository (January 2023)**
 
 See the working application at [app.gabrielscott.io](https://app.gabrielscott.io)
 
